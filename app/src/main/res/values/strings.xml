@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Chivo_Trabajo</string>
+    <string name="default_web_client_id" translatable="false">212286378246-ugqrdvfphb8ob0r0c2cmtd9irgqv93fg.apps.googleusercontent.com</string>
 </resources>

@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+# Credenciales y claves JSON
+*.json
+google-services.json

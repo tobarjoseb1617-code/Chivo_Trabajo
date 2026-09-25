@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#F4F5F7">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:gravity="center_horizontal">
+
+        <!-- Tarjeta Blanca Central -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- 1. BARRA SUPERIOR MOCKUP -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="16dp">
+
+                    <ImageView
+                        android:id="@+id/btnRegresarRegistroPaso2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_menu_revert"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Regresar" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="CHIVOTRABAJO"
+                            android:textSize="9sp"
+                            android:textStyle="bold"
+                            android:textColor="#9CA3AF" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Registro Cliente Paso 2"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:background="#0B2545"
+                        android:padding="8dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:contentDescription="Perfil" />
+                </LinearLayout>
+
+                <!-- 2. BARRA DE PROGRESO: PASO 2 DE 2 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="PASO 2 DE 2 • Final"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:layout_marginBottom="4dp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="4dp"
+                            android:background="#0284C7" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="100%"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#6B7280"
+                        android:layout_marginStart="16dp" />
+                </LinearLayout>
+
+                <!-- 3. TÍTULO Y SUBTÍTULO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección y Ubicación"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545"
+                    android:layout_marginBottom="4dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Ayuda a que los profesionales cercanos puedan estimar tiempos de llegada exactos."
+                    android:textSize="12sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- 4. VISTA PREVIA DE MAPA LEAFLET -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:cardBackgroundColor="#E5E7EB"
+                    android:layout_marginBottom="20dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <WebView
+                            android:id="@+id/webViewMapa"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+
+                        <!-- Badge Lat, Lng -->
+                        <TextView
+                            android:id="@+id/tvCoordenadas"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_margin="10dp"
+                            android:background="#FFFFFF"
+                            android:text="🟢 Lat: 13.6894, Lng: -89.2361"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="#059669"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:elevation="4dp" />
+
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- 5. MUNICIPIO / DEPARTAMENTO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Municipio / Departamento"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#1F2937"
+                    android:layout_marginBottom="4dp" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:layout_marginBottom="16dp">
+
+                    <EditText
+                        android:id="@+id/etMunicipio"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@null"
+                        android:hint="San Salvador Centro"
+                        android:textSize="13sp"
+                        android:paddingHorizontal="12dp"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="12dp"
+                        android:text="∨"
+                        android:textSize="14sp"
+                        android:textColor="#6B7280" />
+                </RelativeLayout>
+
+                <!-- 6. DIRECCIÓN EXACTA -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Dirección exacta"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#1F2937"
+                    android:layout_marginBottom="4dp" />
+
+                <EditText
+                    android:id="@+id/etDireccionExacta"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:hint="Calle, Colonia, Polígono, Casa o Apto # (Ej. Col. Escalón, Pje. 3, #14)"
+                    android:textSize="11sp"
+                    android:paddingHorizontal="12dp"
+                    android:inputType="textPostalAddress"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- 7. PUNTO DE REFERENCIA (Opcional) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="4dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Punto de referencia"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Opcional"
+                        android:textSize="11sp"
+                        android:textColor="#9CA3AF" />
+                </LinearLayout>
+
+                <EditText
+                    android:id="@+id/etPuntoReferencia"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:hint="Ej. Frente al parque, casa de portón negro"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="12dp"
+                    android:inputType="text"
+                    android:layout_marginBottom="16dp" />
+
+                <!-- 8. TARJETA DE PRIVACIDAD DE DIRECCIÓN -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="#EFF6FF"
+                    android:padding="12dp"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️"
+                        android:textSize="18sp"
+                        android:layout_marginEnd="10dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tu dirección exacta solo se comparte con el profesional una vez confirmes y aceptes un servicio."
+                        android:textSize="11sp"
+                        android:textColor="#1E40AF" />
+                </LinearLayout>
+
+                <!-- 9. BOTÓN PRINCIPAL: COMPLETAR REGISTRO Y EXPLORAR -->
+                <Button
+                    android:id="@+id/btnCompletarRegistro"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="✓  Completar Registro y Explorar"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#0B2545"
+                    android:layout_marginBottom="8dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- Pie de página: Configurar más tarde -->
+        <TextView
+            android:id="@+id/btnOmitirDireccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Configurar más tarde"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#0B2545"
+            android:layout_marginBottom="20dp" />
+
+    </LinearLayout>
+</ScrollView>

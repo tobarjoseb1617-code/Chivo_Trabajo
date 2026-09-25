@@ -1,4 +1,4 @@
-package com.cherodevscode.chivo_trabajo.data
+package com.cherodevscode.chivo_trabajo.data.model
 
 data class Registro(
     val id: String = "",

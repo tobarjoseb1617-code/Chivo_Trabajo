@@ -11,16 +11,110 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Chivo_Trabajo">
+
+        <!-- IniciarSesionActivity como pantalla principal (Launcher) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.autenticacion.IniciarSesionActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- RegistroActivity para crear cuentas (Paso 1) -->
+        <activity
+            android:name=".ui.autenticacion.RegistroActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- RegistroClientePaso2Activity para dirección base cliente (Paso 2) -->
+        <activity
+            android:name=".ui.autenticacion.RegistroClientePaso2Activity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- RegistroProfesionalPaso2Activity para perfil profesional (Paso 2) -->
+        <activity
+            android:name=".ui.autenticacion.RegistroProfesionalPaso2Activity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- InicioActivity para el dashboard principal del cliente -->
+        <activity
+            android:name=".ui.cliente.InicioActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- InicioProfesionalActivity para el dashboard principal del profesional -->
+        <activity
+            android:name=".ui.profesional.InicioProfesionalActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- SolicitudesTrabajosCercanosActivity para el feed de solicitudes del profesional -->
+        <activity
+            android:name=".ui.profesional.SolicitudesTrabajosCercanosActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- GestionarServicioEnCursoActivity para el detalle de solicitud y servicio en curso del profesional -->
+        <activity
+            android:name=".ui.profesional.GestionarServicioEnCursoActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- ExplorarMapaActivity para el mapa / radar de técnicos -->
+        <activity
+            android:name=".ui.cliente.ExplorarMapaActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- RadarProfesionalesActivity para radar de profesionales cercanos -->
+        <activity
+            android:name=".ui.cliente.RadarProfesionalesActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- CrearSolicitudActivity para publicar solicitudes -->
+        <activity
+            android:name=".ui.cliente.CrearSolicitudActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- SeguimientoActivity para tracking y PIN -->
+        <activity
+            android:name=".ui.cliente.SeguimientoActivity"
+            android:exported="false" />
+
+        <!-- EjecucionActivity para validación de PIN por el profesional -->
+        <activity
+            android:name=".ui.profesional.EjecucionActivity"
+            android:exported="false" />
+
+        <!-- ChatActivity para mensajería en tiempo real -->
+        <activity
+            android:name=".ui.chat_y_evaluacion.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- FinalizarYCalificarActivity para trabajo completado, pago y calificación -->
+        <activity
+            android:name=".ui.chat_y_evaluacion.FinalizarYCalificarActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- PerfilProfesionalActivity para perfil, portafolio y reseñas -->
+        <activity
+            android:name=".ui.perfil.PerfilProfesionalActivity"
+            android:exported="false" />
+
+        <!-- MainActivity existente -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>
