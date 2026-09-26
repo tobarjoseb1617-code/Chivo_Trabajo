@@ -4,6 +4,7 @@ import com.cherodevscode.chivo_trabajo.data.model.Registro
 import com.cherodevscode.chivo_trabajo.data.model.Usuario
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
+import com.cherodevscode.chivo_trabajo.data.model.Profesional
 
 class FirestoreRepository {
     private val db = FirebaseFirestore.getInstance()
@@ -36,6 +37,7 @@ class FirestoreRepository {
         }
     }
 
+
     suspend fun actualizarFotoPerfil(uid: String, url: String): Result<Unit> {
         return try {
             db.collection("Usuario").document(uid).update("fotoPerfil", url).await()
@@ -44,4 +46,15 @@ class FirestoreRepository {
             Result.failure(e)
         }
     }
-}
+
+    suspend fun guardarProfesional(profesional: Profesional): Result<Unit> {
+        return try {
+            db.collection("profesionales")
+                .document(profesional.uid)
+                .set(profesional)
+                .await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }

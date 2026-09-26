@@ -2,8 +2,10 @@ package com.cherodevscode.chivo_trabajo.ui.autenticacion
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.databinding.ActivityIniciarSesionBinding
 import com.cherodevscode.chivo_trabajo.ui.cliente.InicioActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.InicioProfesionalActivity
@@ -19,22 +21,71 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         autenticacionViewModel = AutenticacionViewModel(this)
 
+        // Mostrar u ocultar contraseña
+        var contrasenaVisible = false
+
+        binding.btnMostrarLoginContrasena.setOnClickListener {
+            contrasenaVisible = !contrasenaVisible
+
+            if (contrasenaVisible) {
+                binding.etLoginContrasena.inputType =
+                    InputType.TYPE_CLASS_TEXT or
+                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+                binding.btnMostrarLoginContrasena.setImageResource(
+                    R.drawable.ic_visibility
+                )
+
+                binding.btnMostrarLoginContrasena.contentDescription =
+                    "Ocultar contraseña"
+
+            } else {
+                binding.etLoginContrasena.inputType =
+                    InputType.TYPE_CLASS_TEXT or
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                binding.btnMostrarLoginContrasena.setImageResource(
+                    R.drawable.ic_visibility_off
+                )
+
+                binding.btnMostrarLoginContrasena.contentDescription =
+                    "Mostrar contraseña"
+            }
+
+            // Mantener el cursor al final del texto
+            binding.etLoginContrasena.setSelection(
+                binding.etLoginContrasena.text.length
+            )
+        }
+
         binding.btnLoginCorreo.setOnClickListener {
             val correo = binding.etLoginCorreo.text.toString().trim()
             val contrasena = binding.etLoginContrasena.text.toString().trim()
+
             if (correo.isEmpty() || contrasena.isEmpty()) {
-                Toast.makeText(this, "Ingrese correo y contraseña", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Ingrese correo y contraseña",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
+
             autenticacionViewModel.iniciarSesion(correo, contrasena)
         }
 
         binding.tvOlvideContrasena.setOnClickListener {
             val correo = binding.etLoginCorreo.text.toString().trim()
+
             if (correo.isEmpty()) {
-                Toast.makeText(this, "Ingrese su correo electrónico", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this,
+                    "Ingrese su correo electrónico",
+                    Toast.LENGTH_SHORT
+                ).show()
                 return@setOnClickListener
             }
+
             autenticacionViewModel.recuperarPassword(correo)
         }
 
@@ -57,6 +108,7 @@ class IniciarSesionActivity : AppCompatActivity() {
                 } else {
                     Intent(this, InicioActivity::class.java)
                 }
+
                 startActivity(intent)
                 finish()
             }

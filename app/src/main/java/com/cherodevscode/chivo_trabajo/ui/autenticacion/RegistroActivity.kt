@@ -6,7 +6,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityRegistroBinding
-
+import android.text.InputType
+import com.cherodevscode.chivo_trabajo.R
 class RegistroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistroBinding
     private lateinit var autenticacionViewModel: AutenticacionViewModel
@@ -19,16 +20,72 @@ class RegistroActivity : AppCompatActivity() {
 
         autenticacionViewModel = AutenticacionViewModel(this)
 
+        var contrasenaVisible = false
+
+        binding.btnMostrarContrasena.setOnClickListener {
+
+            contrasenaVisible = !contrasenaVisible
+
+            if (contrasenaVisible) {
+
+                binding.etRegContrasena.inputType =
+                    InputType.TYPE_CLASS_TEXT or
+                            InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+                binding.btnMostrarContrasena.setImageResource(
+                    R.drawable.ic_visibility
+                )
+
+                binding.btnMostrarContrasena.contentDescription =
+                    "Ocultar contraseña"
+
+            } else {
+
+                binding.etRegContrasena.inputType =
+                    InputType.TYPE_CLASS_TEXT or
+                            InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+                binding.btnMostrarContrasena.setImageResource(
+                    R.drawable.ic_visibility_off
+                )
+
+                binding.btnMostrarContrasena.contentDescription =
+                    "Mostrar contraseña"
+            }
+
+            binding.etRegContrasena.setSelection(
+                binding.etRegContrasena.text.length
+            )
+        }
+
         binding.cardCliente.setOnClickListener {
             rolSeleccionado = "CLIENTE"
-            binding.cardCliente.setCardBackgroundColor(Color.parseColor("#F0F9FF"))
-            binding.cardProfesional.setCardBackgroundColor(Color.parseColor("#F8FAFC"))
+
+            binding.cbCliente.isChecked = true
+            binding.cbProfesional.isChecked = false
+
+            binding.cardCliente.setCardBackgroundColor(
+                Color.parseColor("#F0F9FF")
+            )
+
+            binding.cardProfesional.setCardBackgroundColor(
+                Color.parseColor("#FFFFFF")
+            )
         }
 
         binding.cardProfesional.setOnClickListener {
             rolSeleccionado = "PROFESIONAL"
-            binding.cardProfesional.setCardBackgroundColor(Color.parseColor("#F0F9FF"))
-            binding.cardCliente.setCardBackgroundColor(Color.parseColor("#F8FAFC"))
+
+            binding.cbCliente.isChecked = false
+            binding.cbProfesional.isChecked = true
+
+            binding.cardProfesional.setCardBackgroundColor(
+                Color.parseColor("#F0F9FF")
+            )
+
+            binding.cardCliente.setCardBackgroundColor(
+                Color.parseColor("#FFFFFF")
+            )
         }
 
         binding.btnRegresarRegistro.setOnClickListener {

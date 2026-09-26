@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollRegistroProPaso2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:clipToPadding="false"
+    android:paddingBottom="120dp"
     android:background="#F4F5F7">
 
     <LinearLayout
@@ -13,7 +17,7 @@
         android:padding="20dp"
         android:gravity="center_horizontal">
 
-        <!-- Tarjeta Blanca Central -->
+        <!-- TARJETA BLANCA CENTRAL -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -29,7 +33,7 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <!-- 1. BARRA SUPERIOR MOCKUP -->
+                <!-- 1. BARRA SUPERIOR -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -77,7 +81,8 @@
                         android:contentDescription="Perfil" />
                 </LinearLayout>
 
-                <!-- 2. BARRA DE PROGRESO: PASO 2 DE 2 -->
+
+                <!-- 2. BARRA DE PROGRESO -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -116,7 +121,8 @@
                         android:layout_marginStart="16dp" />
                 </LinearLayout>
 
-                <!-- Subtítulo -->
+
+                <!-- 3. SUBTÍTULO -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,7 +131,8 @@
                     android:textColor="#6B7280"
                     android:layout_marginBottom="16dp" />
 
-                <!-- 3. BANNER VERDE DE DUI -->
+
+                <!-- 4. BANNER DE VERIFICACIÓN DUI -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -135,27 +142,28 @@
                     android:padding="12dp"
                     android:layout_marginBottom="20dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🛡️"
-                        android:textSize="18sp"
-                        android:layout_marginEnd="10dp" />
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@android:drawable/ic_secure"
+                        android:layout_marginEnd="10dp"
+                        android:contentDescription="Verificación" />
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Podrás verificar tu DUI en tu perfil para obtener el sello de confianza y recibir 3x más clientes."
+                        android:text="Podrás verificar tu DUI en tu perfil para obtener el sello de confianza."
                         android:textSize="11sp"
                         android:textColor="#166534" />
                 </LinearLayout>
 
-                <!-- 4. OFICIO O ESPECIALIDAD PRINCIPAL -->
+
+                <!-- 5. OFICIO O ESPECIALIDAD PRINCIPAL -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="🛠️ Oficio o Especialidad Principal"
+                    android:text="Oficio o Especialidad Principal"
                     android:textSize="13sp"
                     android:textStyle="bold"
                     android:textColor="#1F2937"
@@ -171,24 +179,29 @@
                         android:id="@+id/etEspecialidad"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/tvFlechaEspecialidad"
                         android:background="@null"
-                        android:hint="Fontanería &amp; Tuberías"
+                        android:hint="Fontanería y Tuberías"
                         android:textSize="13sp"
-                        android:paddingHorizontal="12dp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="4dp"
                         android:inputType="text" />
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/tvFlechaEspecialidad"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
                         android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginEnd="12dp"
-                        android:text="∨"
-                        android:textSize="14sp"
+                        android:gravity="center"
+                        android:text="⌄"
+                        android:textSize="18sp"
                         android:textColor="#6B7280" />
                 </RelativeLayout>
 
-                <!-- 5. SERVICIOS ESPECÍFICOS -->
+
+                <!-- 6. SERVICIOS ESPECÍFICOS -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -200,15 +213,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="🧰 Servicios específicos"
+                        android:text="Servicios específicos"
                         android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
+                        android:id="@+id/tvContadorServicios"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="3 seleccionados"
+                        android:text="0 seleccionados"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:textColor="#0369A1"
@@ -217,13 +231,15 @@
                         android:paddingVertical="3dp" />
                 </LinearLayout>
 
-                <!-- Chips de servicios específicos -->
+
+                <!-- SERVICIOS -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp">
 
+                    <!-- FILA 1 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -231,47 +247,60 @@
                         android:layout_marginBottom="8dp">
 
                         <TextView
+                            android:id="@+id/tvServicioFugas"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="✓ Reparación de fugas"
+                            android:text="Reparación de fugas"
                             android:textSize="11sp"
                             android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:background="#0B2545"
+                            android:textColor="#4B5563"
+                            android:background="#F1F5F9"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="8dp"
-                            android:layout_marginEnd="8dp" />
+                            android:layout_marginEnd="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
 
                         <TextView
+                            android:id="@+id/tvServicioGriferia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="✓ Instalación de grifería"
+                            android:text="Instalación de grifería"
                             android:textSize="11sp"
                             android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:background="#0B2545"
+                            android:textColor="#4B5563"
+                            android:background="#F1F5F9"
                             android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp" />
+                            android:paddingVertical="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
                     </LinearLayout>
 
+
+                    <!-- FILA 2 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="8dp">
 
                         <TextView
+                            android:id="@+id/tvServicioDestape"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="✓ Destape de tuberías"
+                            android:text="Destape de tuberías"
                             android:textSize="11sp"
                             android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:background="#0B2545"
+                            android:textColor="#4B5563"
+                            android:background="#F1F5F9"
                             android:paddingHorizontal="12dp"
                             android:paddingVertical="8dp"
-                            android:layout_marginEnd="8dp" />
+                            android:layout_marginEnd="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
 
                         <TextView
+                            android:id="@+id/tvServicioInodoros"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Instalación de inodoros"
@@ -279,16 +308,20 @@
                             android:textColor="#4B5563"
                             android:background="#F1F5F9"
                             android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp" />
+                            android:paddingVertical="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
                     </LinearLayout>
 
+
+                    <!-- FILA 3 -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="8dp">
+                        android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/tvServicioCisterna"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Mantenimiento cisterna"
@@ -296,11 +329,15 @@
                             android:textColor="#4B5563"
                             android:background="#F1F5F9"
                             android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp" />
+                            android:paddingVertical="8dp"
+                            android:clickable="true"
+                            android:focusable="true" />
                     </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- 6. EXPERIENCIA LABORAL (CONTADOR - / +) -->
+
+                <!-- 7. EXPERIENCIA LABORAL -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -317,7 +354,7 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="⏳ Experiencia laboral"
+                            android:text="Experiencia laboral"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="#1F2937" />
@@ -330,7 +367,8 @@
                             android:textColor="#9CA3AF" />
                     </LinearLayout>
 
-                    <!-- Contador - 7 años + -->
+
+                    <!-- CONTADOR -->
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -340,6 +378,7 @@
                         android:paddingHorizontal="4dp">
 
                         <Button
+                            android:id="@+id/btnMenosExperiencia"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:text="-"
@@ -349,15 +388,17 @@
                             android:padding="0dp" />
 
                         <TextView
+                            android:id="@+id/tvAniosExperiencia"
                             android:layout_width="60dp"
                             android:layout_height="wrap_content"
-                            android:text="7 años"
+                            android:text="0 años"
                             android:textSize="13sp"
                             android:textStyle="bold"
                             android:textColor="#0B2545"
                             android:gravity="center" />
 
                         <Button
+                            android:id="@+id/btnMasExperiencia"
                             android:layout_width="36dp"
                             android:layout_height="36dp"
                             android:text="+"
@@ -365,16 +406,21 @@
                             android:backgroundTint="#FFFFFF"
                             android:textColor="#1F2937"
                             android:padding="0dp" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
+
+                <!-- DIVISOR -->
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="#E5E7EB"
                     android:layout_marginVertical="16dp" />
 
-                <!-- 7. ZONA DE COBERTURA GEOGRÁFICA (AMSS) -->
+
+                <!-- 8. ZONA DE COBERTURA -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -386,7 +432,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="📍 Zona de cobertura geográfica"
+                        android:text="Zona de cobertura geográfica"
                         android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
@@ -400,74 +446,84 @@
                         android:textColor="#0369A1" />
                 </LinearLayout>
 
-                <!-- Chips de Cobertura -->
+
+                <!-- ZONAS SELECCIONADAS -->
                 <LinearLayout
+                    android:id="@+id/layoutZonasSeleccionadas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="12dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <!-- SAN SALVADOR -->
+                    <TextView
+                        android:id="@+id/tvZonaSanSalvador"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
+                        android:text="San Salvador Centro  ×"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:background="#E0F2FE"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📍 San Salvador Centro ✕"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:background="#E0F2FE"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="6dp"
-                            android:layout_marginEnd="8dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📍 Santa Tecla ✕"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:background="#E0F2FE"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="6dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <!-- SANTA TECLA -->
+                    <TextView
+                        android:id="@+id/tvZonaSantaTecla"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="Santa Tecla  ×"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:background="#E0F2FE"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📍 Antiguo Cuscatlán ✕"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:background="#E0F2FE"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="6dp"
-                            android:layout_marginEnd="8dp" />
+                    <!-- ANTIGUO CUSCATLÁN -->
+                    <TextView
+                        android:id="@+id/tvZonaAntiguoCuscatlan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Antiguo Cuscatlán  ×"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:background="#E0F2FE"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginBottom="8dp"
+                        android:clickable="true"
+                        android:focusable="true" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⊕ Agregar municipio"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0284C7"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="6dp" />
-                    </LinearLayout>
                 </LinearLayout>
 
-                <!-- 8. PRESENTACIÓN PARA TUS CLIENTES -->
+
+                <!-- AGREGAR MUNICIPIO -->
+                <TextView
+                    android:id="@+id/tvAgregarMunicipio"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+ Agregar municipio"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#0284C7"
+                    android:background="#F1F5F9"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginBottom="20dp" />
+
+
+                <!-- 9. PRESENTACIÓN -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -479,37 +535,44 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="📝 Presentación para tus clientes"
+                        android:text="Presentación para tus clientes"
                         android:textSize="13sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
+                        android:id="@+id/tvContadorDescripcion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="144 / 300"
+                        android:text="0 / 300"
                         android:textSize="11sp"
                         android:textColor="#9CA3AF" />
                 </LinearLayout>
 
+
+                <!-- DESCRIPCIÓN -->
                 <EditText
                     android:id="@+id/etDescripcionPro"
                     android:layout_width="match_parent"
                     android:layout_height="110dp"
                     android:background="@drawable/bg_input_rounded"
-                    android:hint="Técnico fontanero con 7 años de experiencia en reparaciones residenciales urgentes. Trabajo garantizado, presupuesto transparente y puntualidad..."
+                    android:hint="Describe brevemente tu experiencia y los servicios que ofreces..."
                     android:textSize="12sp"
+                    android:textColor="#1F2937"
+                    android:textColorHint="#9CA3AF"
                     android:padding="12dp"
                     android:gravity="top|start"
+                    android:maxLength="300"
                     android:inputType="textMultiLine"
                     android:layout_marginBottom="24dp" />
 
-                <!-- 9. BOTÓN PRINCIPAL: COMPLETAR REGISTRO PROFESIONAL -->
+
+                <!-- 10. BOTÓN PRINCIPAL -->
                 <Button
                     android:id="@+id/btnCompletarRegistroPro"
                     android:layout_width="match_parent"
                     android:layout_height="52dp"
-                    android:text="Completar Registro Profesional 🛠️"
+                    android:text="Completar Registro Profesional"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
@@ -517,9 +580,11 @@
                     android:layout_marginBottom="10dp" />
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- Pie de página: Términos y normas de calidad -->
+
+        <!-- PIE DE PÁGINA -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -531,4 +596,6 @@
             android:paddingHorizontal="16dp" />
 
     </LinearLayout>
+
 </ScrollView>
+

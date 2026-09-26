@@ -1,13 +1,17 @@
 package com.cherodevscode.chivo_trabajo.data.model
 
 data class Profesional(
-    val id: String = "",
-    val usuarioUid: String = "",
-    val profesion: String = "",
-    val descripcion: String = "",
-    val tarifaHora: Double = 0.0,
-    val verificadoDui: Boolean = false,
+    val uid: String = "",
+    val aniosExperiencia: Long = 0,
     val calificacionPromedio: Double = 0.0,
-    val totalTrabajos: Int = 0,
-    val disponible: Boolean = true
+    val cantidadCalificaciones: Long = 0,
+    val descripcion: String = "",
+    val disponible: Boolean = false,
+    val especialidad: String = "",
+    val latitud: Double = 0.0,
+    val longitud: Double = 0.0,
+    val serviciosOfrecidos: List<String> = emptyList(),
+    val verificado: Boolean = false,
+    val zonaTrabajo: List<String> = emptyList()
+
 )

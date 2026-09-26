@@ -78,8 +78,11 @@
                     android:background="@drawable/bg_input_rounded"
                     android:hint="ejemplo@correo.sv"
                     android:textSize="14sp"
+                    android:textColor="#1F2937"
+                    android:textColorHint="#9CA3AF"
                     android:paddingHorizontal="16dp"
                     android:inputType="textEmailAddress"
+                    android:singleLine="true"
                     android:layout_marginBottom="16dp" />
 
                 <!-- Etiqueta Contraseña y ¿La olvidaste? -->
@@ -105,20 +108,44 @@
                         android:text="¿La olvidaste?"
                         android:textSize="12sp"
                         android:textStyle="bold"
-                        android:textColor="#0284C7" />
+                        android:textColor="#0284C7"
+                        android:clickable="true"
+                        android:focusable="true" />
                 </LinearLayout>
 
-                <!-- Input: Contraseña -->
-                <EditText
-                    android:id="@+id/etLoginContrasena"
+                <!-- Input: Contraseña + botón mostrar -->
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:background="@drawable/bg_input_rounded"
-                    android:hint="••••••••"
-                    android:textSize="14sp"
-                    android:paddingHorizontal="16dp"
-                    android:inputType="textPassword"
-                    android:layout_marginBottom="12dp" />
+                    android:layout_marginBottom="12dp">
+
+                    <EditText
+                        android:id="@+id/etLoginContrasena"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@+id/btnMostrarLoginContrasena"
+                        android:background="@null"
+                        android:hint="••••••••"
+                        android:textSize="14sp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="4dp"
+                        android:inputType="textPassword"
+                        android:singleLine="true" />
+
+                    <ImageButton
+                        android:id="@+id/btnMostrarLoginContrasena"
+                        android:layout_width="48dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:background="@android:color/transparent"
+                        android:padding="12dp"
+                        android:src="@drawable/ic_visibility_off"
+                        android:contentDescription="Mostrar contraseña" />
+
+                </RelativeLayout>
 
                 <!-- Checkbox: Mantener mi sesión activa -->
                 <CheckBox
