@@ -35,4 +35,13 @@ class FirestoreRepository {
             Result.failure(e)
         }
     }
+
+    suspend fun actualizarFotoPerfil(uid: String, url: String): Result<Unit> {
+        return try {
+            db.collection("Usuario").document(uid).update("fotoPerfil", url).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }

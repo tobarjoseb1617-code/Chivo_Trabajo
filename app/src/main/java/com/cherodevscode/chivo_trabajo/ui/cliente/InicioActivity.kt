@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityInicioBinding
-import com.cherodevscode.chivo_trabajo.ui.perfil.PerfilProfesionalActivity
+import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
@@ -25,8 +25,13 @@ class InicioActivity : AppCompatActivity() {
 
         // Botón Perfil superior
         binding.btnPerfilTop.setOnClickListener {
-            val intent = Intent(this, PerfilProfesionalActivity::class.java)
+            val intent = Intent(this, ConfiguracionPerfilActivity::class.java)
             startActivity(intent)
+        }
+
+        // Navegación inferior - Perfil
+        binding.navPerfil.setOnClickListener {
+            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
 
         // Ver todas las categorías

@@ -110,6 +110,11 @@
             android:name=".ui.perfil.PerfilProfesionalActivity"
             android:exported="false" />
 
+        <!-- ConfiguracionPerfilActivity para la configuración y perfil del usuario con cierre de sesión -->
+        <activity
+            android:name=".ui.perfil.ConfiguracionPerfilActivity"
+            android:exported="false" />
+
         <!-- MainActivity existente -->
         <activity
             android:name=".MainActivity"

@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityInicioProfesionalBinding
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ChatActivity
-import com.cherodevscode.chivo_trabajo.ui.perfil.PerfilProfesionalActivity
+import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 
 class InicioProfesionalActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioProfesionalBinding
@@ -18,7 +18,12 @@ class InicioProfesionalActivity : AppCompatActivity() {
 
         // Perfil superior
         binding.btnPerfilProTop.setOnClickListener {
-            startActivity(Intent(this, PerfilProfesionalActivity::class.java))
+            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+        }
+
+        // Navegación inferior - Perfil
+        binding.navPerfilPro.setOnClickListener {
+            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
 
         // Ver ruta GPS (Servicio en curso)
