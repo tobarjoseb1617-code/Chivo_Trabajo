@@ -58,3 +58,4 @@ class FirestoreRepository {
             Result.failure(e)
         }
     }
+}
