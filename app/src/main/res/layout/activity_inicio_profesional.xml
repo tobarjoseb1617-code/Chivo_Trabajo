@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7">
+    android:background="#F4F5F7"
+    android:fitsSystemWindows="true">
 
     <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
     <ScrollView
@@ -110,22 +111,14 @@
                     android:layout_height="36dp"
                     android:background="@drawable/bg_input_rounded"
                     android:padding="8dp"
-                    android:src="@android:drawable/ic_menu_agenda"
+                    android:src="@drawable/ic_notificacion"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="Notificaciones" />
 
-                <!-- Avatar -->
-                <ImageView
-                    android:id="@+id/btnPerfilProTop"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="#0B2545"
-                    android:padding="8dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:contentDescription="Perfil" />
+
             </LinearLayout>
 
-            <!-- 2. TARJETA DE PERFIL DEL PROFESIONAL (ROBERTO) -->
+            <!-- 2. TARJETA DE PERFIL DEL PROFESIONAL -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -140,97 +133,118 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- INFORMACIÓN DEL PROFESIONAL -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
+                        android:layout_marginBottom="14dp">
 
-                        <!-- Avatar con punto verde -->
+                        <!-- FOTO DEL PROFESIONAL -->
                         <RelativeLayout
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
                             android:layout_marginEnd="12dp">
 
                             <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
+                                android:id="@+id/ivFotoProfesionalInicio"
+                                android:layout_width="60dp"
+                                android:layout_height="60dp"
                                 android:src="@mipmap/ic_launcher"
                                 android:background="#E5E7EB"
-                                android:contentDescription="Roberto" />
+                                android:scaleType="centerCrop"
+                                android:contentDescription="Foto del profesional" />
 
+                            <!-- INDICADOR DISPONIBLE -->
                             <View
-                                android:layout_width="14dp"
-                                android:layout_height="14dp"
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentBottom="true"
-                                android:background="#059669" />
+                                android:background="#16A34A" />
+
                         </RelativeLayout>
 
+                        <!-- DATOS -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
+                            <!-- NOMBRE + ESTADO -->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="horizontal"
                                 android:gravity="center_vertical"
-                                android:layout_marginBottom="2dp">
+                                android:layout_marginBottom="3dp">
 
                                 <TextView
-                                    android:layout_width="wrap_content"
+                                    android:id="@+id/tvNombreProfesionalInicio"
+                                    android:layout_width="0dp"
                                     android:layout_height="wrap_content"
-                                    android:text="¡Hola, Roberto!"
+                                    android:layout_weight="1"
+                                    android:text="Profesional"
                                     android:textSize="18sp"
                                     android:textStyle="bold"
                                     android:textColor="#0B2545"
-                                    android:layout_marginEnd="8dp" />
+                                    android:maxLines="1"
+                                    android:ellipsize="end" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" Top Pro "
-                                    android:textSize="10sp"
+                                    android:text="PRO"
+                                    android:textSize="9sp"
                                     android:textStyle="bold"
                                     android:textColor="#0369A1"
                                     android:background="#E0F2FE"
                                     android:paddingHorizontal="6dp"
-                                    android:paddingVertical="2dp" />
+                                    android:paddingVertical="3dp" />
+
                             </LinearLayout>
 
+                            <!-- ESPECIALIDAD -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Fontanería y gasfitería certificada"
+                                android:text="Fontanería y gasfitería"
                                 android:textSize="12sp"
                                 android:textColor="#4B5563"
-                                android:layout_marginBottom="4dp" />
+                                android:layout_marginBottom="6dp" />
 
+                            <!-- VERIFICACIÓN -->
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=" 🛡️ DUI Verificado "
-                                android:textSize="9sp"
+                                android:text="✓ DUI Verificado"
+                                android:textSize="10sp"
                                 android:textStyle="bold"
-                                android:textColor="#FFFFFF"
-                                android:background="#059669"
-                                android:paddingHorizontal="5dp"
-                                android:paddingVertical="2dp" />
+                                android:textColor="#15803D"
+                                android:background="#DCFCE7"
+                                android:paddingHorizontal="7dp"
+                                android:paddingVertical="3dp" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
-                    <!-- Switch: Disponible para trabajar -->
+                    <!-- DISPONIBILIDAD -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="12dp">
+                        android:background="#F0FDF4"
+                        android:padding="10dp">
+
+                        <View
+                            android:layout_width="9dp"
+                            android:layout_height="9dp"
+                            android:background="#16A34A"
+                            android:layout_marginEnd="8dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -242,16 +256,17 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Disponible para trabajar"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold"
-                                android:textColor="#0B2545" />
+                                android:textColor="#166534" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Recibiendo alertas en San Salvador y ce..."
-                                android:textSize="11sp"
-                                android:textColor="#6B7280" />
+                                android:text="Recibiendo nuevas solicitudes"
+                                android:textSize="10sp"
+                                android:textColor="#4D7C0F" />
+
                         </LinearLayout>
 
                         <Switch
@@ -259,9 +274,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:checked="true" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <!-- 3. TARJETA: SERVICIO EN CURSO AHORA MISMO -->
@@ -269,12 +286,12 @@
                 android:id="@+id/cardServicioEnCursoPro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="4dp"
-                app:cardBackgroundColor="#0B2545"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="20dp"
                 android:clickable="true"
-                android:focusable="true">
+                android:focusable="true"
+                app:cardBackgroundColor="#0B2545"
+                app:cardCornerRadius="18dp"
+                app:cardElevation="4dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -282,46 +299,50 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- ENCABEZADO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
+                        android:layout_marginBottom="12dp"
+                        android:orientation="horizontal">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="🟢 SERVICIO EN CURSO AHORA MISMO"
+                            android:text="●  SERVICIO EN CURSO"
+                            android:textColor="#34D399"
                             android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#34D399" />
+                            android:textStyle="bold" />
 
                         <View
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="1dp"
                             android:layout_weight="1" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" #3821 "
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
                             android:background="#1E3A8A"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp" />
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
+                            android:text="#3821"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
 
-                    <!-- Detalle de Fuga bajo fregadero y tarifa -->
+
+                    <!-- SERVICIO, CLIENTE Y PRECIO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
 
+                        <!-- Información del servicio -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -332,81 +353,89 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Fuga bajo fregadero"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="#FFFFFF" />
+                                android:textColor="#FFFFFF"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginTop="3dp"
                                 android:text="👤 Carlos Rivera"
-                                android:textSize="12sp"
-                                android:textColor="#CBD5E1" />
+                                android:textColor="#CBD5E1"
+                                android:textSize="12sp" />
+
                         </LinearLayout>
 
-                        <LinearLayout
+                        <!-- Precio -->
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
+                            android:layout_marginStart="8dp"
+                            android:text="$25.00"
+                            android:textColor="#34D399"
+                            android:textSize="18sp"
+                            android:textStyle="bold" />
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Tarifa pactada"
-                                android:textSize="10sp"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$25.00"
-                                android:textSize="16sp"
-                                android:textStyle="bold"
-                                android:textColor="#34D399" />
-                        </LinearLayout>
                     </LinearLayout>
 
-                    <!-- Dirección y distancia -->
+
+                    <!-- UBICACIÓN Y ESTADO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:background="#162F59"
                         android:orientation="vertical"
-                        android:background="#1E3A8A"
-                        android:padding="10dp"
-                        android:layout_marginBottom="12dp">
+                        android:padding="11dp">
+
+                        <!-- Dirección -->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="📍  Residencial Cumbres de Cuscatlán"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="📍 Residencial Cumbres de Cuscatlán\nAntiguo Cuscatlán • Llegada est. 12 min"
-                            android:textSize="12sp"
-                            android:textColor="#FFFFFF"
-                            android:layout_marginBottom="6dp" />
+                            android:layout_marginTop="3dp"
+                            android:text="Antiguo Cuscatlán"
+                            android:textColor="#CBD5E1"
+                            android:textSize="11sp" />
 
+                        <!-- Estado del recorrido -->
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="9dp"
+                            android:gravity="center_vertical"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="✈️ En camino hacia la ubicación"
-                                android:textSize="11sp"
-                                android:textColor="#93C5FD" />
+                                android:text="🚗  En camino · 3.4 km"
+                                android:textColor="#93C5FD"
+                                android:textSize="11sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Distancia: 3.4 km"
+                                android:text="12 min"
+                                android:textColor="#CBD5E1"
                                 android:textSize="11sp"
-                                android:textColor="#CBD5E1" />
+                                android:textStyle="bold" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
-                    <!-- Botones de GPS y Chat -->
+
+                    <!-- BOTONES -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -416,27 +445,30 @@
                             android:id="@+id/btnVerRutaGps"
                             android:layout_width="0dp"
                             android:layout_height="46dp"
+                            android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:text="🗺️ Ver ruta GPS"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
                             android:backgroundTint="#1D4ED8"
-                            android:layout_marginEnd="8dp" />
+                            android:text="🗺️  Ver ruta"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
                         <Button
                             android:id="@+id/btnAbrirChatPro"
                             android:layout_width="0dp"
                             android:layout_height="46dp"
+                            android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:text="💬 Abrir chat"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="💬  Abrir chat"
                             android:textColor="#0B2545"
-                            android:backgroundTint="#FFFFFF" />
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
             <!-- 4. OPORTUNIDADES EN VIVO -->
@@ -452,7 +484,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Oportunidades en vivo"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="#0B2545" />
 
@@ -462,28 +494,33 @@
                     android:text="4 cerca"
                     android:textSize="11sp"
                     android:textStyle="bold"
-                    android:textColor="#059669"
+                    android:textColor="#047857"
                     android:background="#DCFCE7"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="2dp"
+                    android:paddingHorizontal="9dp"
+                    android:paddingVertical="4dp"
                     android:layout_marginEnd="8dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Radio: 5 km"
-                    android:textSize="12sp"
-                    android:textColor="#6B7280" />
+                    android:text="5 km"
+                    android:textSize="11sp"
+                    android:textColor="#64748B"
+                    android:background="#F1F5F9"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp" />
+
             </LinearLayout>
 
-            <!-- Tarjeta Oportunidad 1: Urgente -->
+
+            <!-- TARJETA OPORTUNIDAD 1 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="12dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="12dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -491,23 +528,24 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- ESTADO Y TIEMPO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="8dp">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" 🔥 Urgente "
+                            android:text="🔥  URGENTE"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:background="#EF4444"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
+                            android:textColor="#B91C1C"
+                            android:background="#FEE2E2"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
                             android:layout_marginEnd="8dp" />
 
                         <TextView
@@ -515,25 +553,28 @@
                             android:layout_height="wrap_content"
                             android:text="Hace 8 min"
                             android:textSize="11sp"
-                            android:textColor="#9CA3AF" />
+                            android:textColor="#94A3B8" />
 
                         <View
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="1dp"
                             android:layout_weight="1" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:gravity="end">
+                            android:gravity="end"
+                            android:background="#F8FAFC"
+                            android:paddingHorizontal="9dp"
+                            android:paddingVertical="5dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Presupuesto"
                                 android:textSize="9sp"
-                                android:textColor="#9CA3AF" />
+                                android:textColor="#94A3B8" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -542,34 +583,40 @@
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#0B2545" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
+                    <!-- SERVICIO -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Fuga urgente en cisterna"
-                        android:textSize="15sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#0B2545"
-                        android:layout_marginBottom="2dp" />
+                        android:layout_marginBottom="5dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📍 Col. Escalón (a 1.8 km)"
+                        android:text="📍  Col. Escalón  •  1.8 km"
                         android:textSize="12sp"
-                        android:textColor="#4B5563"
-                        android:layout_marginBottom="6dp" />
+                        android:textColor="#475569"
+                        android:layout_marginBottom="10dp" />
 
+                    <!-- DESCRIPCIÓN -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Se necesita cambio de flotador y empaque de presión de emergencia en cisterna subterránea..."
                         android:textSize="12sp"
-                        android:textColor="#6B7280"
-                        android:layout_marginBottom="12dp" />
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#64748B"
+                        android:layout_marginBottom="14dp" />
 
+                    <!-- BOTONES -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -578,37 +625,42 @@
                         <Button
                             android:id="@+id/btnPropuestaRapida1"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="42dp"
                             android:layout_weight="1"
-                            android:text="⚡ Propuesta rápida"
+                            android:layout_marginEnd="6dp"
+                            android:text="⚡  Propuesta rápida"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545"
-                            android:layout_marginEnd="8dp" />
+                            android:backgroundTint="#0B2545" />
 
                         <Button
                             android:id="@+id/btnDetallesOp1"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="42dp"
+                            android:layout_marginStart="6dp"
                             android:text="Detalles"
                             android:textSize="12sp"
+                            android:textStyle="bold"
                             android:textColor="#0B2545"
                             android:backgroundTint="#E2E8F0"
                             android:paddingHorizontal="16dp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
-            <!-- Tarjeta Oportunidad 2: Programado -->
+
+            <!-- TARJETA OPORTUNIDAD 2 -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
+                android:layout_marginBottom="20dp"
                 app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="24dp">
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -616,23 +668,24 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- ESTADO Y TIEMPO -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="8dp">
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text=" Programado "
+                            android:text="PROGRAMADO"
                             android:textSize="10sp"
                             android:textStyle="bold"
-                            android:textColor="#1E40AF"
+                            android:textColor="#1D4ED8"
                             android:background="#DBEAFE"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp"
                             android:layout_marginEnd="8dp" />
 
                         <TextView
@@ -640,25 +693,28 @@
                             android:layout_height="wrap_content"
                             android:text="Hace 25 min"
                             android:textSize="11sp"
-                            android:textColor="#9CA3AF" />
+                            android:textColor="#94A3B8" />
 
                         <View
                             android:layout_width="0dp"
-                            android:layout_height="0dp"
+                            android:layout_height="1dp"
                             android:layout_weight="1" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:gravity="end">
+                            android:gravity="end"
+                            android:background="#F8FAFC"
+                            android:paddingHorizontal="9dp"
+                            android:paddingVertical="5dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Presupuesto"
                                 android:textSize="9sp"
-                                android:textColor="#9CA3AF" />
+                                android:textColor="#94A3B8" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -667,34 +723,40 @@
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#0B2545" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
+                    <!-- SERVICIO -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Instalación de grifería y t..."
-                        android:textSize="15sp"
+                        android:text="Instalación de grifería y trampa"
+                        android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="#0B2545"
-                        android:layout_marginBottom="2dp" />
+                        android:layout_marginBottom="5dp" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="📍 Santa Tecla (a 3.2 km)"
+                        android:text="📍  Santa Tecla  •  3.2 km"
                         android:textSize="12sp"
-                        android:textColor="#4B5563"
-                        android:layout_marginBottom="6dp" />
+                        android:textColor="#475569"
+                        android:layout_marginBottom="10dp" />
 
+                    <!-- DESCRIPCIÓN -->
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Cliente ya compró grifo monomando y trampa de PVC nueva para lavatrastos de cocina. Requiere..."
                         android:textSize="12sp"
-                        android:textColor="#6B7280"
-                        android:layout_marginBottom="12dp" />
+                        android:lineSpacingExtra="2dp"
+                        android:textColor="#64748B"
+                        android:layout_marginBottom="14dp" />
 
+                    <!-- BOTONES -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -703,27 +765,31 @@
                         <Button
                             android:id="@+id/btnPropuestaRapida2"
                             android:layout_width="0dp"
-                            android:layout_height="40dp"
+                            android:layout_height="42dp"
                             android:layout_weight="1"
-                            android:text="⚡ Propuesta rápida"
+                            android:layout_marginEnd="6dp"
+                            android:text="⚡  Propuesta rápida"
                             android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545"
-                            android:layout_marginEnd="8dp" />
+                            android:backgroundTint="#0B2545" />
 
                         <Button
                             android:id="@+id/btnDetallesOp2"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="42dp"
+                            android:layout_marginStart="6dp"
                             android:text="Detalles"
                             android:textSize="12sp"
+                            android:textStyle="bold"
                             android:textColor="#0B2545"
                             android:backgroundTint="#E2E8F0"
                             android:paddingHorizontal="16dp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
