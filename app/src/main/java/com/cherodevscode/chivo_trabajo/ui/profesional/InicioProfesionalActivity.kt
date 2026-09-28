@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityInicioProfesionalBinding
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ChatActivity
+import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.HistorialChatsActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 
 class InicioProfesionalActivity : AppCompatActivity() {
@@ -16,24 +17,52 @@ class InicioProfesionalActivity : AppCompatActivity() {
         binding = ActivityInicioProfesionalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Perfil superior
-        binding.btnPerfilProTop.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+        // 1. Servicio en curso ahora mismo (Tarjeta) -> Ir a Gestionar Servicio en Curso
+        binding.cardServicioEnCursoPro.setOnClickListener {
+            startActivity(Intent(this, GestionarServicioEnCursoActivity::class.java))
         }
 
-        // Navegación inferior - Perfil
+        // 2. Ver ruta GPS -> Ir a Detalles de Solicitud de Trabajo Profesional
+        binding.btnVerRutaGps.setOnClickListener {
+            startActivity(Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java))
+        }
+
+        // 3. Abrir chat -> Ir a ChatActivity
+        binding.btnAbrirChatPro.setOnClickListener {
+            startActivity(Intent(this, ChatActivity::class.java))
+        }
+
+        // 4. Ver detalles de oportunidad 1 -> Ir a Detalles de Solicitud de Trabajo Profesional
+        binding.btnDetallesOp1.setOnClickListener {
+            startActivity(Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java))
+        }
+
+        // 5. Ver detalles de oportunidad 2 -> Ir a Detalles de Solicitud de Trabajo Profesional
+        binding.btnDetallesOp2.setOnClickListener {
+            startActivity(Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java))
+        }
+
+        // 6. Menú inferior: Solicitudes -> Ir a Solicitudes Trabajos Cercanos
+        binding.navSolicitudesPro.setOnClickListener {
+            startActivity(Intent(this, SolicitudesTrabajosCercanosActivity::class.java))
+        }
+
+        // 7. Menú inferior: Servicios -> Ir a Historial de Servicios (Paquete profesional)
+        binding.navServiciosPro.setOnClickListener {
+            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+        }
+
+        // 8. Menú inferior: Mensajes -> Ir a Historial de Chats
+        binding.navMensajesPro.setOnClickListener {
+            startActivity(Intent(this, HistorialChatsActivity::class.java))
+        }
+
+        // 9. Menú inferior y botón superior: Perfil / Configuración
         binding.navPerfilPro.setOnClickListener {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
-
-        // Ver ruta GPS (Servicio en curso)
-        binding.btnVerRutaGps.setOnClickListener {
-            startActivity(Intent(this, EjecucionActivity::class.java))
-        }
-
-        // Abrir chat (Servicio en curso)
-        binding.btnAbrirChatPro.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
+        binding.btnPerfilProTop.setOnClickListener {
+            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
 
         // Propuesta rápida 1

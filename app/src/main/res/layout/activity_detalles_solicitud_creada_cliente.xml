@@ -1,0 +1,792 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F5F7">
+
+    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. BARRA SUPERIOR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/btnRegresarSeguimientoCliente"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    android:layout_marginEnd="12dp"
+                    android:contentDescription="Regresar" />
+
+                <!-- Badge Título -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_input_rounded"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="4dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Seguimiento En Vivo"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Avatar -->
+                <ImageView
+                    android:id="@+id/btnPerfilDetallesTop"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#0B2545"
+                    android:padding="8dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:contentDescription="Perfil" />
+            </LinearLayout>
+
+            <!-- 2. CABECERA DE LA SOLICITUD (#SOL-8942) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="6dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#SOL-8942"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🟢 3 propuestas"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#059669" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reparación de Fuga en Fregadero"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⏱️ Hace 25 min • Urgencia: Hoy"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. DETALLE DEL PROBLEMA -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Detalle del Problema"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fontanería"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fuga constante en la bacha del fregadero por sifón goteando. Requiere cambio de trampa y..."
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Fila de Fotos de Evidencia -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="Foto 1" />
+
+                        <ImageView
+                            android:layout_width="70dp"
+                            android:layout_height="70dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:contentDescription="Foto 2" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4. UBICACIÓN Y HORARIO -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ubicación y Horario"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📍 Residencial Cumbres de Cuscatlán\nPasaje 3, Casa #14, Antiguo Cuscatlán"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⏱️ Hoy entre 1:00 PM – 3:30 PM"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#0369A1" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 5. PRESUPUESTO ESTIMADO -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Presupuesto estimado"
+                            android:textSize="10sp"
+                            android:textColor="#9CA3AF" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$20.00 – $35.00 USD"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Efectivo /\nTransferencia"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937"
+                        android:background="#E2E8F0"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 6. PROPUESTAS RECIBIDAS (3 PROFESIONALES) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Propuestas recibidas"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545" />
+
+                <TextView
+                    android:layout_width="26dp"
+                    android:layout_height="26dp"
+                    android:background="#0B2545"
+                    android:textColor="#FFFFFF"
+                    android:text="3"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ordenadas por cercanía"
+                    android:textSize="11sp"
+                    android:textColor="#6B7280" />
+            </LinearLayout>
+
+            <!-- Propuesta 1: Roberto Méndez (Más Recomendado) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <!-- Badge Más Recomendado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⭐ Más Recomendado"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="#0369A1"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Roberto Méndez" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Roberto Méndez"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Maestro Fontanero • 8 años exp."
+                                android:textSize="11sp"
+                                android:textColor="#4B5563"
+                                android:layout_marginTop="2dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginTop="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="★ 4.9 (142)"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#D97706"
+                                    android:layout_marginEnd="8dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" 🛡️ DUI Verificado "
+                                    android:textSize="9sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#FFFFFF"
+                                    android:background="#059669"
+                                    android:paddingHorizontal="5dp"
+                                    android:paddingVertical="2dp" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Tarjeta interna de oferta -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:background="#F8FAFC"
+                        android:padding="12dp"
+                        android:layout_marginBottom="12dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="✈️ Llega en 15 min"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="#059669" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Oferta: $25.00 USD"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="&quot;Incluye cambio de trampa PVC, 2 empaques de teflón y ajuste hermético con prueba de goteo.&quot;"
+                            android:textSize="11sp"
+                            android:textColor="#4B5563"
+                            android:textStyle="italic" />
+                    </LinearLayout>
+
+                    <!-- Botones de Acción: Perfil, Chatear, Aceptar -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnPerfilPro1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:text="Perfil"
+                            android:textSize="12sp"
+                            android:textColor="#0B2545"
+                            android:backgroundTint="#E2E8F0"
+                            android:layout_marginEnd="6dp" />
+
+                        <Button
+                            android:id="@+id/btnChatearPro1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:text="Chatear"
+                            android:textSize="12sp"
+                            android:textColor="#0B2545"
+                            android:backgroundTint="#E2E8F0"
+                            android:layout_marginEnd="6dp" />
+
+                        <Button
+                            android:id="@+id/btnAceptarPro1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1.2"
+                            android:text="✓ Aceptar"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#0B2545" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Propuesta 2: Carlos Mendoza -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="Carlos Mendoza" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Carlos Mendoza"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545"
+                                    android:layout_marginEnd="6dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" DUI "
+                                    android:textSize="8sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#FFFFFF"
+                                    android:background="#059669"
+                                    android:paddingHorizontal="4dp"
+                                    android:paddingVertical="1dp" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$28.00 USD"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fontanería 24/7 &amp; Repuestos • ★ 4.8 (89) • En 25 min"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="&quot;Llevo piezas de reemplazo universal...&quot;"
+                        android:textSize="11sp"
+                        android:textColor="#4B5563"
+                        android:textStyle="italic"
+                        android:layout_marginBottom="10dp" />
+
+                    <Button
+                        android:id="@+id/btnVerPropuesta2"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:text="Ver Propuesta"
+                        android:textSize="11sp"
+                        android:textColor="#0B2545"
+                        android:backgroundTint="#E2E8F0" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Propuesta 3: David Ramos -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="42dp"
+                            android:layout_height="42dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="David Ramos" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="David Ramos"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545"
+                                    android:layout_marginEnd="6dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" Certificado "
+                                    android:textSize="8sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0369A1"
+                                    android:background="#E0F2FE"
+                                    android:paddingHorizontal="4dp"
+                                    android:paddingVertical="1dp" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="$22.00 USD"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Técnico en Mantenimiento Residencial • ★ 4.7 (34) • En 45 min"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="&quot;Mano de obra para ajuste y sellador...&quot;"
+                        android:textSize="11sp"
+                        android:textColor="#4B5563"
+                        android:textStyle="italic"
+                        android:layout_marginBottom="10dp" />
+
+                    <Button
+                        android:id="@+id/btnVerPropuesta3"
+                        android:layout_width="match_parent"
+                        android:layout_height="36dp"
+                        android:text="Ver Propuesta"
+                        android:textSize="11sp"
+                        android:textColor="#0B2545"
+                        android:backgroundTint="#E2E8F0" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 7. BOTONES INFERIORES DE ACCIÓN: EDITAR Y CANCELAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp">
+
+        <Button
+            android:id="@+id/btnEditarSolicitud"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="✏️  Editar"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#0B2545"
+            android:backgroundTint="#E2E8F0"
+            android:layout_marginEnd="8dp" />
+
+        <Button
+            android:id="@+id/btnCancelarSolicitud"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:text="✕  Cancelar"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#991B1B"
+            android:backgroundTint="#FEE2E2" />
+    </LinearLayout>
+
+</LinearLayout>

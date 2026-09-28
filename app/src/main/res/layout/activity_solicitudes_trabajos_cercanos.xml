@@ -27,6 +27,18 @@
                 android:gravity="center_vertical"
                 android:layout_marginBottom="12dp">
 
+                <ImageView
+                    android:id="@+id/btnRegresarSolicitudesPro"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Regresar" />
+
                 <!-- Badge ChivoTrabajo PRO -->
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -50,37 +62,18 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="ChivoTrabajo"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#1F2937"
-                                android:layout_marginEnd="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=" PRO "
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#FFFFFF"
-                                android:background="#0B2545"
-                                android:paddingHorizontal="4dp"
-                                android:paddingVertical="1dp" />
-                        </LinearLayout>
+                            android:text="Solicitudes Cercanas"
+                            android:textSize="14sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="San Salvador, SV"
+                            android:text="ChivoTrabajo PRO"
                             android:textSize="10sp"
                             android:textColor="#6B7280" />
                     </LinearLayout>
@@ -171,6 +164,7 @@
                     </LinearLayout>
 
                     <Button
+                        android:id="@+id/btnVerPropuestasEnviadas"
                         android:layout_width="wrap_content"
                         android:layout_height="34dp"
                         android:text="Ver ➔"
@@ -493,6 +487,7 @@
                         android:orientation="horizontal">
 
                         <Button
+                            android:id="@+id/btnDetallesSolicitud1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Detalles"
@@ -924,107 +919,71 @@
         android:background="#FFFFFF"
         android:elevation="8dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="4dp">
 
         <LinearLayout
+            android:id="@+id/navInicioPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🏠"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navSolicitudesPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📋"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solicitudes"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#0284C7" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Solicitudes" android:textSize="9sp" android:textStyle="bold" android:textColor="#0284C7" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navServiciosPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🛠️"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Servicios"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Servicios" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navMensajesPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💬"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mensajes"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensajes" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navPerfilPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👤"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
     </LinearLayout>

@@ -164,12 +164,15 @@
 
             <!-- 4. TARJETA: SERVICIO EN CURSO (AZUL OSCURO) -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardServicioEnCurso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#0B2545"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -313,13 +316,16 @@
 
                     <!-- Cat 1: Fontanería (Seleccionada / Azul Oscuro) -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCatFontaneria"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="2dp"
-                        app:cardBackgroundColor="#0B2545">
+                        app:cardBackgroundColor="#0B2545"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -375,13 +381,16 @@
 
                     <!-- Cat 2: Electricidad -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCatElectricidad"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="6dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#FFFFFF">
+                        app:cardBackgroundColor="#FFFFFF"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -444,13 +453,16 @@
 
                     <!-- Cat 3: Limpieza -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCatLimpieza"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#FFFFFF">
+                        app:cardBackgroundColor="#FFFFFF"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -505,13 +517,16 @@
 
                     <!-- Cat 4: Pintura -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardCatPintura"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="6dp"
                         app:cardCornerRadius="12dp"
                         app:cardElevation="1dp"
-                        app:cardBackgroundColor="#FFFFFF">
+                        app:cardBackgroundColor="#FFFFFF"
+                        android:clickable="true"
+                        android:focusable="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -759,6 +774,7 @@
                         </LinearLayout>
 
                         <Button
+                            android:id="@+id/btnVerPerfilPro1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Ver perfil"
@@ -769,6 +785,7 @@
                             android:paddingHorizontal="12dp" />
 
                         <Button
+                            android:id="@+id/btnSolicitarPro1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Solicitar ➔"
@@ -896,6 +913,7 @@
                         </LinearLayout>
 
                         <Button
+                            android:id="@+id/btnVerPerfilPro2"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Ver perfil"
@@ -906,6 +924,7 @@
                             android:paddingHorizontal="12dp" />
 
                         <Button
+                            android:id="@+id/btnSolicitarPro2"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Solicitar ➔"
@@ -956,87 +975,58 @@
         android:background="#FFFFFF"
         android:elevation="8dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="4dp">
 
         <LinearLayout
+            android:id="@+id/navInicio"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🏠"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#0284C7" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="9sp" android:textStyle="bold" android:textColor="#0284C7" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navSolicitudes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🧭"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Explorar"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Solicitudes" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navServicios"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📋"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solicitudes"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Servicios" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navMensajes"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💬"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mensajes"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensajes" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
@@ -1047,20 +1037,9 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🛡️"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
     </LinearLayout>

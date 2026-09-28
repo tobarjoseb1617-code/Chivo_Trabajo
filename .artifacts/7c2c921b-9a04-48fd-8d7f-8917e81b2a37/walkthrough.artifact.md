@@ -1,18 +1,15 @@
-# Walkthrough - Funcionalidad de Firestore, Leaflet y Ruteo por Rol
+# Walkthrough - Ajustes de Exploración, Títulos, Retroceso y Navegación Profesional
 
-Se ha conectado toda la lógica funcional del backend de Firebase Firestore, la integración del mapa interactivo con Leaflet API y el ruteo inteligente basado en roles.
+Se han completado todos los ajustes solicitados respecto a las pantallas de exploración/radar (removiendo el menú inferior y añadiendo botón de retroceso superior), el título de Solicitudes Cercanas y la funcionalidad completa de retroceso en todas las pantallas secundarias.
 
 ## Changes Made
 
-### 1. Mapa Interactivo Leaflet (OpenStreetMap) en Registro Cliente Paso 2
-- **Asset HTML (`assets/leaflet_map.html`)**: Se creó un mapa interactivo con Leaflet.js que permite pinchar o arrastrar un marcador para fijar la ubicación exacta.
-- **JavascriptInterface (`WebAppInterface`)**: Comunica las coordenadas de latitud y longitud seleccionadas en el mapa directamente con la Activity nativa de Android.
-- **Firestore**: Al hacer clic en *"Completar Registro y Explorar"*, se guardan en el documento del usuario en Firestore (`Usuario`) los campos de `latitud`, `longitud`, `ciudad` (municipio) y `direccion`.
+### 1. Pantallas de Exploración y Radar (`ExplorarMapaActivity`, `RadarProfesionalesActivity`, `ProfesionalesCercanosActivity`)
+- Se eliminó la barra de navegación inferior de sus respectivos layouts XML, ya que se accede a ellas mediante botones secundarios.
+- Se incorporó la flecha de retroceso superior funcional con `finish()`.
 
-### 2. Ruteo Dinámico por Rol al Iniciar Sesión
-- **`IniciarSesionActivity.kt`**: Al autenticar con correo o Google, consulta el perfil en Firestore y evalúa el campo `tipoUsuario`:
-  - Si es `"PROFESIONAL"` ➔ Redirige a **`InicioProfesionalActivity`**.
-  - Si es `"CLIENTE"` ➔ Redirige a **`InicioActivity`**.
+### 2. Título "Solicitudes Cercanas" y Retroceso (`SolicitudesTrabajosCercanosActivity`)
+- Se actualizó el título superior a exactamente **"Solicitudes Cercanas"** y se configuró el botón de retroceso (`finish()`).
 
 ---
 
@@ -24,4 +21,4 @@ Se ha conectado toda la lógica funcional del backend de Firebase Firestore, la 
   > Task :app:assembleDebug
   BUILD SUCCESSFUL in 10s
   ```
-- El proyecto compila limpiamente sin errores con la integración de WebView, Leaflet y Firestore.
+- El proyecto compila limpiamente sin errores.

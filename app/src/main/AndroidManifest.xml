@@ -65,6 +65,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- DetallesSolicitudTrabajoProfesionalActivity para el detalle de solicitud y envío de propuesta del profesional -->
+        <activity
+            android:name=".ui.profesional.DetallesSolicitudTrabajoProfesionalActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- ExplorarMapaActivity para el mapa / radar de técnicos -->
         <activity
             android:name=".ui.cliente.ExplorarMapaActivity"
@@ -74,6 +80,30 @@
         <!-- RadarProfesionalesActivity para radar de profesionales cercanos -->
         <activity
             android:name=".ui.cliente.RadarProfesionalesActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- ProfesionalesCercanosActivity para el listado de profesionales cercanos -->
+        <activity
+            android:name=".ui.cliente.ProfesionalesCercanosActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- HistorialDeServiciosActivity para el listado de servicios activos e historial (Paquete profesional) -->
+        <activity
+            android:name=".ui.profesional.HistorialDeServiciosActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- HistorialSolicitudesClienteActivity para el panel de mis solicitudes del cliente -->
+        <activity
+            android:name=".ui.cliente.HistorialSolicitudesClienteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- DetallesSolicitudCreadaClienteActivity para el seguimiento y propuestas recibidas de la solicitud del cliente -->
+        <activity
+            android:name=".ui.cliente.DetallesSolicitudCreadaClienteActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
@@ -96,6 +126,12 @@
         <!-- ChatActivity para mensajería en tiempo real -->
         <activity
             android:name=".ui.chat_y_evaluacion.ChatActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- HistorialChatsActivity para el listado de mensajes y chats del usuario -->
+        <activity
+            android:name=".ui.chat_y_evaluacion.HistorialChatsActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 

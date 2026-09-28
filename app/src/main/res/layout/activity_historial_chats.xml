@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F5F7">
+
+    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. BARRA SUPERIOR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/btnRegresarHistorialChats"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Regresar" />
+
+                <!-- Logo ChivoTrabajo -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:background="@drawable/bg_input_rounded"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp"
+                    android:layout_marginEnd="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️"
+                        android:textSize="14sp"
+                        android:layout_marginEnd="4dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ChivoTrabajo"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#1F2937" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Explorar Radar"
+                            android:textSize="10sp"
+                            android:textColor="#6B7280" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Campana -->
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Notificaciones" />
+
+                <!-- Avatar -->
+                <ImageView
+                    android:id="@+id/btnPerfilHistorialChatsTop"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#0B2545"
+                    android:padding="8dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:contentDescription="Perfil" />
+            </LinearLayout>
+
+            <!-- 2. CABECERA: MENSAJES (2 NUEVOS) -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Mensajes"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545"
+                    android:layout_marginEnd="8dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 nuevos"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:background="#0284C7"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="3dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:text="🎛️"
+                    android:textSize="16sp"
+                    android:gravity="center"
+                    android:background="@drawable/bg_input_rounded" />
+            </LinearLayout>
+
+            <!-- 3. BARRA DE BÚSQUEDA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_input_rounded"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔍  "
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@null"
+                    android:hint="Buscar por técnico o servicio..."
+                    android:textSize="13sp"
+                    android:inputType="text" />
+            </LinearLayout>
+
+            <!-- 4. FILTROS (CHIPS) -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Todos (4)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:background="#0B2545"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🟢 En curso"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937"
+                        android:background="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginEnd="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Finalizados"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937"
+                        android:background="#FFFFFF"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="8dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- 5. LISTADO DE CHATS (4 CONVERSACIONES) -->
+
+            <!-- Chat 1: Roberto Méndez (En curso con banner interno) -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardChatRoberto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <RelativeLayout
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="12dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:src="@mipmap/ic_launcher"
+                                android:background="#E5E7EB"
+                                android:contentDescription="Roberto Méndez" />
+
+                            <View
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentBottom="true"
+                                android:background="#059669" />
+                        </RelativeLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Roberto Méndez"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545"
+                                    android:layout_marginEnd="6dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" DUI "
+                                    android:textSize="8sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#FFFFFF"
+                                    android:background="#059669"
+                                    android:paddingHorizontal="4dp"
+                                    android:paddingVertical="1dp" />
+
+                                <View
+                                    android:layout_width="0dp"
+                                    android:layout_height="0dp"
+                                    android:layout_weight="1" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="2:15 PM"
+                                    android:textSize="11sp"
+                                    android:textColor="#6B7280" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Fuga en fregadero • $25.00 USD"
+                                android:textSize="12sp"
+                                android:textColor="#4B5563"
+                                android:layout_marginBottom="2dp" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="✓ En Santa Tecla, llego en 15 min..."
+                                    android:textSize="11sp"
+                                    android:textColor="#1F2937" />
+
+                                <TextView
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:background="#0B2545"
+                                    android:textColor="#FFFFFF"
+                                    android:text="1"
+                                    android:textSize="10sp"
+                                    android:textStyle="bold"
+                                    android:gravity="center" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Franja inferior de estado de ruta -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#E0F2FE"
+                        android:padding="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="🏍️ Técnico en camino"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Llegada aprox. 2:30 PM"
+                            android:textSize="11sp"
+                            android:textColor="#0B2545" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Chat 2: Carlos Mendoza -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:background="#E5E7EB"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Carlos Mendoza" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Carlos Mendoza"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545"
+                                android:layout_marginEnd="6dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" PRO "
+                                android:textSize="8sp"
+                                android:textStyle="bold"
+                                android:textColor="#0369A1"
+                                android:background="#E0F2FE"
+                                android:paddingHorizontal="4dp"
+                                android:paddingVertical="1dp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Ayer"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Reemplazo de grifería • Santa Elena"
+                            android:textSize="12sp"
+                            android:textColor="#4B5563"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tú: Perfecto, quedo a la espera del... ✓"
+                            android:textSize="11sp"
+                            android:textColor="#6B7280" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Chat 3: David Henríquez (Finalizado) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:background="#E5E7EB"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="David Henríquez" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="David Henríquez"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545"
+                                android:layout_marginEnd="6dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" DUI "
+                                android:textSize="8sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF"
+                                android:background="#059669"
+                                android:paddingHorizontal="4dp"
+                                android:paddingVertical="1dp" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="12 Feb"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="2dp">
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Revisión de caja térmica"
+                                android:textSize="12sp"
+                                android:textColor="#4B5563" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" ✓ Finalizado "
+                                android:textSize="9sp"
+                                android:textStyle="bold"
+                                android:textColor="#166534"
+                                android:background="#DCFCE7"
+                                android:paddingHorizontal="6dp"
+                                android:paddingVertical="2dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="¡Listo! El disyuntor ya quedó reparado... ✓"
+                            android:textSize="11sp"
+                            android:textColor="#6B7280" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Chat 4: Sofía Henríquez -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:padding="16dp">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@mipmap/ic_launcher"
+                        android:background="#E5E7EB"
+                        android:layout_marginEnd="12dp"
+                        android:contentDescription="Sofía Henríquez" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="2dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sofía Henríquez"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <View
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:layout_weight="1" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="8 Feb"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Instalación de luminarias • $40.00 USD"
+                            android:textSize="12sp"
+                            android:textColor="#4B5563"
+                            android:layout_marginBottom="2dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Tú: Muchas gracias por el trabajo S... ✓"
+                            android:textSize="11sp"
+                            android:textColor="#6B7280" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 6. TARJETA DE PROTECCIÓN CHIVOSEGURO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#EFF6FF"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛡️"
+                    android:textSize="22sp"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Protección ChivoSeguro"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#1E40AF" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tus chats, acuerdos y pagos dentro de la app tienen garantía de servicio y verificación de identidad DUI."
+                        android:textSize="11sp"
+                        android:textColor="#1D4ED8" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 7. BOTÓN PRINCIPAL: BUSCAR NUEVO PROFESIONAL EN RADAR -->
+            <Button
+                android:id="@+id/btnBuscarRadarChats"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:text="🧭  Buscar nuevo profesional en Radar"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#0B2545"
+                android:layout_marginBottom="16dp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 8. BARRA DE NAVEGACIÓN INFERIOR (MENSAJES) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="4dp">
+
+        <LinearLayout
+            android:id="@+id/navInicioChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navSolicitudesChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Solicitudes" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navServiciosChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Servicios" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navMensajesChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensajes" android:textSize="9sp" android:textStyle="bold" android:textColor="#0284C7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navPerfilChat"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

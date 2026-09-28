@@ -266,12 +266,15 @@
 
             <!-- 3. TARJETA: SERVICIO EN CURSO AHORA MISMO -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardServicioEnCursoPro"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="4dp"
                 app:cardBackgroundColor="#0B2545"
-                android:layout_marginBottom="24dp">
+                android:layout_marginBottom="24dp"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -585,6 +588,7 @@
                             android:layout_marginEnd="8dp" />
 
                         <Button
+                            android:id="@+id/btnDetallesOp1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Detalles"
@@ -709,6 +713,7 @@
                             android:layout_marginEnd="8dp" />
 
                         <Button
+                            android:id="@+id/btnDetallesOp2"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Detalles"
@@ -732,87 +737,58 @@
         android:background="#FFFFFF"
         android:elevation="8dp"
         android:gravity="center_vertical"
-        android:paddingHorizontal="16dp">
+        android:paddingHorizontal="4dp">
 
         <LinearLayout
+            android:id="@+id/navInicioPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🏠"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#0284C7" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="9sp" android:textStyle="bold" android:textColor="#0284C7" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navSolicitudesPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📋"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solicitudes"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Solicitudes" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navServiciosPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="🛠️"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Servicios"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Servicios" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/navMensajesPro"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:gravity="center">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="💬"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mensajes"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensajes" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
         <LinearLayout
@@ -823,20 +799,9 @@
             android:orientation="vertical"
             android:gravity="center"
             android:clickable="true"
-            android:focusable="true"
-            android:background="?attr/selectableItemBackground">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👤"
-                android:textSize="16sp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil"
-                android:textSize="10sp"
-                android:textColor="#6B7280" />
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="9sp" android:textColor="#6B7280" />
         </LinearLayout>
 
     </LinearLayout>

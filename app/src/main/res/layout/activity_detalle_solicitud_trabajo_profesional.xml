@@ -1,0 +1,616 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F5F7">
+
+    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. BARRA SUPERIOR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="14dp">
+
+                <ImageView
+                    android:id="@+id/btnRegresarDetallePro"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Regresar" />
+
+                <!-- Título y código -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Detalle de Solicitud"
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="#SOL-8942"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#0369A1" />
+                </LinearLayout>
+
+                <!-- Estado Disponible -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🟢 Disponible"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:textColor="#059669"
+                    android:background="#DCFCE7"
+                    android:paddingHorizontal="10dp"
+                    android:paddingVertical="6dp" />
+            </LinearLayout>
+
+            <!-- 2. TARJETA PRINCIPAL DEL SERVICIO -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fontanería"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Hace 25 min"
+                            android:textSize="11sp"
+                            android:textColor="#9CA3AF" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Reparación de Fuga en Fregadero"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fuga continua en trampa de desagüe bajo mueble de cocina. Requiere cambio de sellos o piezas con urgencia."
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Foto de Evidencia -->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="#E5E7EB">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src="@mipmap/ic_launcher"
+                            android:scaleType="centerCrop"
+                            android:contentDescription="Evidencia" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_margin="8dp"
+                            android:background="#1F2937"
+                            android:text=" 📷 Evidencia (1/2) "
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="4dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_alignParentBottom="true"
+                            android:layout_margin="8dp"
+                            android:background="#1F2937"
+                            android:text=" 🔍 "
+                            android:textSize="14sp"
+                            android:textColor="#FFFFFF"
+                            android:padding="6dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 3. TARJETA DE INFORMACIÓN DEL CLIENTE (CARLOS RIVERA) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp">
+
+                        <ImageView
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Carlos Rivera" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical"
+                                android:layout_marginBottom="2dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Carlos Rivera"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545"
+                                    android:layout_marginEnd="8dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text=" 🛡️ DUI Verificado "
+                                    android:textSize="9sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#FFFFFF"
+                                    android:background="#059669"
+                                    android:paddingHorizontal="5dp"
+                                    android:paddingVertical="2dp" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="★ 4.9 (18 reseñas de profesionales)"
+                                android:textSize="11sp"
+                                android:textColor="#D97706"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E5E7EB"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📍 Cumbres de Cuscatlán, Antiguo Cuscatlán\nA 1.4 km de ti • ~8 min en moto/vehículo"
+                        android:textSize="12sp"
+                        android:textColor="#4B5563"
+                        android:layout_marginBottom="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⏱️ Horario solicitado: Hoy entre 1:00 PM – 3:30 PM (Urgente)"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#0369A1" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 4. PRESUPUESTO DEL CLIENTE -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Presupuesto del Cliente"
+                                android:textSize="10sp"
+                                android:textColor="#9CA3AF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$20.00 – $35.00 USD"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Forma de Pago"
+                                android:textSize="9sp"
+                                android:textColor="#9CA3AF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="💵 Efectivo o Chivo"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="#1F2937" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️ Pago protegido y garantizado con ChivoSeguro"
+                        android:textSize="11sp"
+                        android:textColor="#059669"
+                        android:textStyle="bold"
+                        android:background="#F0FDF4"
+                        android:padding="8dp" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 5. SECCIÓN: TU PROPUESTA -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Tu Propuesta"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mano de obra"
+                            android:textSize="11sp"
+                            android:textColor="#6B7280" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Indica tu tarifa para este servicio:"
+                        android:textSize="12sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Opciones de Tarifa -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <!-- Opción 1: $25.00 (Sugerido - Seleccionado) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="#0B2545"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_marginEnd="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$25.00"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#FFFFFF" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Sugerido"
+                                android:textSize="10sp"
+                                android:textColor="#93C5FD" />
+                        </LinearLayout>
+
+                        <!-- Opción 2: $28.00 (Con repuestos) -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="#F1F5F9"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_marginHorizontal="3dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$28.00"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Con repuestos"
+                                android:textSize="10sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+
+                        <!-- Opción 3: Otro -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical"
+                            android:background="#F1F5F9"
+                            android:padding="10dp"
+                            android:gravity="center"
+                            android:layout_marginStart="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Otro"
+                                android:textSize="15sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Personalizado"
+                                android:textSize="10sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¿En cuánto tiempo puedes llegar?"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937"
+                        android:layout_marginBottom="8dp" />
+
+                    <!-- Opciones de Tiempo de Llegada -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="16dp">
+
+                        <!-- 15 min (Seleccionado) -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="38dp"
+                            android:layout_weight="1"
+                            android:text="15 min"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545"
+                            android:background="#E0F2FE"
+                            android:gravity="center"
+                            android:layout_marginEnd="6dp" />
+
+                        <!-- 30 min -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="38dp"
+                            android:layout_weight="1"
+                            android:text="30 min"
+                            android:textSize="12sp"
+                            android:textColor="#4B5563"
+                            android:background="#F1F5F9"
+                            android:gravity="center"
+                            android:layout_marginHorizontal="3dp" />
+
+                        <!-- A convenir -->
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="38dp"
+                            android:layout_weight="1"
+                            android:text="A convenir"
+                            android:textSize="12sp"
+                            android:textColor="#4B5563"
+                            android:background="#F1F5F9"
+                            android:gravity="center"
+                            android:layout_marginStart="6dp" />
+                    </LinearLayout>
+
+                    <!-- Botón Enviar Propuesta -->
+                    <Button
+                        android:id="@+id/btnEnviarPropuestaPro"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:text="✈️  Enviar Propuesta ($25.00 USD)"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#0B2545" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 6. TARJETA SNACKBAR DE ÉXITO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#1E293B"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="✓"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#34D399"
+                    android:background="#065F46"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="¡Propuesta enviada con éxito!"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Carlos recibirá tu oferta al instante."
+                        android:textSize="11sp"
+                        android:textColor="#94A3B8" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

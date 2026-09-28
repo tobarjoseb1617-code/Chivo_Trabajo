@@ -15,6 +15,11 @@ class RadarProfesionalesActivity : AppCompatActivity() {
         binding = ActivityRadarProfesionalesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Botón Regresar
+        binding.btnRegresarRadar.setOnClickListener {
+            finish()
+        }
+
         // Perfil superior
         binding.btnPerfilRadar.setOnClickListener {
             startActivity(Intent(this, PerfilProfesionalActivity::class.java))

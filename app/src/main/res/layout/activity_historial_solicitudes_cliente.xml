@@ -1,0 +1,1011 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F5F7">
+
+    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- 1. BARRA SUPERIOR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <ImageView
+                    android:id="@+id/btnRegresarHistorialSolicitudesCliente"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_revert"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_marginEnd="8dp"
+                    android:contentDescription="Regresar" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛠️ Servicios"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <!-- Campana -->
+                <ImageView
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:padding="8dp"
+                    android:src="@android:drawable/ic_menu_agenda"
+                    android:layout_marginEnd="10dp"
+                    android:contentDescription="Notificaciones" />
+
+                <!-- Avatar -->
+                <ImageView
+                    android:id="@+id/btnPerfilHistorialClienteTop"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#0B2545"
+                    android:padding="8dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:contentDescription="Perfil" />
+            </LinearLayout>
+
+            <!-- 2. PANEL CLIENTE: MIS SOLICITUDES + BOTÓN PUBLICAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="12dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PANEL CLIENTE"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:textColor="#9CA3AF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Mis Solicitudes"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnPublicarNuevaSolicitud"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="⊕  Publicar"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#0B2545"
+                    android:paddingHorizontal="16dp" />
+            </LinearLayout>
+
+            <!-- 3. BARRA DE BÚSQUEDA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:orientation="horizontal"
+                android:background="@drawable/bg_input_rounded"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🔍  "
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Buscar #SOL-XXXX o servicio..."
+                    android:textSize="13sp"
+                    android:inputType="text" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎛️"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <!-- 4. FILTROS (CHIPS) -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="none"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- Todas (Seleccionado) -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#0B2545"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Todas"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="#0284C7"
+                            android:textColor="#FFFFFF"
+                            android:text="4"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- Abiertas -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Abiertas"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#1F2937"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="#E5E7EB"
+                            android:textColor="#4B5563"
+                            android:text="2"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- En proceso -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#FFFFFF"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp"
+                        android:layout_marginEnd="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="En proceso"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#1F2937"
+                            android:layout_marginEnd="6dp" />
+
+                        <TextView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:background="#E5E7EB"
+                            android:textColor="#4B5563"
+                            android:text="1"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:gravity="center" />
+                    </LinearLayout>
+
+                    <!-- Completadas -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Completadas (1)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#1F2937"
+                        android:background="#FFFFFF"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- 5. LISTADO DE SOLICITUDES DEL CLIENTE -->
+
+            <!-- Solicitud 1: Abierta / Recibiendo propuestas (#SOL-8942) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#SOL-8942"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="hace 45 min"
+                            android:textSize="11sp"
+                            android:textColor="#9CA3AF" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🟢 Recibiendo propuestas"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#059669" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Reparación de Fuga en Fregadero"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Presupuesto\n$20.00 – $35.00"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ Fontanería"
+                        android:textSize="11sp"
+                        android:textColor="#0369A1"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📍 Residencial Cumbres de Cuscatlán, Pasaje 3, Ca..."
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="10dp" />
+
+                    <!-- Postulaciones activas -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#F8FAFC"
+                        android:padding="8dp"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="👥 3 postulaciones activas\nTécnicos verificados: Roberto (4.9★), Carlos (4.8★) +1"
+                            android:textSize="10sp"
+                            android:textColor="#4B5563" />
+                    </LinearLayout>
+
+                    <!-- Botones Ver 3 Propuestas y Gestionar -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnVerPropuestas1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1.3"
+                            android:text="👁️  Ver 3 Propuestas"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#0B2545"
+                            android:layout_marginEnd="8dp" />
+
+                        <Button
+                            android:id="@+id/btnGestionar1"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="0.9"
+                            android:text="⚙️ Gestionar"
+                            android:textSize="12sp"
+                            android:textColor="#0B2545"
+                            android:backgroundTint="#E2E8F0" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Solicitud 2: Abierta / Esperando propuestas (#SOL-8910) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="14dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#SOL-8910"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="publicada ayer"
+                            android:textSize="11sp"
+                            android:textColor="#9CA3AF" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="⏳ Esperando propuestas"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#D97706" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Instalación de Tomacorrientes 220V"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Presupuesto\n$35.00 – $50.00"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="⚡ Electricidad residencial"
+                        android:textSize="11sp"
+                        android:textColor="#0369A1"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="📍 Colonia Escalón, Pasaje Los Pinos #5, San Salva..."
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="10dp" />
+
+                    <!-- Nueva oferta recibida -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#F8FAFC"
+                        android:padding="8dp"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="8dp"
+                            android:contentDescription="David Henríquez" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="David Henríquez\nPropuesta: $40.00 USD"
+                            android:textSize="11sp"
+                            android:textColor="#4B5563" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Nueva oferta "
+                            android:textSize="9sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:background="#059669"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp" />
+                    </LinearLayout>
+
+                    <!-- Botón Ver Propuesta (1) -->
+                    <Button
+                        android:id="@+id/btnVerPropuesta2"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:text="✉️  Ver Propuesta (1)"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"
+                        android:backgroundTint="#0B2545" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Solicitud 3: En proceso / Técnico Asignado (#SOL-8874) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="#SOL-8874"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#0369A1"
+                            android:background="#E0F2FE"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp"
+                            android:layout_marginEnd="8dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="En curso"
+                            android:textSize="11sp"
+                            android:textColor="#9CA3AF" />
+
+                        <View
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="🟢 Técnico Asignado"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#166534"
+                            android:background="#DCFCE7"
+                            android:paddingHorizontal="8dp"
+                            android:paddingVertical="3dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Cambio de Chapa de Seguridad"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Monto pactado\n$25.00 USD"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🪚 Cerrajería"
+                        android:textSize="11sp"
+                        android:textColor="#0369A1"
+                        android:layout_marginBottom="10dp" />
+
+                    <!-- Técnico Asignado -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="#F8FAFC"
+                        android:padding="10dp"
+                        android:layout_marginBottom="12dp">
+
+                        <ImageView
+                            android:layout_width="38dp"
+                            android:layout_height="38dp"
+                            android:src="@mipmap/ic_launcher"
+                            android:background="#E5E7EB"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="Mauricio Galdámez" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mauricio Galdámez"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#0B2545"
+                                    android:layout_marginEnd="6dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="✓"
+                                    android:textSize="11sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#059669" />
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="DUI Verificado • ★ 4.95"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <!-- Botones Seguimiento y Chat Directo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnSeguimiento3"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:text="🗺️  Seguimiento"
+                            android:textSize="12sp"
+                            android:textColor="#0B2545"
+                            android:backgroundTint="#E2E8F0"
+                            android:layout_marginEnd="8dp" />
+
+                        <Button
+                            android:id="@+id/btnChatDirecto3"
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
+                            android:text="💬  Chat Directo"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#0B2545" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 6. SECCIÓN: HISTORIAL RECIENTE -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="10dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Historial Reciente"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1 Finalizada"
+                    android:textSize="11sp"
+                    android:textColor="#6B7280" />
+            </LinearLayout>
+
+            <!-- Solicitud 4: Historial Reciente (Mantenimiento A/C) -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="2dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="#SOL-8760 • Completada el 28 Ene"
+                            android:textSize="11sp"
+                            android:textColor="#6B7280" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="✓ Finalizado"
+                            android:textSize="10sp"
+                            android:textStyle="bold"
+                            android:textColor="#166534"
+                            android:background="#DCFCE7"
+                            android:paddingHorizontal="6dp"
+                            android:paddingVertical="2dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="8dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Mantenimiento Preventivo A/C"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="$45.00\nUSD"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="#0B2545"
+                            android:gravity="end" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Climatización • Técnico Nelson Peña"
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="★★★★★"
+                        android:textSize="14sp"
+                        android:textColor="#D97706"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Botones Ver Recibo y Solicitar de nuevo -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/btnVerReciboDigital4"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_weight="1"
+                            android:text="📄 Ver Recibo Digital"
+                            android:textSize="11sp"
+                            android:textColor="#0B2545"
+                            android:backgroundTint="#E2E8F0"
+                            android:layout_marginEnd="6dp" />
+
+                        <Button
+                            android:id="@+id/btnSolicitarNuevo4"
+                            android:layout_width="0dp"
+                            android:layout_height="36dp"
+                            android:layout_weight="1"
+                            android:text="🔄 Solicitar de Nuevo"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#FFFFFF"
+                            android:backgroundTint="#0B2545" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- 7. TARJETA DE GARANTÍA CHIVOTRABAJO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#DCFCE7"
+                android:padding="14dp"
+                android:layout_marginBottom="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🛡️"
+                    android:textSize="22sp"
+                    android:layout_marginEnd="12dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Garantía ChivoTrabajo"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="#166534" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fondos protegidos en depósito hasta tu conformidad."
+                        android:textSize="11sp"
+                        android:textColor="#15803D" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- 8. BARRA DE NAVEGACIÓN INFERIOR (SOLICITUDES) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="4dp">
+
+        <LinearLayout
+            android:id="@+id/navInicioSolCliente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Inicio" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navSolicitudesSolCliente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📋" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Solicitudes" android:textSize="9sp" android:textStyle="bold" android:textColor="#0284C7" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navServiciosSolCliente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🛠️" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Servicios" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navMensajesSolCliente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="💬" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensajes" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/navPerfilSolCliente"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="14sp" />
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Perfil" android:textSize="9sp" android:textColor="#6B7280" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

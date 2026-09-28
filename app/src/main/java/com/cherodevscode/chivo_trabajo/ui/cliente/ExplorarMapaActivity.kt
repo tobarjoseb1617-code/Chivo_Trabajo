@@ -15,6 +15,11 @@ class ExplorarMapaActivity : AppCompatActivity() {
         binding = ActivityClienteExplorarMapaBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Botón Regresar
+        binding.btnRegresarExplorar.setOnClickListener {
+            finish()
+        }
+
         // Botón de Perfil superior
         binding.btnPerfilExplorar.setOnClickListener {
             startActivity(Intent(this, PerfilProfesionalActivity::class.java))

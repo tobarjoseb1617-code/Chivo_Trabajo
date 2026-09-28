@@ -1,96 +1,98 @@
-# Arquitectura y Documentación Técnica - ChivoTrabajo
+# Arquitectura del Sistema - ChivoTrabajo
 
-ChivoTrabajo es una aplicación móvil nativa para Android desarrollada en **Kotlin** utilizando el patrón arquitectónico **MVVM (Model-View-ViewModel)** y el **Repository Pattern**, organizada en una estructura modular en español optimizada para la plataforma de servicios técnicos en El Salvador.
+ChivoTrabajo está desarrollado bajo los estándares más altos de desarrollo nativo en Android, implementando el patrón **MVVM (Model-View-ViewModel)** y **Repository Pattern**, organizados en paquetes modulares en idioma español para facilitar el mantenimiento y la escalabilidad.
 
 ---
 
-## 🏗️ 1. Estructura de Paquetes (Modularización en Español)
+## 🏛️ 1. Patrón Arquitectónico (MVVM + Repository)
 
-El proyecto está estructurado bajo el namespace `com.cherodevscode.chivo_trabajo`:
+La arquitectura se divide en tres capas principales:
+1. **Capa de Vista (UI / Activities)**:
+   - Responsable exclusivamente de renderizar las interfaces de usuario XML, gestionar ViewBinding, y escuchar los eventos de la ViewModel o LiveData.
+   - Actividades independientes para cada pantalla (`InicioActivity`, `PerfilProfesionalActivity`, `ChatActivity`, etc.), garantizando un ciclo de vida limpio y desacoplado.
+2. **Capa de Lógica de Negocio (ViewModels)**:
+   - `AutenticacionViewModel`: Gestiona el estado de autenticación, registro de usuarios, inicio de sesión (correo y Google) y ruteo basado en roles.
+3. **Capa de Datos (Data & Repositories)**:
+   - `AuthRepository`: Interfaz con Firebase Authentication para el manejo de sesiones seguras.
+   - `FirestoreRepository`: Comunicación asíncrona con Cloud Firestore mediante Corrutinas (`suspend` functions y `await()`) para la persistencia de perfiles de usuario.
+
+---
+
+## 📂 2. Distribución de Clases y Paquetes
 
 ```text
 com.cherodevscode.chivo_trabajo/
 │
 ├── data/
-│   ├── model/                  # Modelos de datos (Entidades Firestore)
-│   │   ├── Calificacion.kt
-│   │   ├── Categoria.kt
-│   │   ├── Chat.kt
-│   │   ├── Pago.kt
-│   │   ├── Portafolio.kt
-│   │   ├── Profesional.kt
-│   │   ├── Registro.kt
-│   │   ├── Servicio.kt
-│   │   ├── Solicitud.kt
-│   │   └── Usuario.kt          # Esquema oficial de usuarios Firestore
+│   ├── model/                  # Modelos de datos (Esquema Firestore)
+│   │   ├── Calificacion.kt     # Reseñas y calificaciones de servicios
+│   │   ├── Categoria.kt        # Categorías de oficios (Fontanería, Electricidad, etc.)
+│   │   ├── Chat.kt             # Mensajería y propuestas
+│   │   ├── Pago.kt             # Transacciones y métodos de pago
+│   │   ├── Portafolio.kt       # Trabajos realizados por profesionales
+│   │   ├── Profesional.kt      # Perfil especializado del trabajador
+│   │   ├── Registro.kt         # Solicitudes y ofertas
+│   │   ├── Servicio.kt         # Estado de servicios activos/finalizados
+│   │   ├── Solicitud.kt        # Datos de publicación de trabajos
+│   │   └── Usuario.kt          # Esquema maestro de usuarios (Cliente / Profesional)
 │   │
-│   └── repository/             # Repositorios de datos
-│       ├── AuthRepository.kt   # Autenticación Firebase (Email & Google)
+│   └── repository/             # Capa de abstracción de datos
+│       ├── AuthRepository.kt   # Autenticación (Firebase Auth)
 │       ├── DuiRepository.kt    # Validación de documentos de identidad
-│       └── FirestoreRepository.kt # Operaciones CRUD en Cloud Firestore
+│       └── FirestoreRepository.kt # Operaciones CRUD en Firestore
 │
 ├── ui/
-│   ├── autenticacion/          # Módulo de Autenticación y Registro
+│   ├── autenticacion/          # Flujo de Acceso y Registro
 │   │   ├── AutenticacionViewModel.kt
 │   │   ├── IniciarSesionActivity.kt
 │   │   ├── RegistroActivity.kt (Paso 1)
 │   │   ├── RegistroClientePaso2Activity.kt (Paso 2 - Cliente con Leaflet)
 │   │   └── RegistroProfesionalPaso2Activity.kt (Paso 2 - Profesional)
 │   │
-│   ├── cliente/                # Módulo del Cliente (Hogar / Empresas)
+│   ├── cliente/                # Módulo y Pantallas del Cliente
 │   │   ├── CrearSolicitudActivity.kt
+│   │   ├── DetallesSolicitudCreadaClienteActivity.kt
 │   │   ├── ExplorarMapaActivity.kt
-│   │   ├── InicioActivity.kt   # Dashboard Principal del Cliente
+│   │   ├── HistorialDeServiciosActivity.kt
+│   │   ├── HistorialSolicitudesClienteActivity.kt
+│   │   ├── InicioActivity.kt
+│   │   ├── ProfesionalesCercanosActivity.kt
 │   │   ├── RadarProfesionalesActivity.kt
-│   │   └── SeguimientoActivity.kt # Tracking y PIN de seguridad (Estilo Uber)
+│   │   └── SeguimientoActivity.kt
 │   │
-│   ├── profesional/            # Módulo del Profesional (Técnico / Especialista)
-│   │   ├── EjecucionActivity.kt # Validación de PIN por el profesional
-│   │   ├── GestionarServicioEnCursoActivity.kt # Detalle de orden y fases
-│   │   ├── InicioProfesionalActivity.kt # Dashboard del Profesional
-│   │   └── SolicitudesTrabajosCercanosActivity.kt # Feed de solicitudes
+│   ├── profesional/            # Módulo y Pantallas del Profesional
+│   │   ├── DetallesSolicitudTrabajoProfesionalActivity.kt
+│   │   ├── EjecucionActivity.kt
+│   │   ├── GestionarServicioEnCursoActivity.kt
+│   │   ├── InicioProfesionalActivity.kt
+│   │   └── SolicitudesTrabajosCercanosActivity.kt
 │   │
 │   ├── chat_y_evaluacion/      # Módulo de Comunicación y Cierre
-│   │   ├── ChatActivity.kt     # Chat Detalle con propuesta legal fijada
-│   │   └── FinalizarYCalificarActivity.kt # Factura, pago y calificación de 5 estrellas
+│   │   ├── ChatActivity.kt
+│   │   ├── FinalizarYCalificarActivity.kt
+│   │   └── HistorialChatsActivity.kt
 │   │
-│   └── perfil/                 # Módulo de Perfiles
-│       └── PerfilProfesionalActivity.kt # Perfil PRO, portafolio y garantías
+│   └── perfil/                 # Módulo de Perfiles y Ajustes
+│       ├── ConfiguracionPerfilActivity.kt
+│       └── PerfilProfesionalActivity.kt
 │
 └── utils/                      # Utilidades del sistema
-    └── PinGenerator.kt         # Generador de PINs de seguridad
+    └── PinGenerator.kt         # Generador de PINs de seguridad de 4 dígitos
 ```
 
 ---
 
-## 👥 2. División por Bloques (Cliente vs. Profesional)
+## 🔄 3. Flujo de Ejecución del Sistema
 
-### 🔵 Bloque Cliente (`ui.cliente`)
-Diseñado para usuarios que requieren reparaciones, mantenimiento o proyectos en su hogar u oficina con garantía y validación por DUI.
-* **Dashboard (`InicioActivity`)**: Muestra saludo con DUI verificado, tarjeta de servicio en curso (con estado "En camino" y botón de mapa), cuadrícula de categorías populares con conteo de técnicos cercanos, garantía ChivoSeguro y profesionales destacados (Roberto Méndez, David Henríquez).
-* **Exploración y Radar (`ExplorarMapaActivity`, `RadarProfesionalesActivity`)**: Mapas interactivos con Leaflet API, filtros por distancia (`<3km`), valoración y disponibilidad en tiempo real.
-* **Creación de Solicitudes (`CrearSolicitudActivity`)**: Formulario de 5 pasos para detallar el problema, adjuntar fotos, confirmar ubicación, seleccionar urgencia y definir rangos de presupuesto.
-* **Seguimiento y PIN (`SeguimientoActivity`)**: Pantalla de tracking con generación automática de PIN de 4 dígitos para validar la llegada del técnico.
-* **Cierre y Calificación (`FinalizarYCalificarActivity`)**: Recibo de pago transparente, selección de método de pago (Efectivo / Transferencia QR) y reseña de 5 estrellas con atributos destacados.
-
-### 🟠 Bloque Profesional (`ui.profesional`)
-Diseñado para técnicos y especialistas certificados que desean recibir alertas, postularse a trabajos y gestionar servicios.
-* **Dashboard Profesional (`InicioProfesionalActivity`)**: Panel con interruptor de disponibilidad en vivo ("Disponible para trabajar"), tarjeta de servicio en curso con tarifa pactada ($25.00 USD) y feed de oportunidades en vivo (urgentes y programados).
-* **Feed de Solicitudes (`SolicitudesTrabajosCercanosActivity`)**: Listado de trabajos cercanos con radio de 5 km, fotos adjuntas de los clientes, presupuesto estimado y botones de cotización u oferta directa.
-* **Gestión de Servicio (`GestionarServicioEnCursoActivity`)**: Control por fases (*Aceptado ➔ En camino ➔ Llegada ➔ Trabajo ➔ Cobro*), navegación GPS/Waze, validación de ingreso residencial con DUI y registro de evidencias fotográficas (Antes y Después).
-* **Validación de Ejecución (`EjecucionActivity`)**: Ingreso del PIN de 4 dígitos proporcionado por el cliente para iniciar formalmente la mano de obra.
-
----
-
-## 🚀 3. Funcionalidades Actuales del Proyecto
-
-El sistema se encuentra 100% funcional y conectado a **Firebase**:
-1. **Autenticación Multi-Rol**: Registro con selección de rol (`CLIENTE` o `PROFESIONAL`), correo/contraseña y Google Sign-In.
-2. **Esquema Cloud Firestore (`Usuario`)**:
-   * Almacena `uid`, `nombre`, `apellido`, `correo`, `telefono`, `tipoUsuario`, `latitud`, `longitud`, `direccion`, `ciudad`, `fechaRegistro` y `activo`.
-3. **Mapa Leaflet API (OpenStreetMap)**:
-   * Integrado mediante `WebView` y `JavascriptInterface` en el registro de ubicación del cliente para capturar coordenadas exactas (`latitud` y `longitud`).
-4. **Ruteo Dinámico por Rol**:
-   * Al iniciar sesión, la app evalúa el campo `tipoUsuario` en Firestore y enruta automáticamente a `InicioActivity` (Cliente) o `InicioProfesionalActivity` (Profesional).
-5. **Sistema de Seguridad ChivoSeguro**:
-   * Validación de DUI, fondos protegidos en garantía por 30 días, y PINs de seguridad de 4 dígitos para inicio de obra.
+1. **Autenticación y Ruteo Dinámico**:
+   - El usuario inicia sesión (Correo/Contraseña o Google Sign-In) o se registra seleccionando su rol (`CLIENTE` o `PROFESIONAL`).
+   - El sistema consulta Cloud Firestore para obtener el perfil y redirige automáticamente a la pantalla principal correspondiente:
+     - `CLIENTE` ➔ `InicioActivity`
+     - `PROFESIONAL` ➔ `InicioProfesionalActivity`
+2. **Registro de Ubicación Geográfica (Leaflet API)**:
+   - En el Paso 2 del cliente, se integra un `WebView` con Leaflet.js y OpenStreetMap para seleccionar la ubicación exacta en el mapa de El Salvador (`latitud` y `longitud`), guardándola en Firestore.
+3. **Ciclo de Servicio y Seguridad (ChivoSeguro)**:
+   - Publicación de solicitud con presupuesto y fotos.
+   - Recepción de propuestas de técnicos cercanos.
+   - Aceptación de propuesta y generación de PIN de seguridad de 4 dígitos (estilo Uber).
+   - Ejecución, validación de PIN por el técnico, chat en tiempo real y calificación final con estrellas (5.0).
