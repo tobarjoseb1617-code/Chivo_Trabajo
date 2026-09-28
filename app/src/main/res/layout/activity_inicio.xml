@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7">
+    android:background="#F4F5F7"
+    android:fitsSystemWindows="true">
 
     <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
     <ScrollView
@@ -53,7 +54,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="San Salvador, SV"
+                            android:text="Chivo Trabajo"
                             android:textSize="11sp"
                             android:textStyle="bold"
                             android:textColor="#1F2937" />
@@ -78,7 +79,7 @@
                     android:layout_height="36dp"
                     android:background="@drawable/bg_input_rounded"
                     android:padding="8dp"
-                    android:src="@android:drawable/ic_menu_agenda"
+                    android:src="@drawable/ic_notificacion"
                     android:layout_marginEnd="10dp"
                     android:contentDescription="Notificaciones" />
 
@@ -102,9 +103,10 @@
                 android:layout_marginBottom="4dp">
 
                 <TextView
+                    android:id="@+id/tvSaludoUsuario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="¡Hola, Carlos Rivera! 👋"
+                    android:text="¡Hola! "
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="#0B2545"
@@ -140,11 +142,6 @@
                 android:paddingHorizontal="16dp"
                 android:layout_marginBottom="20dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔍  "
-                    android:textSize="16sp" />
 
                 <EditText
                     android:layout_width="0dp"
@@ -152,14 +149,19 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:hint="¿Qué servicio necesitas reparar hoy?"
+                    android:textColor="#1F2937"
+                    android:textColorHint="#6B7280"
                     android:textSize="13sp"
-                    android:inputType="text" />
+                    android:inputType="text"
+                    android:singleLine="true" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="⚙️"
+                    android:text="🔍  "
                     android:textSize="16sp" />
+
+
             </LinearLayout>
 
             <!-- 4. TARJETA: SERVICIO EN CURSO (AZUL OSCURO) -->
@@ -314,7 +316,7 @@
                     android:orientation="horizontal"
                     android:layout_marginBottom="10dp">
 
-                    <!-- Cat 1: Fontanería (Seleccionada / Azul Oscuro) -->
+                    <!-- Cat 1: Fontanería -->
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardCatFontaneria"
                         android:layout_width="0dp"
@@ -322,8 +324,8 @@
                         android:layout_weight="1"
                         android:layout_marginEnd="6dp"
                         app:cardCornerRadius="12dp"
-                        app:cardElevation="2dp"
-                        app:cardBackgroundColor="#0B2545"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="#FFFFFF"
                         android:clickable="true"
                         android:focusable="true">
 
@@ -355,8 +357,8 @@
                                     android:layout_height="wrap_content"
                                     android:text="38 cerca"
                                     android:textSize="10sp"
-                                    android:textColor="#FFFFFF"
-                                    android:background="#1E3A8A"
+                                    android:textColor="#0284C7"
+                                    android:background="#E0F2FE"
                                     android:paddingHorizontal="6dp"
                                     android:paddingVertical="2dp" />
                             </LinearLayout>
@@ -367,7 +369,7 @@
                                 android:text="Fontanería"
                                 android:textSize="14sp"
                                 android:textStyle="bold"
-                                android:textColor="#FFFFFF" />
+                                android:textColor="#0B2545" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -375,7 +377,8 @@
                                 android:text="38 cerca"
                                 android:visibility="gone"
                                 android:textSize="11sp"
-                                android:textColor="#CBD5E1" />
+                                android:textColor="#6B7280" />
+
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
@@ -622,6 +625,7 @@
                 </LinearLayout>
             </LinearLayout>
 
+            ```xml
             <!-- 7. PROFESIONALES CERCA DE TI -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -635,21 +639,21 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Profesionales cerca de ti"
-                    android:textSize="16sp"
+                    android:textSize="17sp"
                     android:textStyle="bold"
                     android:textColor="#0B2545" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GPS Activo"
-                    android:textSize="11sp"
+                    android:text="GPS activo"
+                    android:textSize="10sp"
                     android:textStyle="bold"
-                    android:textColor="#0284C7"
-                    android:background="#E0F2FE"
-                    android:paddingHorizontal="6dp"
-                    android:paddingVertical="2dp"
-                    android:layout_marginEnd="8dp" />
+                    android:textColor="#059669"
+                    android:background="#DCFCE7"
+                    android:paddingHorizontal="7dp"
+                    android:paddingVertical="4dp"
+                    android:layout_marginEnd="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -658,16 +662,21 @@
                     android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#0284C7" />
+
             </LinearLayout>
 
-            <!-- Tarjeta Pro 1: Roberto Méndez -->
+
+            <!-- ============================== -->
+            <!-- PROFESIONAL 1 -->
+            <!-- ============================== -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
+                android:layout_marginBottom="12dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="12dp">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -675,27 +684,30 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- INFORMACIÓN DEL PROFESIONAL -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
+                        android:gravity="center_vertical">
 
+                        <!-- FOTO -->
                         <ImageView
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             android:src="@mipmap/ic_launcher"
-                            android:background="#E5E7EB"
+                            android:background="#E2E8F0"
                             android:layout_marginEnd="12dp"
                             android:contentDescription="Roberto Méndez" />
 
+                        <!-- DATOS -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
+                            <!-- NOMBRE + VERIFICADO -->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -709,47 +721,88 @@
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="#0B2545"
-                                    android:layout_marginEnd="8dp" />
+                                    android:layout_marginEnd="7dp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" DUI Verificado "
+                                    android:text="✓ Verificado"
                                     android:textSize="9sp"
                                     android:textStyle="bold"
-                                    android:textColor="#FFFFFF"
-                                    android:background="#059669"
-                                    android:paddingHorizontal="5dp"
-                                    android:paddingVertical="2dp" />
+                                    android:textColor="#059669"
+                                    android:background="#DCFCE7"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="3dp" />
+
                             </LinearLayout>
 
+                            <!-- ESPECIALIDAD -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Fontanería y fugas residenciales"
                                 android:textSize="12sp"
-                                android:textColor="#4B5563"
-                                android:layout_marginTop="2dp" />
+                                android:textColor="#475569"
+                                android:layout_marginTop="4dp" />
 
+                            <!-- CALIFICACIÓN + DISTANCIA -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="★ 4.9 (142)  •  📍 1.2 km  •  🟢 Disponible ahora"
+                                android:text="★ 4.9  •  142 reseñas  •  1.2 km"
                                 android:textSize="11sp"
-                                android:textColor="#6B7280"
-                                android:layout_marginTop="2dp" />
+                                android:textStyle="bold"
+                                android:textColor="#64748B"
+                                android:layout_marginTop="5dp" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
-                    <!-- Tarifa y Botones de Pro 1 -->
+
+                    <!-- DISPONIBILIDAD -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="10dp">
+                        android:layout_marginTop="12dp">
 
+                        <TextView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:text=""
+                            android:background="#22C55E" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Disponible ahora"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#16A34A"
+                            android:layout_marginStart="5dp" />
+
+                    </LinearLayout>
+
+
+                    <!-- SEPARADOR -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E2E8F0"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp" />
+
+
+                    <!-- PARTE INFERIOR -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- TARIFA -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -759,54 +812,67 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="TARIFA BASE"
+                                android:text="TARIFA DESDE"
                                 android:textSize="9sp"
                                 android:textStyle="bold"
-                                android:textColor="#9CA3AF" />
+                                android:textColor="#94A3B8" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Desde $20 USD"
-                                android:textSize="14sp"
+                                android:text="$20"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:textColor="#0B2545" />
+                                android:textColor="#0B2545"
+                                android:layout_marginTop="2dp" />
+
                         </LinearLayout>
 
+
+                        <!-- VER PERFIL -->
                         <Button
                             android:id="@+id/btnVerPerfilPro1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Ver perfil"
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
                             android:textColor="#0B2545"
-                            android:backgroundTint="#E2E8F0"
+                            android:backgroundTint="#F1F5F9"
                             android:layout_marginEnd="8dp"
                             android:paddingHorizontal="12dp" />
 
+
+                        <!-- SOLICITAR -->
                         <Button
                             android:id="@+id/btnSolicitarPro1"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:text="Solicitar ➔"
-                            android:textSize="12sp"
+                            android:text="Solicitar"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF"
                             android:backgroundTint="#0B2545"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="14dp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
 
-            <!-- Tarjeta Pro 2: David Henríquez -->
+
+            <!-- ============================== -->
+            <!-- PROFESIONAL 2 -->
+            <!-- ============================== -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
+                android:layout_marginBottom="24dp"
+                app:cardCornerRadius="16dp"
                 app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="24dp">
+                app:cardBackgroundColor="#FFFFFF">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -814,27 +880,30 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- INFORMACIÓN DEL PROFESIONAL -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
+                        android:gravity="center_vertical">
 
+                        <!-- FOTO -->
                         <ImageView
-                            android:layout_width="52dp"
-                            android:layout_height="52dp"
+                            android:layout_width="58dp"
+                            android:layout_height="58dp"
                             android:src="@mipmap/ic_launcher"
-                            android:background="#E5E7EB"
+                            android:background="#E2E8F0"
                             android:layout_marginEnd="12dp"
                             android:contentDescription="David Henríquez" />
 
+                        <!-- DATOS -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:orientation="vertical">
 
+                            <!-- NOMBRE + VERIFICADO -->
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
@@ -848,47 +917,88 @@
                                     android:textSize="16sp"
                                     android:textStyle="bold"
                                     android:textColor="#0B2545"
-                                    android:layout_marginEnd="8dp" />
+                                    android:layout_marginEnd="7dp" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text=" DUI Verificado "
+                                    android:text="✓ Verificado"
                                     android:textSize="9sp"
                                     android:textStyle="bold"
-                                    android:textColor="#FFFFFF"
-                                    android:background="#059669"
-                                    android:paddingHorizontal="5dp"
-                                    android:paddingVertical="2dp" />
+                                    android:textColor="#059669"
+                                    android:background="#DCFCE7"
+                                    android:paddingHorizontal="6dp"
+                                    android:paddingVertical="3dp" />
+
                             </LinearLayout>
 
+                            <!-- ESPECIALIDAD -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Instalaciones y cortos eléctricos"
                                 android:textSize="12sp"
-                                android:textColor="#4B5563"
-                                android:layout_marginTop="2dp" />
+                                android:textColor="#475569"
+                                android:layout_marginTop="4dp" />
 
+                            <!-- CALIFICACIÓN + DISTANCIA -->
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="★ 5.0 (89)  •  📍 2.5 km  •  🟢 Disponible hoy"
+                                android:text="★ 5.0  •  89 reseñas  •  2.5 km"
                                 android:textSize="11sp"
-                                android:textColor="#6B7280"
-                                android:layout_marginTop="2dp" />
+                                android:textStyle="bold"
+                                android:textColor="#64748B"
+                                android:layout_marginTop="5dp" />
+
                         </LinearLayout>
+
                     </LinearLayout>
 
-                    <!-- Tarifa y Botones de Pro 2 -->
+
+                    <!-- DISPONIBILIDAD -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="10dp">
+                        android:layout_marginTop="12dp">
 
+                        <TextView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:text=""
+                            android:background="#22C55E" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" Disponible hoy"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
+                            android:textColor="#16A34A"
+                            android:layout_marginStart="5dp" />
+
+                    </LinearLayout>
+
+
+                    <!-- SEPARADOR -->
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E2E8F0"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp" />
+
+
+                    <!-- PARTE INFERIOR -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <!-- TARIFA -->
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -898,45 +1008,56 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="TARIFA BASE"
+                                android:text="TARIFA DESDE"
                                 android:textSize="9sp"
                                 android:textStyle="bold"
-                                android:textColor="#9CA3AF" />
+                                android:textColor="#94A3B8" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Desde $25 USD"
-                                android:textSize="14sp"
+                                android:text="$25"
+                                android:textSize="16sp"
                                 android:textStyle="bold"
-                                android:textColor="#0B2545" />
+                                android:textColor="#0B2545"
+                                android:layout_marginTop="2dp" />
+
                         </LinearLayout>
 
+
+                        <!-- VER PERFIL -->
                         <Button
                             android:id="@+id/btnVerPerfilPro2"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
                             android:text="Ver perfil"
-                            android:textSize="12sp"
+                            android:textSize="11sp"
+                            android:textStyle="bold"
                             android:textColor="#0B2545"
-                            android:backgroundTint="#E2E8F0"
+                            android:backgroundTint="#F1F5F9"
                             android:layout_marginEnd="8dp"
                             android:paddingHorizontal="12dp" />
 
+
+                        <!-- SOLICITAR -->
                         <Button
                             android:id="@+id/btnSolicitarPro2"
                             android:layout_width="wrap_content"
                             android:layout_height="40dp"
-                            android:text="Solicitar ➔"
-                            android:textSize="12sp"
+                            android:text="Solicitar"
+                            android:textSize="11sp"
                             android:textStyle="bold"
                             android:textColor="#FFFFFF"
                             android:backgroundTint="#0B2545"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="14dp" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
             </androidx.cardview.widget.CardView>
+            ```
+
 
             <!-- 8. TARJETA INFORMATIVA DE PAGO SEGURO -->
             <LinearLayout

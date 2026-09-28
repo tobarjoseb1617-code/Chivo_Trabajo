@@ -12,13 +12,21 @@ import com.cherodevscode.chivo_trabajo.ui.perfil.PerfilProfesionalActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.GestionarServicioEnCursoActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.HistorialDeServiciosActivity
 
+import androidx.lifecycle.lifecycleScope
+import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
+import kotlinx.coroutines.launch
+
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
+    private val firestoreRepository = FirestoreRepository()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        cargarNombreUsuario()
 
         // 1. Ir a Seguimiento en Vivo al tocar la tarjeta de servicio en curso
         binding.cardServicioEnCurso.setOnClickListener {
@@ -84,6 +92,32 @@ class InicioActivity : AppCompatActivity() {
         }
         binding.btnPerfilTop.setOnClickListener {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+        }
+    }
+
+    private fun cargarNombreUsuario() {
+        val usuarioActual = FirebaseAuth.getInstance().currentUser
+
+        if (usuarioActual == null) {
+            return
+        }
+
+        lifecycleScope.launch {
+            val resultado =
+                firestoreRepository.obtenerPerfilUsuario(usuarioActual.uid)
+
+            resultado.onSuccess { usuario ->
+                if (usuario != null) {
+                    binding.tvSaludoUsuario.text =
+                        "¡Hola, ${usuario.nombre}! "
+                }
+            }.onFailure {
+                Toast.makeText(
+                    this@InicioActivity,
+                    "No se pudo cargar el nombre del usuario",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
         }
     }
 }
