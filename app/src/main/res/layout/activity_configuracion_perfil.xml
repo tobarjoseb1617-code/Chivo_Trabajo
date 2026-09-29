@@ -224,6 +224,75 @@
                         android:paddingVertical="14dp"
                         android:background="?attr/selectableItemBackground" />
 
+                    <!-- Opción Mi Portafolio - Solo para profesionales -->
+                    <LinearLayout
+                        android:id="@+id/layoutMiPortafolio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="#F3F4F6" />
+
+                        <LinearLayout
+                            android:id="@+id/btnMiPortafolio"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="16dp"
+                            android:paddingVertical="12dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
+
+                            <TextView
+                                android:layout_width="40dp"
+                                android:layout_height="wrap_content"
+                                android:text="🖼️"
+                                android:textSize="20sp"
+                                android:gravity="center_vertical" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:orientation="vertical"
+                                android:layout_marginStart="4dp">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Mi Portafolio"
+                                    android:textSize="14sp"
+                                    android:textStyle="bold"
+                                    android:textColor="#1F2937" />
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="Administra y publica tus trabajos realizados"
+                                    android:textSize="11sp"
+                                    android:textColor="#6B7280"
+                                    android:layout_marginTop="2dp" />
+
+                            </LinearLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="›"
+                                android:textSize="26sp"
+                                android:textColor="#9CA3AF"
+                                android:paddingStart="8dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                     <!-- Opción 2 -->
                     <TextView
                         android:id="@+id/tvSoporte"

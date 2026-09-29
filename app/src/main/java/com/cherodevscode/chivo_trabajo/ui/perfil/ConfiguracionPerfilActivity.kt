@@ -25,6 +25,8 @@ import kotlinx.coroutines.withContext
 import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
+import com.cherodevscode.chivo_trabajo.ui.profesional.PortafolioProfesionalActivity
+import android.view.View
 
 class ConfiguracionPerfilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityConfiguracionPerfilBinding
@@ -80,6 +82,15 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             Toast.makeText(this, "Función de edición en desarrollo", Toast.LENGTH_SHORT).show()
         }
 
+        //portafolio solamente para profesionales
+        binding.btnMiPortafolio.setOnClickListener {
+            val intent = Intent(
+                this,
+                PortafolioProfesionalActivity::class.java
+            )
+            startActivity(intent)
+        }
+
         binding.tvSoporte.setOnClickListener {
             Toast.makeText(this, "Contacto de soporte: soporte@chivotrabajo.sv", Toast.LENGTH_LONG).show()
         }
@@ -126,6 +137,13 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
                             binding.tvTelefonoUsuario.text = usuario.telefono.ifBlank { "No registrado" }
                             binding.tvTipoUsuario.text = usuario.tipoUsuario
                             binding.tvEstadoVerificacion.text = usuario.estadoVerificacion
+
+                            // Mostrar Mi Portafolio solamente si el usuario es profesional
+                            if (usuario.tipoUsuario.equals("PROFESIONAL", ignoreCase = true)) {
+                                binding.layoutMiPortafolio.visibility = View.VISIBLE
+                            } else {
+                                binding.layoutMiPortafolio.visibility = View.GONE
+                            }
 
                             if (!usuario.fotoPerfil.isBlank()) {
                                 Glide.with(this@ConfiguracionPerfilActivity)

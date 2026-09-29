@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F4F5F7">
+
+    <!-- ============================== -->
+    <!-- BARRA SUPERIOR                 -->
+    <!-- ============================== -->
+
+    <LinearLayout
+        android:id="@+id/layoutHeaderPortafolio"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:minHeight="64dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="#FFFFFF"
+        android:elevation="2dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/btnRegresarPortafolio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:contentDescription="Regresar" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="8dp"
+            android:text="Mi Portafolio"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#0B2545" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PRO"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="#0B2545"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp" />
+
+    </LinearLayout>
+
+
+    <!-- ============================== -->
+    <!-- CONTENIDO                      -->
+    <!-- ============================== -->
+
+    <LinearLayout
+        android:id="@+id/layoutContenidoPortafolio"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutHeaderPortafolio"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+        <!-- PRESENTACIÓN -->
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="18dp"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="1dp"
+            app:cardBackgroundColor="#FFFFFF">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Muestra tus mejores trabajos"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545"
+                    android:layout_marginBottom="6dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Agrega fotografías de trabajos que hayas realizado para que los clientes conozcan tu experiencia."
+                    android:textSize="13sp"
+                    android:textColor="#6B7280"
+                    android:lineSpacingExtra="2dp"
+                    android:layout_marginBottom="18dp" />
+
+                <Button
+                    android:id="@+id/btnAgregarTrabajo"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:text="+  Agregar trabajo"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:backgroundTint="#0B2545" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+
+        <!-- TÍTULO DE LA LISTA -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Trabajos publicados"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#0B2545" />
+
+            <TextView
+                android:id="@+id/tvCantidadTrabajos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#0B2545"
+                android:background="#E2E8F0"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp" />
+
+        </LinearLayout>
+
+
+        <!-- ============================== -->
+        <!-- ESTADO VACÍO                   -->
+        <!-- Se muestra cuando no hay fotos -->
+        <!-- ============================== -->
+
+        <LinearLayout
+            android:id="@+id/layoutPortafolioVacio"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🖼️"
+                android:textSize="52sp"
+                android:layout_marginBottom="14dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Aún no tienes trabajos publicados"
+                android:textSize="17sp"
+                android:textStyle="bold"
+                android:textColor="#0B2545"
+                android:gravity="center"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Agrega tu primer trabajo para mostrar tu experiencia a los clientes."
+                android:textSize="13sp"
+                android:textColor="#6B7280"
+                android:gravity="center"
+                android:layout_marginBottom="18dp" />
+
+            <Button
+                android:id="@+id/btnAgregarPrimerTrabajo"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:text="+  Agregar trabajo"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:backgroundTint="#0B2545"
+                android:paddingStart="24dp"
+                android:paddingEnd="24dp" />
+
+        </LinearLayout>
+
+
+        <!-- ============================== -->
+        <!-- LISTA DEL PORTAFOLIO            -->
+        <!-- Inicialmente oculta             -->
+        <!-- ============================== -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvPortafolio"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

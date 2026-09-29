@@ -1,10 +1,10 @@
 package com.cherodevscode.chivo_trabajo.data.model
 
+import com.google.firebase.Timestamp
+
 data class Portafolio(
-    val id: String = "",
-    val profesionalUid: String = "",
-    val tituloTrabajo: String = "",
+    val idFoto: String = "",
+    val url: String = "",
     val descripcion: String = "",
-    val imagenUrl: String = "",
-    val fechaSubida: Long = System.currentTimeMillis()
+    val fecha: Timestamp = Timestamp.now()
 )

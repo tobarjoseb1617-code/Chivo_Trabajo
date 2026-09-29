@@ -5,6 +5,7 @@ import com.cherodevscode.chivo_trabajo.data.model.Usuario
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import com.cherodevscode.chivo_trabajo.data.model.Profesional
+import com.cherodevscode.chivo_trabajo.data.model.Portafolio
 
 class FirestoreRepository {
     private val db = FirebaseFirestore.getInstance()
@@ -54,6 +55,102 @@ class FirestoreRepository {
                 .set(profesional)
                 .await()
             Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun guardarTrabajoPortafolio(
+        uidProfesional: String,
+        url: String,
+        descripcion: String
+    ): Result<Unit> {
+        return try {
+
+            // Crear un documento nuevo con ID automático
+            val documento = db.collection("profesionales")
+                .document(uidProfesional)
+                .collection("Portafolio")
+                .document()
+
+            val trabajo = Portafolio(
+                idFoto = documento.id,
+                url = url,
+                descripcion = descripcion
+            )
+
+            documento.set(trabajo).await()
+
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+
+    suspend fun obtenerPortafolio(
+        uidProfesional: String
+    ): Result<List<Portafolio>> {
+        return try {
+
+            val documentos = db.collection("profesionales")
+                .document(uidProfesional)
+                .collection("Portafolio")
+                .get()
+                .await()
+
+            val trabajos = documentos.documents.mapNotNull { documento ->
+
+                documento.toObject(Portafolio::class.java)?.copy(
+                    idFoto = documento.id
+                )
+            }
+
+            Result.success(trabajos)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun actualizarDescripcionPortafolio(
+        uidProfesional: String,
+        idFoto: String,
+        nuevaDescripcion: String
+    ): Result<Unit> {
+        return try {
+
+            db.collection("profesionales")
+                .document(uidProfesional)
+                .collection("Portafolio")
+                .document(idFoto)
+                .update("descripcion", nuevaDescripcion)
+                .await()
+
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+
+    suspend fun eliminarTrabajoPortafolio(
+        uidProfesional: String,
+        idFoto: String
+    ): Result<Unit> {
+        return try {
+
+            db.collection("profesionales")
+                .document(uidProfesional)
+                .collection("Portafolio")
+                .document(idFoto)
+                .delete()
+                .await()
+
+            Result.success(Unit)
+
         } catch (e: Exception) {
             Result.failure(e)
         }
