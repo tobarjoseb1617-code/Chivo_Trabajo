@@ -1,78 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F4F5F7">
+    android:background="#F4F5F7"
+    android:fitsSystemWindows="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
-        android:gravity="center_horizontal">
+        android:padding="16dp">
 
-        <!-- Tarjeta Blanca Central -->
+        <!-- FORMULARIO PRINCIPAL -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginBottom="16dp"
             app:cardCornerRadius="16dp"
-            app:cardElevation="4dp"
+            app:cardElevation="3dp"
             app:cardBackgroundColor="#FFFFFF">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="24dp">
+                android:padding="20dp">
 
-                <!-- 1. BARRA DE PROGRESO: PASO 2 DE 5 -->
+                <!-- ENCABEZADO -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="16dp">
+                    android:orientation="vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Nueva solicitud"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="10dp" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="PASO 2 DE 5"
+                                android:textSize="11sp"
+                                android:textStyle="bold"
+                                android:textColor="#0369A1"
+                                android:layout_marginBottom="5dp" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="4dp"
+                                android:background="#0284C7" />
+
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="PASO 2 DE 5"
-                            android:textSize="11sp"
+                            android:text="Detalles del trabajo"
+                            android:textSize="12sp"
                             android:textStyle="bold"
-                            android:textColor="#0369A1"
-                            android:layout_marginBottom="4dp" />
+                            android:textColor="#6B7280"
+                            android:layout_marginStart="14dp" />
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="4dp"
-                            android:background="#0284C7" />
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detalles del trabajo"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#6B7280"
-                        android:layout_marginStart="16dp" />
                 </LinearLayout>
 
-                <!-- 2. CATEGORÍA DE SERVICIO -->
+                <!-- 1. SERVICIO -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1. SERVICIO"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:textColor="#1F2937"
+                    android:layout_marginBottom="7dp" />
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
                     app:cardBackgroundColor="#F8FAFC"
                     android:layout_marginBottom="20dp">
@@ -82,14 +110,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:padding="12dp">
+                        android:padding="11dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="🛠️"
                             android:textSize="20sp"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="10dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -105,139 +133,118 @@
                                 android:textColor="#9CA3AF" />
 
                             <TextView
+                                android:id="@+id/tvCategoriaServicio"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fontanería y Tuberías"
+                                android:text="Selecciona una categoría"
                                 android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
+                                android:textColor="#6B7280" />
+
                         </LinearLayout>
 
                         <Button
+                            android:id="@+id/btnCambiarCategoria"
                             android:layout_width="wrap_content"
-                            android:layout_height="36dp"
-                            android:text="Cambiar"
-                            android:textSize="12sp"
+                            android:layout_height="34dp"
+                            android:text="Seleccionar"
+                            android:textSize="11sp"
                             android:textColor="#0B2545"
                             android:backgroundTint="#E2E8F0"
-                            android:paddingHorizontal="12dp" />
+                            android:paddingHorizontal="10dp" />
+
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!-- 3. CUÉNTANOS QUÉ SUCEDE -->
+                <!-- 2. DESCRIPCIÓN DEL PROBLEMA -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Cuéntanos qué sucede"
-                        android:textSize="13sp"
+                        android:text="2. DESCRIBE EL PROBLEMA"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="⚡ ¡Detallado!"
-                        android:textSize="11sp"
+                        android:text="Requerido"
+                        android:textSize="10sp"
                         android:textStyle="bold"
                         android:textColor="#059669" />
+
                 </LinearLayout>
 
                 <EditText
                     android:id="@+id/etDetallesSolicitud"
                     android:layout_width="match_parent"
-                    android:layout_height="110dp"
+                    android:layout_height="105dp"
                     android:background="@drawable/bg_input_rounded"
-                    android:hint="Fuga de agua debajo del fregadero de la cocina. El tubo de desagüe gotea constantemente y ha humedecido el mueble..."
+                    android:hint="Cuéntanos qué problema tienes..."
                     android:textSize="13sp"
                     android:padding="12dp"
                     android:gravity="top|start"
                     android:inputType="textMultiLine"
-                    android:layout_marginBottom="4dp" />
+                    android:maxLength="300"
+                    android:layout_marginBottom="3dp" />
 
                 <TextView
+                    android:id="@+id/tvContadorCaracteres"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="158 caracteres"
-                    android:textSize="11sp"
+                    android:text="0 / 300 caracteres"
+                    android:textSize="10sp"
                     android:textColor="#9CA3AF"
                     android:gravity="end"
                     android:layout_marginBottom="20dp" />
 
-                <!-- 4. FOTOGRAFÍAS DEL PROBLEMA -->
+                <!-- 3. FOTOGRAFÍAS -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Fotografías del problema"
-                        android:textSize="13sp"
+                        android:text="3. FOTOGRAFÍAS"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Recomendado"
-                        android:textSize="11sp"
+                        android:text="Opcional · Recomendado"
+                        android:textSize="10sp"
                         android:textColor="#0284C7" />
+
                 </LinearLayout>
 
-                <!-- Galería de fotos simulada -->
+                <!-- Galería -->
                 <LinearLayout
+                    android:id="@+id/layoutGaleriaFotos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:layout_marginBottom="6dp">
 
-                    <!-- Foto 1 con botón eliminar -->
+                    <!-- Agregar foto -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="1dp"
-                        android:layout_marginEnd="8dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:src="@mipmap/ic_launcher"
-                                android:background="#E5E7EB"
-                                android:contentDescription="Foto 1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentBottom="true"
-                                android:background="#1F2937"
-                                android:text="Foto 1"
-                                android:textSize="9sp"
-                                android:textColor="#FFFFFF"
-                                android:paddingHorizontal="4dp" />
-                        </RelativeLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Botón Agregar -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
+                        android:id="@+id/btnAgregarFoto"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="1dp"
                         app:cardBackgroundColor="#F8FAFC"
@@ -253,7 +260,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="📷"
-                                android:textSize="18sp" />
+                                android:textSize="17sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -262,13 +269,15 @@
                                 android:textSize="10sp"
                                 android:textColor="#0284C7"
                                 android:textStyle="bold" />
+
                         </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
 
-                    <!-- Placeholder hasta 5 fotos -->
+                    <!-- Límite -->
                     <androidx.cardview.widget.CardView
-                        android:layout_width="72dp"
-                        android:layout_height="72dp"
+                        android:layout_width="68dp"
+                        android:layout_height="68dp"
                         app:cardCornerRadius="10dp"
                         app:cardElevation="0dp"
                         app:cardBackgroundColor="#F1F5F9">
@@ -283,57 +292,63 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="🖼️"
-                                android:textSize="16sp" />
+                                android:textSize="15sp" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Hasta 5 fotos"
-                                android:textSize="9sp"
+                                android:textSize="8sp"
                                 android:textColor="#9CA3AF"
                                 android:gravity="center" />
+
                         </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Subir fotos claras ayuda a los fontaneros certificados con DUI a cotizar repuestos exactos sin cargos sorpresa."
-                    android:textSize="11sp"
+                    android:text="Las fotos ayudan al profesional a conocer mejor el problema."
+                    android:textSize="10sp"
                     android:textColor="#9CA3AF"
                     android:layout_marginBottom="20dp" />
 
-                <!-- 5. UBICACIÓN CONFIRMADA -->
+                <!-- 4. UBICACIÓN -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="6dp">
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Ubicación confirmada"
-                        android:textSize="13sp"
+                        android:text="4. UBICACIÓN"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
+                        android:id="@+id/tvEditarUbicacion"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Editar"
-                        android:textSize="11sp"
+                        android:text="Seleccionar"
+                        android:textSize="10sp"
                         android:textStyle="bold"
                         android:textColor="#0284C7" />
+
                 </LinearLayout>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardUbicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
+                    app:cardCornerRadius="10dp"
                     app:cardElevation="0dp"
                     app:cardBackgroundColor="#F8FAFC"
                     android:layout_marginBottom="20dp">
@@ -342,14 +357,14 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:padding="12dp">
+                        android:padding="11dp">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:gravity="center_vertical"
-                            android:layout_marginBottom="8dp">
+                            android:layout_marginBottom="7dp">
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -365,81 +380,92 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/tvDireccionUbicacion"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Residencial Cumbres de Cuscatlán"
+                                    android:text="Seleccionar ubicación"
                                     android:textSize="13sp"
                                     android:textStyle="bold"
-                                    android:textColor="#0B2545" />
+                                    android:textColor="#6B7280" />
 
                                 <TextView
+                                    android:id="@+id/tvDetalleUbicacion"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Polígono D, Casa #14, Antiguo Cuscatlán\n🏳️ Frente al parque principal, portón negro"
-                                    android:textSize="11sp"
-                                    android:textColor="#4B5563" />
+                                    android:text="Aquí aparecerá la dirección seleccionada"
+                                    android:textSize="10sp"
+                                    android:textColor="#9CA3AF" />
+
                             </LinearLayout>
+
                         </LinearLayout>
 
-                        <!-- Mini Mapa -->
+                        <!-- Mini mapa -->
                         <RelativeLayout
+                            android:id="@+id/miniMapa"
                             android:layout_width="match_parent"
-                            android:layout_height="90dp"
+                            android:layout_height="75dp"
                             android:background="#E5E7EB">
 
                             <TextView
+                                android:id="@+id/tvTextoMapa"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:text="🗺️ [Antiguo Cuscatlán, SV]"
-                                android:textSize="11sp"
+                                android:text="Selecciona una ubicación"
+                                android:textSize="10sp"
                                 android:textStyle="bold"
                                 android:textColor="#4B5563" />
 
                             <TextView
+                                android:id="@+id/tvMarcadorMapa"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_centerInParent="true"
-                                android:background="#0B2545"
                                 android:textColor="#FFFFFF"
                                 android:text=" 📍 "
-                                android:textSize="11sp" />
+                                android:textSize="10sp"
+                                android:visibility="gone" />
+
                         </RelativeLayout>
+
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!-- 6. ¿PARA CUÁNDO LO NECESITAS? -->
+                <!-- 5. FECHA Y HORA -->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="¿Para cuándo lo necesitas?"
-                    android:textSize="13sp"
+                    android:text="5. FECHA Y HORA"
+                    android:textSize="12sp"
                     android:textStyle="bold"
                     android:textColor="#1F2937"
                     android:layout_marginBottom="8dp" />
 
-                <!-- Opción 1: Lo antes posible (Seleccionada) -->
+                <!-- Opción 1 -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardLoAntesPosible"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="1dp"
-                    app:cardBackgroundColor="#0B2545"
-                    android:layout_marginBottom="8dp">
+                    app:cardBackgroundColor="#F8FAFC"
+                    android:layout_marginBottom="7dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:padding="12dp">
+                        android:padding="11dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="⚡"
                             android:textSize="18sp"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="10dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -448,54 +474,50 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvLoAntesPosible"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="¡Lo antes posible (Hoy)!"
+                                android:text="Lo antes posible"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
-                                android:textColor="#FFFFFF" />
+                                android:textColor="#1F2937" />
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Atención inmediata a emergencias"
-                                android:textSize="11sp"
-                                android:textColor="#93C5FD" />
+                                android:text="Solicitar atención lo antes posible"
+                                android:textSize="10sp"
+                                android:textColor="#6B7280" />
+
                         </LinearLayout>
 
-                        <TextView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            android:background="#059669"
-                            android:textColor="#FFFFFF"
-                            android:text=" ✓ "
-                            android:textSize="12sp"
-                            android:gravity="center" />
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!-- Opción 2: Mañana -->
+                <!-- Opción 2 -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardManana"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="1dp"
                     app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="7dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:padding="12dp">
+                        android:padding="11dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="📅"
                             android:textSize="18sp"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="10dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -515,14 +537,18 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Durante la mañana o tarde"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textColor="#6B7280" />
+
                         </LinearLayout>
+
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!-- Opción 3: Programar fecha -->
+                <!-- Opción 3 -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardProgramarFecha"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:cardCornerRadius="10dp"
@@ -535,14 +561,14 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:padding="12dp">
+                        android:padding="11dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="📆"
                             android:textSize="18sp"
-                            android:layout_marginEnd="12dp" />
+                            android:layout_marginEnd="10dp" />
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -553,7 +579,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Programar fecha"
+                                android:text="Elegir fecha y hora"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
                                 android:textColor="#1F2937" />
@@ -562,93 +588,65 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:text="Escoge día y franja horaria"
-                                android:textSize="11sp"
+                                android:textSize="10sp"
                                 android:textColor="#6B7280" />
+
                         </LinearLayout>
+
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
-                <!-- 7. PRESUPUESTO ESTIMADO DEL TRABAJO -->
+                <!-- 6. PRESUPUESTO -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    android:layout_marginBottom="8dp">
+                    android:layout_marginBottom="7dp">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Presupuesto estimado del trabajo"
-                        android:textSize="13sp"
+                        android:text="6. PRESUPUESTO"
+                        android:textSize="12sp"
                         android:textStyle="bold"
                         android:textColor="#1F2937" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Moneda: USD ($)"
-                        android:textSize="11sp"
+                        android:text="USD ($)"
+                        android:textSize="10sp"
                         android:textColor="#6B7280" />
+
                 </LinearLayout>
 
-                <!-- Tarjetas de Presupuesto (3 columnas simuladas) -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Selecciona un rango aproximado para tu trabajo"
+                    android:textSize="10sp"
+                    android:textColor="#6B7280"
+                    android:layout_marginBottom="7dp" />
+
+                <!-- Presupuestos -->
                 <LinearLayout
+                    android:id="@+id/layoutPresupuestos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:layout_marginBottom="4dp">
+                    android:layout_marginBottom="5dp">
 
-                    <!-- Presupuesto 1 (Seleccionado) -->
+                    <!-- Presupuesto 1 -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPresupuesto15_30"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="4dp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="2dp"
-                        app:cardBackgroundColor="#E0F2FE">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="IDEAL FUGAS"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#0369A1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$15 – $30"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Mano de obra"
-                                android:textSize="9sp"
-                                android:textColor="#4B5563" />
-                        </LinearLayout>
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Presupuesto 2 -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginHorizontal="2dp"
-                        app:cardCornerRadius="10dp"
+                        app:cardCornerRadius="9dp"
                         app:cardElevation="1dp"
                         app:cardBackgroundColor="#F8FAFC">
 
@@ -656,14 +654,59 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="COMPLETO"
-                                android:textSize="9sp"
+                                android:text="RANGO 1"
+                                android:textSize="8sp"
+                                android:textStyle="bold"
+                                android:textColor="#6B7280" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="$15 – $30"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Presupuesto aproximado"
+                                android:textSize="8sp"
+                                android:textColor="#4B5563" />
+
+                        </LinearLayout>
+
+                    </androidx.cardview.widget.CardView>
+
+                    <!-- Presupuesto 2 -->
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPresupuesto30_50"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_marginHorizontal="2dp"
+                        app:cardCornerRadius="9dp"
+                        app:cardElevation="1dp"
+                        app:cardBackgroundColor="#F8FAFC">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="9dp"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="RANGO 2"
+                                android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:textColor="#6B7280" />
 
@@ -671,26 +714,29 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="$30 – $50"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 android:textColor="#0B2545" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="+ Repuestos"
-                                android:textSize="9sp"
+                                android:text="Presupuesto aproximado"
+                                android:textSize="8sp"
                                 android:textColor="#4B5563" />
+
                         </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
 
                     <!-- Presupuesto 3 -->
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/cardPresupuestoConvenir"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="4dp"
-                        app:cardCornerRadius="10dp"
+                        app:cardCornerRadius="9dp"
                         app:cardElevation="1dp"
                         app:cardBackgroundColor="#F8FAFC">
 
@@ -698,14 +744,14 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
-                            android:padding="10dp"
+                            android:padding="9dp"
                             android:gravity="center">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="FLEXIBLE"
-                                android:textSize="9sp"
+                                android:textSize="8sp"
                                 android:textStyle="bold"
                                 android:textColor="#6B7280" />
 
@@ -713,7 +759,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="A convenir"
-                                android:textSize="13sp"
+                                android:textSize="12sp"
                                 android:textStyle="bold"
                                 android:textColor="#0B2545" />
 
@@ -721,36 +767,39 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Según revisión"
-                                android:textSize="9sp"
+                                android:textSize="8sp"
                                 android:textColor="#4B5563" />
+
                         </LinearLayout>
+
                     </androidx.cardview.widget.CardView>
+
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="ℹ️  Los fontaneros enviarán sus ofertas basadas en este rango."
-                    android:textSize="11sp"
+                    android:text="ℹ️ Los profesionales enviarán sus ofertas basadas en este rango."
+                    android:textSize="10sp"
                     android:textColor="#9CA3AF"
-                    android:layout_marginBottom="20dp" />
+                    android:layout_marginBottom="18dp" />
 
-                <!-- 8. GARANTÍA CHIVOSEGURO -->
+                <!-- 7. GARANTÍA -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:background="#DCFCE7"
-                    android:padding="12dp"
-                    android:layout_marginBottom="20dp">
+                    android:padding="11dp"
+                    android:layout_marginBottom="18dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="🛡️"
-                        android:textSize="20sp"
-                        android:layout_marginEnd="12dp" />
+                        android:textSize="19sp"
+                        android:layout_marginEnd="10dp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -762,7 +811,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Garantía ChivoSeguro"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:textStyle="bold"
                             android:textColor="#166534" />
 
@@ -770,36 +819,40 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Profesionales auditados con Solvencia Policial y DUI vigente."
-                            android:textSize="11sp"
+                            android:textSize="10sp"
                             android:textColor="#15803D" />
+
                     </LinearLayout>
+
                 </LinearLayout>
 
-                <!-- 9. BOTÓN PRINCIPAL: PUBLICAR SOLICITUD -->
+                <!-- BOTÓN CONTINUAR -->
                 <Button
                     android:id="@+id/btnPublicarSolicitud"
                     android:layout_width="match_parent"
-                    android:layout_height="52dp"
-                    android:text="Publicar Solicitud de Fontanería ➔"
-                    android:textSize="15sp"
+                    android:layout_height="50dp"
+                    android:text="Continuar →"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:backgroundTint="#0B2545"
-                    android:layout_marginBottom="8dp" />
+                    android:layout_marginBottom="4dp" />
 
             </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
-        <!-- Footer: Tiempo de respuesta promedio -->
+        <!-- FOOTER -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="⏱️ Respuesta promedio en Santa Tecla y Antiguo Cuscatlán: 7 min"
-            android:textSize="11sp"
+            android:textSize="10sp"
             android:gravity="center"
             android:textColor="#9CA3AF"
-            android:layout_marginBottom="20dp"
-            android:paddingHorizontal="16dp" />
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="12dp" />
 
     </LinearLayout>
+
 </ScrollView>
