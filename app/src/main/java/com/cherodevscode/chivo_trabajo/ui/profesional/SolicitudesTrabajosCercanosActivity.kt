@@ -59,9 +59,9 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
         }
 
         // Activar WhatsApp
-        binding.btnActivarWhatsapp.setOnClickListener {
-            Toast.makeText(this, "Alertas sonoras por WhatsApp activadas correctamente", Toast.LENGTH_SHORT).show()
-        }
+//        binding.btnActivarWhatsapp.setOnClickListener {
+//            Toast.makeText(this, "Alertas sonoras por WhatsApp activadas correctamente", Toast.LENGTH_SHORT).show()
+//        }
 
         // Menú inferior: Inicio
         binding.navInicioPro?.setOnClickListener {
