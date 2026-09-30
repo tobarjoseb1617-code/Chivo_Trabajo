@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="20dp"
-        android:gravity="center">
+        android:gravity="center_horizontal">
 
         <!-- Tarjeta Blanca Central -->
         <androidx.cardview.widget.CardView
@@ -31,9 +31,8 @@
 
                 <!-- Logo de la app -->
                 <ImageView
-                    android:id="@+id/ivLogoLogin"
-                    android:layout_width="72dp"
-                    android:layout_height="72dp"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginBottom="12dp"
                     android:src="@mipmap/ic_launcher"

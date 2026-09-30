@@ -1,10 +1,16 @@
 package com.cherodevscode.chivo_trabajo.ui.autenticacion
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.text.InputType
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.bumptech.glide.Glide
 import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.databinding.ActivityIniciarSesionBinding
 import com.cherodevscode.chivo_trabajo.ui.cliente.InicioActivity
@@ -16,10 +22,38 @@ class IniciarSesionActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        
+        // Zonas seguras (lateral, horizontal, vertical) y Status Bar
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityIniciarSesionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            val cutout = insets.getInsets(WindowInsetsCompat.Type.displayCutout())
+            view.setPadding(
+                maxOf(systemBars.left, cutout.left),
+                maxOf(systemBars.top, cutout.top),
+                maxOf(systemBars.right, cutout.right),
+                maxOf(systemBars.bottom, cutout.bottom)
+            )
+            insets
+        }
+
+        window.statusBarColor = Color.WHITE
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+
         autenticacionViewModel = AutenticacionViewModel(this)
+
+        // Cargar logo desde Cloudinary
+        val logoView = binding.ivLogoLogin
+        if (logoView != null) {
+            Glide.with(this)
+                .load("https://res.cloudinary.com/djwvfjt7k/image/upload/v1790744838/o8ipleapa27fyd72nsll.png")
+                .placeholder(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_launcher)
+                .into(logoView)
+        }
 
         // Mostrar u ocultar contraseña
         var contrasenaVisible = false
@@ -71,6 +105,8 @@ class IniciarSesionActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // Estado de carga (Cargando)
+            setLoading(true)
             autenticacionViewModel.iniciarSesion(correo, contrasena)
         }
 
@@ -90,6 +126,7 @@ class IniciarSesionActivity : AppCompatActivity() {
         }
 
         binding.btnGoogle.setOnClickListener {
+            setLoading(true)
             autenticacionViewModel.iniciarSesionGoogle(this)
         }
 
@@ -99,6 +136,9 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         autenticacionViewModel.mensaje.observe(this) { msg ->
             Toast.makeText(this, msg, Toast.LENGTH_LONG).show()
+            if (!msg.contains("éxito", ignoreCase = true) && !msg.contains("exitoso", ignoreCase = true)) {
+                setLoading(false)
+            }
         }
 
         autenticacionViewModel.tipoUsuarioDestino.observe(this) { tipo ->
@@ -112,6 +152,19 @@ class IniciarSesionActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+    }
+
+    private fun setLoading(loading: Boolean) {
+        binding.etLoginCorreo.isEnabled = !loading
+        binding.etLoginContrasena.isEnabled = !loading
+        binding.btnLoginCorreo.isEnabled = !loading
+        binding.btnGoogle.isEnabled = !loading
+        binding.btnIrARegistro.isEnabled = !loading
+        if (loading) {
+            binding.btnLoginCorreo.text = "Iniciando sesión..."
+        } else {
+            binding.btnLoginCorreo.text = "Iniciar Sesión ➔"
         }
     }
 }
