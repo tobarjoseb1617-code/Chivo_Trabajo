@@ -215,7 +215,6 @@
                         android:clickable="false"
                         android:cursorVisible="false"
                         android:focusableInTouchMode="false"
-                        android:textColor="#0B2545"
                         android:inputType="text" />
 
                 </LinearLayout>
