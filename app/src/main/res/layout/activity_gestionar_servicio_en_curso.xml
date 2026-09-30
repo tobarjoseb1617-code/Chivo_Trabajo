@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7">
+    android:background="#F4F5F7"
+    android:fitsSystemWindows="true">
 
     <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
     <ScrollView
@@ -17,7 +18,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="40dp">
 
             <!-- 1. BARRA SUPERIOR -->
             <LinearLayout
