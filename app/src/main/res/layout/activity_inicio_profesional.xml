@@ -115,6 +115,18 @@
                     android:layout_marginEnd="10dp"
                     android:contentDescription="Notificaciones" />
 
+                <!-- Avatar -->
+                <ImageView
+                    android:id="@+id/btnPerfilProTop"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:background="#0B2545"
+                    android:padding="8dp"
+                    android:src="@mipmap/ic_launcher"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:contentDescription="Perfil" />
+
 
             </LinearLayout>
 
