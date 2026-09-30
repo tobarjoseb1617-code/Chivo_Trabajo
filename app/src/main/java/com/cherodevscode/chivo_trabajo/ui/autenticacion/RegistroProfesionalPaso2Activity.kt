@@ -14,6 +14,7 @@ import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityRegistroProfesionalPaso2Binding
 import com.cherodevscode.chivo_trabajo.ui.profesional.InicioProfesionalActivity
+import com.cherodevscode.chivo_trabajo.utils.CategoriasConfig
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,14 +26,16 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
     private lateinit var authRepository: AuthRepository
     private lateinit var firestoreRepository: FirestoreRepository
 
-    // Servicios seleccionados
+    // Especialidades seleccionadas (múltiples)
+    private val especialidadesSeleccionadas = mutableSetOf<String>()
+
+    // Sub-servicios específicos seleccionados
     private val serviciosSeleccionados = mutableSetOf<String>()
 
     // Años de experiencia
     private var aniosExperiencia = 0
 
     // Municipios seleccionados
-    // El profesional comienza sin municipios seleccionados
     private val zonasSeleccionadas = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +47,8 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
         authRepository = AuthRepository(this)
         firestoreRepository = FirestoreRepository()
 
-        // Configurar las diferentes partes de la pantalla
-        configurarServicios()
+        // Configurar componentes de la pantalla
+        configurarEspecialidadesMultiples()
         configurarExperiencia()
         configurarZonas()
         configurarDescripcion()
@@ -58,13 +61,10 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
         // Botón completar registro
         binding.btnCompletarRegistroPro.setOnClickListener {
 
-            val especialidad = binding.etEspecialidad.text.toString().trim()
-            val descripcion = binding.etDescripcionPro.text.toString().trim()
-
-            if (especialidad.isEmpty()) {
+            if (especialidadesSeleccionadas.isEmpty()) {
                 Toast.makeText(
                     this,
-                    "Por favor ingrese su especialidad principal",
+                    "Por favor seleccione al menos una especialidad",
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -73,7 +73,7 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
             if (serviciosSeleccionados.isEmpty()) {
                 Toast.makeText(
                     this,
-                    "Seleccione al menos un servicio",
+                    "Seleccione al menos un servicio específico",
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener
@@ -99,7 +99,10 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // Crear el objeto Profesional
+            val especialidadPrincipal = especialidadesSeleccionadas.first()
+            val descripcion = binding.etDescripcionPro.text.toString().trim()
+
+            // Crear el objeto Profesional con múltiples especialidades y servicios dinámicos
             val profesional = Profesional(
                 uid = uid,
                 aniosExperiencia = aniosExperiencia.toLong(),
@@ -107,7 +110,8 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
                 cantidadCalificaciones = 0,
                 descripcion = descripcion,
                 disponible = false,
-                especialidad = especialidad,
+                especialidad = especialidadPrincipal,
+                especialidades = especialidadesSeleccionadas.toList(),
                 latitud = 0.0,
                 longitud = 0.0,
                 serviciosOfrecidos = serviciosSeleccionados.toList(),
@@ -124,7 +128,7 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
 
                 profesionalRes.onSuccess {
 
-                    // Obtener el perfil actual del usuario
+                    // Obtener perfil actual del usuario
                     val perfilRes = withContext(Dispatchers.IO) {
                         firestoreRepository.obtenerPerfilUsuario(uid)
                     }
@@ -133,7 +137,7 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
 
                         if (usuarioActual != null) {
 
-                            // Actualizar solamente el tipo de usuario
+                            // Actualizar tipo de usuario a PROFESIONAL
                             val usuarioActualizado = usuarioActual.copy(
                                 tipoUsuario = "PROFESIONAL"
                             )
@@ -196,91 +200,127 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
     }
 
 
-    // SERVICIOS ESPECÍFICOS
-
-    private fun configurarServicios() {
-
-        binding.tvServicioFugas.setOnClickListener {
-            cambiarServicio(
-                binding.tvServicioFugas,
-                "Reparación de fugas"
-            )
-        }
-
-        binding.tvServicioGriferia.setOnClickListener {
-            cambiarServicio(
-                binding.tvServicioGriferia,
-                "Instalación de grifería"
-            )
-        }
-
-        binding.tvServicioDestape.setOnClickListener {
-            cambiarServicio(
-                binding.tvServicioDestape,
-                "Destape de tuberías"
-            )
-        }
-
-        binding.tvServicioInodoros.setOnClickListener {
-            cambiarServicio(
-                binding.tvServicioInodoros,
-                "Instalación de inodoros"
-            )
-        }
-
-        binding.tvServicioCisterna.setOnClickListener {
-            cambiarServicio(
-                binding.tvServicioCisterna,
-                "Mantenimiento cisterna"
-            )
+    // SELECCIÓN MÚLTIPLE DE ESPECIALIDADES Y CARGA DINÁMICA DE SUB-SERVICIOS
+    private fun configurarEspecialidadesMultiples() {
+        binding.etEspecialidad.isFocusable = false
+        binding.etEspecialidad.isClickable = true
+        binding.etEspecialidad.setOnClickListener {
+            mostrarSelectorEspecialidadesMultiples()
         }
     }
 
-
-    private fun cambiarServicio(
-        vista: TextView,
-        servicio: String
-    ) {
-
-        if (serviciosSeleccionados.contains(servicio)) {
-
-            // Deseleccionar
-            serviciosSeleccionados.remove(servicio)
-
-            vista.text = servicio
-            vista.setTextColor(
-                Color.parseColor("#4B5563")
-            )
-
-            vista.setBackgroundColor(
-                Color.parseColor("#F1F5F9")
-            )
-
-        } else {
-
-            // Seleccionar
-            serviciosSeleccionados.add(servicio)
-
-            vista.text = "✓ $servicio"
-            vista.setTextColor(
-                Color.WHITE
-            )
-
-            vista.setBackgroundColor(
-                Color.parseColor("#0B2545")
-            )
+    private fun mostrarSelectorEspecialidadesMultiples() {
+        val categoriasArray = CategoriasConfig.listaCategorias.toTypedArray()
+        val checkedItems = BooleanArray(categoriasArray.size) { i ->
+            especialidadesSeleccionadas.contains(categoriasArray[i])
         }
 
+        AlertDialog.Builder(this)
+            .setTitle("Seleccione sus Especialidades (Puede elegir varias)")
+            .setMultiChoiceItems(categoriasArray, checkedItems) { _, which, isChecked ->
+                val categoria = categoriasArray[which]
+                if (isChecked) {
+                    especialidadesSeleccionadas.add(categoria)
+                } else {
+                    especialidadesSeleccionadas.remove(categoria)
+                }
+            }
+            .setPositiveButton("Aceptar") { _, _ ->
+                if (especialidadesSeleccionadas.isNotEmpty()) {
+                    binding.etEspecialidad.setText(especialidadesSeleccionadas.joinToString(", "))
+                } else {
+                    binding.etEspecialidad.setText("")
+                }
+                actualizarServiciosDinamicos()
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    // PINTAR DINÁMICAMENTE LOS SERVICIOS ESPECÍFICOS SEGÚN LAS ESPECIALIDADES ELEGIDAS
+    private fun actualizarServiciosDinamicos() {
+        val layoutContainer = binding.layoutServiciosDinamicos
+        layoutContainer.removeAllViews()
+        serviciosSeleccionados.clear()
+        actualizarContadorServicios()
+
+        // Obtener todos los sub-servicios de las especialidades seleccionadas
+        val subServiciosDisponibles = mutableListOf<String>()
+        especialidadesSeleccionadas.forEach { esp ->
+            CategoriasConfig.mapaCategoriasServicios[esp]?.let { lista ->
+                subServiciosDisponibles.addAll(lista)
+            }
+        }
+
+        if (subServiciosDisponibles.isEmpty()) {
+            val tvVacio = TextView(this).apply {
+                text = "Seleccione arriba una especialidad para ver sus servicios específicos."
+                textSize = 12f
+                setTextColor(Color.parseColor("#9CA3AF"))
+            }
+            layoutContainer.addView(tvVacio)
+            return
+        }
+
+        // Crear filas de 2 elementos para los servicios específicos
+        var filaActual: LinearLayout? = null
+        subServiciosDisponibles.forEachIndexed { index, servicio ->
+            if (index % 2 == 0) {
+                filaActual = LinearLayout(this).apply {
+                    orientation = LinearLayout.HORIZONTAL
+                    layoutParams = LinearLayout.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    ).apply { setMargins(0, 0, 0, 8) }
+                }
+                layoutContainer.addView(filaActual)
+            }
+
+            val tvServicio = TextView(this).apply {
+                text = servicio
+                textSize = 11f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                setTextColor(Color.parseColor("#4B5563"))
+                setBackgroundColor(Color.parseColor("#F1F5F9"))
+                setPadding(24, 16, 24, 16)
+                layoutParams = LinearLayout.LayoutParams(
+                    0,
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    1f
+                ).apply {
+                    if (index % 2 == 0) setMargins(0, 0, 8, 0) else setMargins(8, 0, 0, 0)
+                }
+                isClickable = true
+                isFocusable = true
+
+                setOnClickListener {
+                    toggleServicioEspecifico(this, servicio)
+                }
+            }
+
+            filaActual?.addView(tvServicio)
+        }
+    }
+
+    private fun toggleServicioEspecifico(vista: TextView, servicio: String) {
+        if (serviciosSeleccionados.contains(servicio)) {
+            serviciosSeleccionados.remove(servicio)
+            vista.text = servicio
+            vista.setTextColor(Color.parseColor("#4B5563"))
+            vista.setBackgroundColor(Color.parseColor("#F1F5F9"))
+        } else {
+            serviciosSeleccionados.add(servicio)
+            vista.text = "✓ $servicio"
+            vista.setTextColor(Color.WHITE)
+            vista.setBackgroundColor(Color.parseColor("#0B2545"))
+        }
         actualizarContadorServicios()
     }
 
 
     private fun actualizarContadorServicios() {
-
         val cantidad = serviciosSeleccionados.size
-
-        binding.tvContadorServicios.text =
-            "$cantidad seleccionados"
+        binding.tvContadorServicios.text = "$cantidad seleccionados"
     }
 
 

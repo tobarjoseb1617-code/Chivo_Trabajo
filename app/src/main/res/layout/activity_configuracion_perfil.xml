@@ -224,13 +224,13 @@
                         android:paddingVertical="14dp"
                         android:background="?attr/selectableItemBackground" />
 
-                    <!-- Opción Mi Portafolio - Solo para profesionales -->
+                    <!-- Opción Mi Portafolio -->
                     <LinearLayout
                         android:id="@+id/layoutMiPortafolio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <View
                             android:layout_width="match_parent"

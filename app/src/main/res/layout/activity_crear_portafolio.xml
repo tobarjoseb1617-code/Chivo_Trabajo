@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8FAFC">
+
+    <!-- BARRA SUPERIOR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#FFFFFF"
+        android:elevation="2dp"
+        android:paddingHorizontal="16dp">
+
+        <ImageView
+            android:id="@+id/btnRegresarCrearPortafolio"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="8dp"
+            android:src="@android:drawable/ic_menu_revert"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Regresar" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Crear Portafolio"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#0B2545" />
+    </LinearLayout>
+
+    <!-- CONTENIDO SCROLLABLE -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- SECCIÓN 1: SOBRE TI -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sobre ti (Descripción profesional)"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Breve resumen visible en tu perfil para que los clientes te conozcan."
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="12dp" />
+
+                    <EditText
+                        android:id="@+id/etSobreTiCrearPortafolio"
+                        android:layout_width="match_parent"
+                        android:layout_height="110dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:gravity="top|start"
+                        android:hint="Ej: Técnico con más de 12 años de experiencia en fontanería..."
+                        android:padding="12dp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="13sp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- SECCIÓN 2: ACREDITACIÓN O CARNET PROFESIONAL -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="16dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Acreditación o Carnet Profesional"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título o especialidad"
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="8dp" />
+
+                    <EditText
+                        android:id="@+id/etTituloAcreditacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:hint="Ej: Técnico en Redes Hidráulicas y Fontanería"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="12dp"
+                        android:inputType="text" />
+
+                    <!-- Tarjeta para adjuntar documento -->
+                    <LinearLayout
+                        android:id="@+id/layoutAdjuntarDocumento"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:background="@drawable/bg_input_rounded"
+                        android:padding="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:src="@android:drawable/ic_menu_agenda"
+                            android:layout_marginEnd="12dp"
+                            android:contentDescription="Documento" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvNombreArchivoAdjunto"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Certificado_Profesional.pdf"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Toca para cambiar foto o documento"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@android:drawable/ic_menu_rotate"
+                            android:contentDescription="Cambiar" />
+                    </LinearLayout>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+            <!-- SECCIÓN 3: REGISTRAR UN TRABAJO -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="1dp"
+                app:cardBackgroundColor="#FFFFFF"
+                android:layout_marginBottom="24dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Registrar un Trabajo"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#0B2545"
+                        android:layout_marginBottom="12dp" />
+
+                    <!-- Cuadro de subida de foto con previsualización -->
+                    <FrameLayout
+                        android:id="@+id/layoutSubirFotoTrabajo"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:layout_marginBottom="12dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <ImageView
+                            android:id="@+id/ivPreviewTrabajo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop"
+                            android:visibility="gone"
+                            android:contentDescription="Previsualización del trabajo" />
+
+                        <LinearLayout
+                            android:id="@+id/layoutPlaceholderTrabajo"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:gravity="center">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📷+"
+                                android:textSize="22sp"
+                                android:layout_marginBottom="4dp" />
+
+                            <TextView
+                                android:id="@+id/tvEstadoFotoTrabajo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Subir foto del trabajo"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:textColor="#0B2545" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="JPG o PNG (máx 8MB)"
+                                android:textSize="11sp"
+                                android:textColor="#6B7280" />
+                        </LinearLayout>
+                    </FrameLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título del trabajo"
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="6dp" />
+
+                    <EditText
+                        android:id="@+id/etTituloTrabajo"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:hint="Ej: Instalación de Bomba Hidroneumática"
+                        android:paddingHorizontal="12dp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="12dp"
+                        android:inputType="text" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción del trabajo"
+                        android:textSize="11sp"
+                        android:textColor="#6B7280"
+                        android:layout_marginBottom="6dp" />
+
+                    <EditText
+                        android:id="@+id/etDescripcionTrabajo"
+                        android:layout_width="match_parent"
+                        android:layout_height="90dp"
+                        android:background="@drawable/bg_input_rounded"
+                        android:gravity="top|start"
+                        android:hint="Describe brevemente qué trabajo realizaste y la solución ofrecida..."
+                        android:padding="12dp"
+                        android:textColor="#1F2937"
+                        android:textColorHint="#9CA3AF"
+                        android:textSize="13sp"
+                        android:inputType="textMultiLine" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- BOTÓN INFERIOR: GUARDAR PORTAFOLIO -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:elevation="8dp"
+        android:padding="16dp">
+
+        <Button
+            android:id="@+id/btnGuardarCrearPortafolio"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="✓  Guardar Portafolio"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#0B2545" />
+    </LinearLayout>
+
+</LinearLayout>

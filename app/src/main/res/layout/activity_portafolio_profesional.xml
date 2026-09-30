@@ -118,7 +118,19 @@
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:backgroundTint="#0B2545" />
+                    android:backgroundTint="#0B2545"
+                    android:layout_marginBottom="10dp" />
+
+                <Button
+                    android:id="@+id/btnAgregarTituloPortafolio"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:text="+  Agregar título / Acreditación"
+                    android:textAllCaps="false"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#0B2545"
+                    android:backgroundTint="#E2E8F0" />
 
             </LinearLayout>
 

@@ -72,6 +72,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- CrearPortafolioActivity para crear y registrar trabajos en el portafolio profesional -->
+        <activity
+            android:name=".ui.profesional.CrearPortafolioActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- ExplorarMapaActivity para el mapa / radar de técnicos -->
         <activity
             android:name=".ui.cliente.ExplorarMapaActivity"

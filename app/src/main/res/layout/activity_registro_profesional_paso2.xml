@@ -232,108 +232,13 @@
                 </LinearLayout>
 
 
-                <!-- SERVICIOS -->
+                <!-- SERVICIOS DINÁMICOS -->
                 <LinearLayout
+                    android:id="@+id/layoutServiciosDinamicos"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:layout_marginBottom="20dp">
-
-                    <!-- FILA 1 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:id="@+id/tvServicioFugas"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Reparación de fugas"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#4B5563"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:clickable="true"
-                            android:focusable="true" />
-
-                        <TextView
-                            android:id="@+id/tvServicioGriferia"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Instalación de grifería"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#4B5563"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true" />
-                    </LinearLayout>
-
-
-                    <!-- FILA 2 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:id="@+id/tvServicioDestape"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Destape de tuberías"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#4B5563"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:layout_marginEnd="8dp"
-                            android:clickable="true"
-                            android:focusable="true" />
-
-                        <TextView
-                            android:id="@+id/tvServicioInodoros"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Instalación de inodoros"
-                            android:textSize="11sp"
-                            android:textColor="#4B5563"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true" />
-                    </LinearLayout>
-
-
-                    <!-- FILA 3 -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvServicioCisterna"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Mantenimiento cisterna"
-                            android:textSize="11sp"
-                            android:textColor="#4B5563"
-                            android:background="#F1F5F9"
-                            android:paddingHorizontal="12dp"
-                            android:paddingVertical="8dp"
-                            android:clickable="true"
-                            android:focusable="true" />
-                    </LinearLayout>
-
                 </LinearLayout>
 
 

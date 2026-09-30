@@ -1,6 +1,8 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
 import android.app.AlertDialog
+import android.content.Intent
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -35,960 +37,369 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
 
     private val listaPortafolio = mutableListOf<Portafolio>()
 
-    private var imagenSeleccionada: Uri? = null
+    // Variables de estado para los diálogos modales (declaradas a nivel de clase por reglas de ciclo de vida de Android)
+    private var imagenSeleccionadaUri: Uri? = null
+    private var btnElegirFotoRef: android.widget.Button? = null
 
-
-    // Seleccionar imagen de la galería
-    private val seleccionarImagenLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.GetContent()
-        ) { uri: Uri? ->
-
-            if (uri != null) {
-                imagenSeleccionada = uri
-                mostrarDialogoDescripcion()
-            }
+    // Launcher único declarado correctamente a nivel de clase
+    private val seleccionarImagenLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        if (uri != null) {
+            imagenSeleccionadaUri = uri
+            btnElegirFotoRef?.text = "✓ Imagen seleccionada con éxito"
+            Toast.makeText(this, "Imagen seleccionada", Toast.LENGTH_SHORT).show()
         }
-
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding =
-            ActivityPortafolioProfesionalBinding.inflate(layoutInflater)
-
+        binding = ActivityPortafolioProfesionalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        // -----------------------------------------
-        // EVITAR QUE EL HEADER QUEDE DEBAJO
-        // DE LA BARRA DE NOTIFICACIONES
-        // -----------------------------------------
-
+        // Evitar que el header quede debajo de la barra de notificaciones
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { _, insets ->
-
-            val systemBars =
-                insets.getInsets(
-                    WindowInsetsCompat.Type.systemBars()
-                )
-
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             binding.layoutHeaderPortafolio.setPadding(
                 16.dpToPx(),
                 systemBars.top,
                 16.dpToPx(),
                 0
             )
-
             insets
         }
-
 
         authRepository = AuthRepository(this)
         firestoreRepository = FirestoreRepository()
 
         configurarRecyclerView()
         configurarEventos()
-
         cargarPortafolio()
     }
 
-
-    // ------------------------------------------------
-    // CONVERTIR DP A PIXELES
-    // ------------------------------------------------
-
     private fun Int.dpToPx(): Int {
-        return (
-                this * resources.displayMetrics.density
-                ).toInt()
+        return (this * resources.displayMetrics.density).toInt()
     }
 
-
-    // ------------------------------------------------
-    // RECYCLERVIEW
-    // ------------------------------------------------
-
     private fun configurarRecyclerView() {
-
-        portafolioAdapter =
-            PortafolioAdapter(listaPortafolio) { trabajo ->
-
-                mostrarOpcionesTrabajo(trabajo)
-            }
+        portafolioAdapter = PortafolioAdapter(listaPortafolio) { trabajo ->
+            mostrarOpcionesTrabajo(trabajo)
+        }
 
         binding.rvPortafolio.apply {
-
-            layoutManager =
-                GridLayoutManager(
-                    this@PortafolioProfesionalActivity,
-                    2
-                )
-
+            layoutManager = GridLayoutManager(this@PortafolioProfesionalActivity, 2)
             adapter = portafolioAdapter
-
             setHasFixedSize(false)
         }
     }
 
-
-    // ------------------------------------------------
-    // BOTONES
-    // ------------------------------------------------
-
     private fun configurarEventos() {
-
         binding.btnRegresarPortafolio.setOnClickListener {
             finish()
         }
 
+        // Botón: Agregar Trabajo
         binding.btnAgregarTrabajo.setOnClickListener {
-            abrirAgregarTrabajo()
+            mostrarDialogoAgregarTrabajo()
+        }
+
+        // Botón: Agregar Título / Acreditación
+        binding.btnAgregarTituloPortafolio.setOnClickListener {
+            mostrarDialogoAgregarTitulo()
         }
 
         binding.btnAgregarPrimerTrabajo.setOnClickListener {
-            abrirAgregarTrabajo()
+            mostrarDialogoAgregarTrabajo()
         }
     }
 
+    // Diálogo modal para agregar un Trabajo (Imagen + Título + Descripción)
+    private fun mostrarDialogoAgregarTrabajo() {
+        imagenSeleccionadaUri = null
 
-    // ------------------------------------------------
-    // CARGAR PORTAFOLIO DESDE FIRESTORE
-    // ------------------------------------------------
+        val inputTitulo = EditText(this).apply {
+            hint = "Título del trabajo (Ej: Instalación eléctrica)"
+        }
+        val inputDescripcion = EditText(this).apply {
+            hint = "Descripción breve del trabajo realizado"
+            minLines = 2
+        }
+        val btnElegirFoto = android.widget.Button(this).apply {
+            text = "📷 Seleccionar Foto del Trabajo"
+            setBackgroundColor(Color.parseColor("#0B2545"))
+            setTextColor(Color.WHITE)
+        }
+        btnElegirFotoRef = btnElegirFoto
 
-    private fun cargarPortafolio() {
+        val contenedor = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val margen = (16 * resources.displayMetrics.density).toInt()
+            setPadding(margen, margen, margen, margen)
+            addView(btnElegirFoto, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
+            addView(inputTitulo, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
+            addView(inputDescripcion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        }
 
-        val currentUser =
-            authRepository.usuarioActual()
+        btnElegirFoto.setOnClickListener {
+            seleccionarImagenLauncher.launch("image/*")
+        }
 
+        AlertDialog.Builder(this)
+            .setTitle("Agregar Trabajo")
+            .setView(contenedor)
+            .setPositiveButton("Guardar") { _, _ ->
+                val titulo = inputTitulo.text.toString().trim()
+                val desc = inputDescripcion.text.toString().trim()
+                val uri = imagenSeleccionadaUri
+
+                if (titulo.isEmpty() || desc.isEmpty() || uri == null) {
+                    Toast.makeText(this, "Complete todos los campos y seleccione una imagen", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                subirTrabajoACloudinaryYGuardar(uri, titulo, desc)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    // Diálogo modal para agregar un Título / Acreditación (Imagen + Título)
+    private fun mostrarDialogoAgregarTitulo() {
+        imagenSeleccionadaUri = null
+
+        val inputTitulo = EditText(this).apply {
+            hint = "Título o Especialidad (Ej: Técnico en Redes)"
+        }
+        val btnElegirFoto = android.widget.Button(this).apply {
+            text = "📷 Seleccionar Foto de Acreditación / Título"
+            setBackgroundColor(Color.parseColor("#0B2545"))
+            setTextColor(Color.WHITE)
+        }
+        btnElegirFotoRef = btnElegirFoto
+
+        val contenedor = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val margen = (16 * resources.displayMetrics.density).toInt()
+            setPadding(margen, margen, margen, margen)
+            addView(btnElegirFoto, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
+            addView(inputTitulo, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        }
+
+        btnElegirFoto.setOnClickListener {
+            seleccionarImagenLauncher.launch("image/*")
+        }
+
+        AlertDialog.Builder(this)
+            .setTitle("Agregar Título o Acreditación")
+            .setView(contenedor)
+            .setPositiveButton("Guardar") { _, _ ->
+                val titulo = inputTitulo.text.toString().trim()
+                val uri = imagenSeleccionadaUri
+
+                if (titulo.isEmpty() || uri == null) {
+                    Toast.makeText(this, "Ingrese el título y seleccione una imagen", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
+                subirTrabajoACloudinaryYGuardar(uri, titulo, "Acreditación / Título Profesional")
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
+
+    // Subir imagen a Cloudinary y guardar en Firestore
+    private fun subirTrabajoACloudinaryYGuardar(imageUri: Uri, titulo: String, descripcion: String) {
+        val currentUser = authRepository.usuarioActual()
         if (currentUser == null) {
-
-            Toast.makeText(
-                this,
-                "No se encontró el usuario",
-                Toast.LENGTH_SHORT
-            ).show()
-
+            Toast.makeText(this, "Debe iniciar sesión", Toast.LENGTH_SHORT).show()
             return
         }
 
-        CoroutineScope(Dispatchers.IO).launch {
-
-            val resultado =
-                firestoreRepository.obtenerPortafolio(
-                    currentUser.uid
-                )
-
-            withContext(Dispatchers.Main) {
-
-                resultado.onSuccess { trabajos ->
-
-                    listaPortafolio.clear()
-                    listaPortafolio.addAll(trabajos)
-
-                    portafolioAdapter.actualizarLista(
-                        listaPortafolio
-                    )
-
-                    actualizarEstadoPortafolio()
-
-                }.onFailure { e ->
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Error al cargar portafolio: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
-
-                    actualizarEstadoPortafolio()
-                }
-            }
-        }
-    }
-
-
-    // ------------------------------------------------
-    // ESTADO VACÍO / CANTIDAD DE TRABAJOS
-    // ------------------------------------------------
-
-    private fun actualizarEstadoPortafolio() {
-
-        val cantidad =
-            listaPortafolio.size
-
-        binding.tvCantidadTrabajos.text =
-            cantidad.toString()
-
-        if (listaPortafolio.isEmpty()) {
-
-            binding.layoutPortafolioVacio.visibility =
-                View.VISIBLE
-
-            binding.rvPortafolio.visibility =
-                View.GONE
-
-        } else {
-
-            binding.layoutPortafolioVacio.visibility =
-                View.GONE
-
-            binding.rvPortafolio.visibility =
-                View.VISIBLE
-        }
-    }
-
-
-    // ------------------------------------------------
-    // AGREGAR TRABAJO
-    // ------------------------------------------------
-
-    private fun abrirAgregarTrabajo() {
-
-        seleccionarImagenLauncher.launch(
-            "image/*"
-        )
-    }
-
-
-    // ------------------------------------------------
-    // DESCRIPCIÓN DEL NUEVO TRABAJO
-    // ------------------------------------------------
-
-    private fun mostrarDialogoDescripcion() {
-
-        val inputDescripcion =
-            EditText(this).apply {
-
-                hint =
-                    "Ejemplo: Instalación de tomacorrientes y reparación del sistema eléctrico"
-
-                minLines = 3
-                maxLines = 5
-
-                gravity =
-                    android.view.Gravity.TOP
-            }
-
-
-        val contenedor =
-            LinearLayout(this).apply {
-
-                orientation =
-                    LinearLayout.VERTICAL
-
-                val margen =
-                    (20 * resources.displayMetrics.density)
-                        .toInt()
-
-                setPadding(
-                    margen,
-                    margen / 2,
-                    margen,
-                    0
-                )
-
-                addView(
-                    inputDescripcion,
-                    LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                )
-            }
-
-
-        val dialogo =
-            AlertDialog.Builder(this)
-                .setTitle("Agregar trabajo")
-                .setMessage(
-                    "Describe brevemente el trabajo realizado."
-                )
-                .setView(contenedor)
-                .setPositiveButton(
-                    "Publicar",
-                    null
-                )
-                .setNegativeButton(
-                    "Cancelar"
-                ) { dialog, _ ->
-
-                    imagenSeleccionada = null
-                    dialog.dismiss()
-                }
-                .create()
-
-
-        dialogo.setOnShowListener {
-
-            dialogo
-                .getButton(
-                    AlertDialog.BUTTON_POSITIVE
-                )
-                .setOnClickListener {
-
-                    val descripcion =
-                        inputDescripcion
-                            .text
-                            .toString()
-                            .trim()
-
-
-                    if (descripcion.isEmpty()) {
-
-                        inputDescripcion.error =
-                            "Escribe una descripción del trabajo"
-
-                        return@setOnClickListener
-                    }
-
-
-                    val imagen =
-                        imagenSeleccionada
-
-
-                    if (imagen == null) {
-
-                        Toast.makeText(
-                            this,
-                            "No se seleccionó ninguna imagen",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                        return@setOnClickListener
-                    }
-
-
-                    dialogo.dismiss()
-
-                    subirTrabajoACloudinary(
-                        imagen,
-                        descripcion
-                    )
-                }
-        }
-
-
-        dialogo.show()
-    }
-
-
-    // ------------------------------------------------
-    // SUBIR IMAGEN A CLOUDINARY
-    // ------------------------------------------------
-
-    private fun subirTrabajoACloudinary(
-        imageUri: Uri,
-        descripcion: String
-    ) {
-
-        val currentUser =
-            authRepository.usuarioActual()
-
-
-        if (currentUser == null) {
-
-            Toast.makeText(
-                this,
-                "Debe iniciar sesión para publicar un trabajo",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            return
-        }
-
-
-        Toast.makeText(
-            this,
-            "Publicando trabajo...",
-            Toast.LENGTH_SHORT
-        ).show()
-
+        Toast.makeText(this, "Subiendo imagen...", Toast.LENGTH_SHORT).show()
 
         CoroutineScope(Dispatchers.IO).launch {
-
             var uploadSuccess = false
-
             var secureUrl: String? = null
-
-
-            val cloudName =
-                BuildConfig.CLOUDINARY_CLOUD_NAME
-
-
-            val presetConfig =
-                BuildConfig.CLOUDINARY_UPLOAD_PRESET
-
-
-            val presets =
-                listOf(
-                    presetConfig,
-                    "chivo_trabajo",
-                    "chivo_trabajo_preset",
-                    "ml_default",
-                    "preset_chivo"
-                )
-
+            val cloudName = BuildConfig.CLOUDINARY_CLOUD_NAME
+            val presetConfig = BuildConfig.CLOUDINARY_UPLOAD_PRESET
+            val presets = listOf(presetConfig, "chivo_trabajo", "chivo_trabajo_preset", "ml_default", "preset_chivo")
 
             for (preset in presets) {
-
                 try {
+                    val urlString = "https://api.cloudinary.com/v1_1/$cloudName/image/upload"
+                    val url = URL(urlString)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "POST"
+                    connection.doOutput = true
+                    connection.doInput = true
 
-                    val urlString =
-                        "https://api.cloudinary.com/v1_1/$cloudName/image/upload"
+                    val boundary = "Boundary-${System.currentTimeMillis()}"
+                    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=$boundary")
 
+                    val outputStream = DataOutputStream(connection.outputStream)
+                    outputStream.writeBytes("--$boundary\r\n")
+                    outputStream.writeBytes("Content-Disposition: form-data; name=\"upload_preset\"\r\n\r\n")
+                    outputStream.writeBytes("$preset\r\n")
 
-                    val url =
-                        URL(urlString)
+                    outputStream.writeBytes("--$boundary\r\n")
+                    outputStream.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"portafolio_${System.currentTimeMillis()}.jpg\"\r\n")
+                    outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n")
 
-
-                    val connection =
-                        url.openConnection()
-                                as HttpURLConnection
-
-
-                    connection.requestMethod =
-                        "POST"
-
-                    connection.doOutput =
-                        true
-
-                    connection.doInput =
-                        true
-
-
-                    val boundary =
-                        "Boundary-${System.currentTimeMillis()}"
-
-
-                    connection.setRequestProperty(
-                        "Content-Type",
-                        "multipart/form-data; boundary=$boundary"
-                    )
-
-
-                    val outputStream =
-                        DataOutputStream(
-                            connection.outputStream
-                        )
-
-
-                    // Upload preset
-                    outputStream.writeBytes(
-                        "--$boundary\r\n"
-                    )
-
-                    outputStream.writeBytes(
-                        "Content-Disposition: form-data; name=\"upload_preset\"\r\n\r\n"
-                    )
-
-                    outputStream.writeBytes(
-                        "$preset\r\n"
-                    )
-
-
-                    // Imagen
-                    outputStream.writeBytes(
-                        "--$boundary\r\n"
-                    )
-
-                    outputStream.writeBytes(
-                        "Content-Disposition: form-data; name=\"file\"; filename=\"trabajo_${System.currentTimeMillis()}.jpg\"\r\n"
-                    )
-
-                    outputStream.writeBytes(
-                        "Content-Type: image/jpeg\r\n\r\n"
-                    )
-
-
-                    contentResolver
-                        .openInputStream(imageUri)
-                        ?.use { inputStream ->
-
-                            val buffer =
-                                ByteArray(4096)
-
-                            var bytesRead: Int
-
-
-                            while (
-                                inputStream
-                                    .read(buffer)
-                                    .also {
-                                        bytesRead = it
-                                    } != -1
-                            ) {
-
-                                outputStream.write(
-                                    buffer,
-                                    0,
-                                    bytesRead
-                                )
-                            }
+                    contentResolver.openInputStream(imageUri)?.use { inputStream ->
+                        val buffer = ByteArray(4096)
+                        var bytesRead: Int
+                        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
+                            outputStream.write(buffer, 0, bytesRead)
                         }
+                    }
 
-
-                    outputStream.writeBytes(
-                        "\r\n--$boundary--\r\n"
-                    )
-
-
+                    outputStream.writeBytes("\r\n--$boundary--\r\n")
                     outputStream.flush()
                     outputStream.close()
 
-
-                    val responseCode =
-                        connection.responseCode
-
-
-                    if (
-                        responseCode ==
-                        HttpURLConnection.HTTP_OK
-                    ) {
-
-                        val responseString =
-                            connection
-                                .inputStream
-                                .bufferedReader()
-                                .use {
-                                    it.readText()
-                                }
-
-
-                        val regex =
-                            "\"secure_url\"\\s*:\\s*\"(.*?)\""
-                                .toRegex()
-
-
-                        val matchResult =
-                            regex.find(
-                                responseString
-                            )
-
-
-                        secureUrl =
-                            matchResult
-                                ?.groups
-                                ?.get(1)
-                                ?.value
-                                ?.replace(
-                                    "\\/",
-                                    "/"
-                                )
-
-
-                        if (
-                            !secureUrl.isNullOrBlank()
-                        ) {
-
-                            uploadSuccess =
-                                true
-
+                    if (connection.responseCode == HttpURLConnection.HTTP_OK) {
+                        val responseString = connection.inputStream.bufferedReader().use { it.readText() }
+                        val regex = "\"secure_url\"\\s*:\\s*\"(.*?)\"".toRegex()
+                        val matchResult = regex.find(responseString)
+                        secureUrl = matchResult?.groups?.get(1)?.value?.replace("\\/", "/")
+                        if (!secureUrl.isNullOrBlank()) {
+                            uploadSuccess = true
                             break
                         }
                     }
-
                 } catch (e: Exception) {
-
-                    // Si falla un preset,
-                    // intenta con el siguiente
+                    // Siguiente preset
                 }
             }
 
-
-            withContext(
-                Dispatchers.Main
-            ) {
-
-                if (
-                    uploadSuccess &&
-                    !secureUrl.isNullOrBlank()
-                ) {
-
-                    guardarTrabajoEnFirestore(
-                        currentUser.uid,
-                        secureUrl,
-                        descripcion
-                    )
-
+            withContext(Dispatchers.Main) {
+                if (uploadSuccess && !secureUrl.isNullOrBlank()) {
+                    guardarEnFirestoreFinal(currentUser.uid, secureUrl!!, titulo, descripcion)
                 } else {
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Error al subir la imagen a Cloudinary",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@PortafolioProfesionalActivity, "Error al subir imagen a Cloudinary", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
-
-    // ------------------------------------------------
-    // GUARDAR TRABAJO EN FIRESTORE
-    // ------------------------------------------------
-
-    private fun guardarTrabajoEnFirestore(
-        uid: String,
-        url: String,
-        descripcion: String
-    ) {
-
-        CoroutineScope(
-            Dispatchers.IO
-        ).launch {
-
-            val resultado =
-                firestoreRepository
-                    .guardarTrabajoPortafolio(
-                        uid,
-                        url,
-                        descripcion
-                    )
-
-
-            withContext(
-                Dispatchers.Main
-            ) {
-
+    private fun guardarEnFirestoreFinal(uid: String, url: String, titulo: String, descripcion: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val resultado = firestoreRepository.guardarTrabajoPortafolio(uid, url, titulo, descripcion)
+            withContext(Dispatchers.Main) {
                 resultado.onSuccess {
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Trabajo publicado correctamente",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-
-                    imagenSeleccionada = null
-
-
-                    // Actualizar lista
+                    Toast.makeText(this@PortafolioProfesionalActivity, "¡Guardado con éxito!", Toast.LENGTH_SHORT).show()
                     cargarPortafolio()
-
-
                 }.onFailure { e ->
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Error al guardar: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@PortafolioProfesionalActivity, "Error al guardar: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }
     }
 
+    private fun cargarPortafolio() {
+        val currentUser = authRepository.usuarioActual() ?: return
 
-    // ------------------------------------------------
-    // MENÚ DE LOS TRES PUNTOS
-    // ------------------------------------------------
-
-    private fun mostrarOpcionesTrabajo(
-        trabajo: Portafolio
-    ) {
-
-        val opciones =
-            arrayOf(
-                "Editar descripción",
-                "Eliminar trabajo"
-            )
-
-
-        AlertDialog.Builder(this)
-            .setTitle(
-                "Opciones del trabajo"
-            )
-            .setItems(
-                opciones
-            ) { _, opcion ->
-
-                when (opcion) {
-
-                    0 -> {
-                        editarDescripcionTrabajo(
-                            trabajo
-                        )
-                    }
-
-                    1 -> {
-                        confirmarEliminarTrabajo(
-                            trabajo
-                        )
-                    }
+        CoroutineScope(Dispatchers.IO).launch {
+            val resultado = firestoreRepository.obtenerPortafolio(currentUser.uid)
+            withContext(Dispatchers.Main) {
+                resultado.onSuccess { trabajos ->
+                    listaPortafolio.clear()
+                    listaPortafolio.addAll(trabajos)
+                    portafolioAdapter.actualizarLista(listaPortafolio)
+                    actualizarEstadoPortafolio()
+                }.onFailure { e ->
+                    Toast.makeText(this@PortafolioProfesionalActivity, "Error al cargar portafolio: ${e.message}", Toast.LENGTH_LONG).show()
+                    actualizarEstadoPortafolio()
                 }
             }
-            .setNegativeButton(
-                "Cancelar",
-                null
-            )
+        }
+    }
+
+    private fun actualizarEstadoPortafolio() {
+        val cantidad = listaPortafolio.size
+        binding.tvCantidadTrabajos.text = cantidad.toString()
+
+        if (listaPortafolio.isEmpty()) {
+            binding.layoutPortafolioVacio.visibility = View.VISIBLE
+            binding.rvPortafolio.visibility = View.GONE
+        } else {
+            binding.layoutPortafolioVacio.visibility = View.GONE
+            binding.rvPortafolio.visibility = View.VISIBLE
+        }
+    }
+
+    private fun mostrarOpcionesTrabajo(trabajo: Portafolio) {
+        val opciones = arrayOf("Editar descripción", "Eliminar trabajo")
+        AlertDialog.Builder(this)
+            .setTitle("Opciones del trabajo")
+            .setItems(opciones) { _, opcion ->
+                when (opcion) {
+                    0 -> editarDescripcionTrabajo(trabajo)
+                    1 -> confirmarEliminarTrabajo(trabajo)
+                }
+            }
+            .setNegativeButton("Cancelar", null)
             .show()
     }
 
+    private fun editarDescripcionTrabajo(trabajo: Portafolio) {
+        val inputDescripcion = EditText(this).apply {
+            setText(trabajo.descripcion)
+            setSelection(text.length)
+            minLines = 3
+        }
 
-    // ------------------------------------------------
-    // EDITAR DESCRIPCIÓN
-    // ------------------------------------------------
+        val contenedor = LinearLayout(this).apply {
+            orientation = LinearLayout.VERTICAL
+            val margen = (20 * resources.displayMetrics.density).toInt()
+            setPadding(margen, margen / 2, margen, 0)
+            addView(inputDescripcion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+        }
 
-    private fun editarDescripcionTrabajo(
-        trabajo: Portafolio
-    ) {
+        AlertDialog.Builder(this)
+            .setTitle("Editar descripción")
+            .setView(contenedor)
+            .setPositiveButton("Guardar") { _, _ ->
+                val nuevaDesc = inputDescripcion.text.toString().trim()
+                if (nuevaDesc.isEmpty()) return@setPositiveButton
 
-        val inputDescripcion =
-            EditText(this).apply {
-
-                setText(
-                    trabajo.descripcion
-                )
-
-                setSelection(
-                    text.length
-                )
-
-                minLines = 3
-                maxLines = 5
-
-                gravity =
-                    android.view.Gravity.TOP
-            }
-
-
-        val contenedor =
-            LinearLayout(this).apply {
-
-                orientation =
-                    LinearLayout.VERTICAL
-
-
-                val margen =
-                    (20 * resources.displayMetrics.density)
-                        .toInt()
-
-
-                setPadding(
-                    margen,
-                    margen / 2,
-                    margen,
-                    0
-                )
-
-
-                addView(
-                    inputDescripcion,
-                    LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    )
-                )
-            }
-
-
-        val dialogo =
-            AlertDialog.Builder(this)
-                .setTitle(
-                    "Editar descripción"
-                )
-                .setView(
-                    contenedor
-                )
-                .setPositiveButton(
-                    "Guardar",
-                    null
-                )
-                .setNegativeButton(
-                    "Cancelar",
-                    null
-                )
-                .create()
-
-
-        dialogo.setOnShowListener {
-
-            dialogo
-                .getButton(
-                    AlertDialog.BUTTON_POSITIVE
-                )
-                .setOnClickListener {
-
-
-                    val nuevaDescripcion =
-                        inputDescripcion
-                            .text
-                            .toString()
-                            .trim()
-
-
-                    if (
-                        nuevaDescripcion.isEmpty()
-                    ) {
-
-                        inputDescripcion.error =
-                            "La descripción no puede estar vacía"
-
-                        return@setOnClickListener
-                    }
-
-
-                    val currentUser =
-                        authRepository.usuarioActual()
-
-
-                    if (
-                        currentUser == null
-                    ) {
-
-                        return@setOnClickListener
-                    }
-
-
-                    CoroutineScope(
-                        Dispatchers.IO
-                    ).launch {
-
-
-                        val resultado =
-                            firestoreRepository
-                                .actualizarDescripcionPortafolio(
-                                    currentUser.uid,
-                                    trabajo.idFoto,
-                                    nuevaDescripcion
-                                )
-
-
-                        withContext(
-                            Dispatchers.Main
-                        ) {
-
-
-                            resultado.onSuccess {
-
-
-                                dialogo.dismiss()
-
-
-                                Toast.makeText(
-                                    this@PortafolioProfesionalActivity,
-                                    "Descripción actualizada",
-                                    Toast.LENGTH_SHORT
-                                ).show()
-
-
-                                cargarPortafolio()
-
-
-                            }.onFailure { e ->
-
-
-                                Toast.makeText(
-                                    this@PortafolioProfesionalActivity,
-                                    "Error al actualizar: ${e.message}",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
+                val currentUser = authRepository.usuarioActual() ?: return@setPositiveButton
+                CoroutineScope(Dispatchers.IO).launch {
+                    val resultado = firestoreRepository.actualizarDescripcionPortafolio(currentUser.uid, trabajo.idFoto, nuevaDesc)
+                    withContext(Dispatchers.Main) {
+                        resultado.onSuccess {
+                            Toast.makeText(this@PortafolioProfesionalActivity, "Actualizado", Toast.LENGTH_SHORT).show()
+                            cargarPortafolio()
+                        }.onFailure { e ->
+                            Toast.makeText(this@PortafolioProfesionalActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                         }
                     }
                 }
-        }
-
-
-        dialogo.show()
-    }
-
-
-    // ------------------------------------------------
-    // CONFIRMAR ELIMINACIÓN
-    // ------------------------------------------------
-
-    private fun confirmarEliminarTrabajo(
-        trabajo: Portafolio
-    ) {
-
-        AlertDialog.Builder(this)
-            .setTitle(
-                "Eliminar trabajo"
-            )
-            .setMessage(
-                "¿Estás seguro de que deseas eliminar este trabajo de tu portafolio?"
-            )
-            .setPositiveButton(
-                "Eliminar"
-            ) { _, _ ->
-
-                eliminarTrabajo(
-                    trabajo
-                )
             }
-            .setNegativeButton(
-                "Cancelar",
-                null
-            )
+            .setNegativeButton("Cancelar", null)
             .show()
     }
 
+    private fun confirmarEliminarTrabajo(trabajo: Portafolio) {
+        AlertDialog.Builder(this)
+            .setTitle("Eliminar trabajo")
+            .setMessage("¿Deseas eliminar este elemento del portafolio?")
+            .setPositiveButton("Eliminar") { _, _ ->
+                eliminarTrabajo(trabajo)
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
+    }
 
-    // ------------------------------------------------
-    // ELIMINAR TRABAJO
-    // ------------------------------------------------
-
-    private fun eliminarTrabajo(
-        trabajo: Portafolio
-    ) {
-
-        val currentUser =
-            authRepository.usuarioActual()
-
-
-        if (
-            currentUser == null
-        ) {
-
-            Toast.makeText(
-                this,
-                "No se encontró el usuario",
-                Toast.LENGTH_SHORT
-            ).show()
-
-            return
-        }
-
-
-        CoroutineScope(
-            Dispatchers.IO
-        ).launch {
-
-
-            val resultado =
-                firestoreRepository
-                    .eliminarTrabajoPortafolio(
-                        currentUser.uid,
-                        trabajo.idFoto
-                    )
-
-
-            withContext(
-                Dispatchers.Main
-            ) {
-
-
+    private fun eliminarTrabajo(trabajo: Portafolio) {
+        val currentUser = authRepository.usuarioActual() ?: return
+        CoroutineScope(Dispatchers.IO).launch {
+            val resultado = firestoreRepository.eliminarTrabajoPortafolio(currentUser.uid, trabajo.idFoto)
+            withContext(Dispatchers.Main) {
                 resultado.onSuccess {
-
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Trabajo eliminado",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
-
+                    Toast.makeText(this@PortafolioProfesionalActivity, "Eliminado", Toast.LENGTH_SHORT).show()
                     cargarPortafolio()
-
-
                 }.onFailure { e ->
-
-
-                    Toast.makeText(
-                        this@PortafolioProfesionalActivity,
-                        "Error al eliminar: ${e.message}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@PortafolioProfesionalActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
         }

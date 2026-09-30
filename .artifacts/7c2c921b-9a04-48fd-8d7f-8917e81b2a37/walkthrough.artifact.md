@@ -1,15 +1,15 @@
-# Walkthrough - Ajustes de Exploración, Títulos, Retroceso y Navegación Profesional
+# Walkthrough - Diálogos Modales para Portafolio y Restricción de Imágenes
 
-Se han completado todos los ajustes solicitados respecto a las pantallas de exploración/radar (removiendo el menú inferior y añadiendo botón de retroceso superior), el título de Solicitudes Cercanas y la funcionalidad completa de retroceso en todas las pantallas secundarias.
+Se han implementado diálogos modales rápidos y limpios en `PortafolioProfesionalActivity` para "+ Agregar trabajo" y "+ Agregar título / Acreditación", limitando estrictamente la selección a archivos de imagen (`image/*`) y guardando los datos en la subcolección `Portafolio` de Firestore.
 
 ## Changes Made
 
-### 1. Pantallas de Exploración y Radar (`ExplorarMapaActivity`, `RadarProfesionalesActivity`, `ProfesionalesCercanosActivity`)
-- Se eliminó la barra de navegación inferior de sus respectivos layouts XML, ya que se accede a ellas mediante botones secundarios.
-- Se incorporó la flecha de retroceso superior funcional con `finish()`.
+### 1. Diálogos Modales Interactivos (`PortafolioProfesionalActivity.kt`)
+- **Agregar Trabajo**: Abre un diálogo modal para seleccionar una imagen de trabajo (`image/*`), ingresar el título y la descripción, subiéndola a Cloudinary y guardándola en Firestore.
+- **Agregar Título / Acreditación**: Abre un diálogo modal para seleccionar una imagen de carnet/título (`image/*`) y su respectivo título.
 
-### 2. Título "Solicitudes Cercanas" y Retroceso (`SolicitudesTrabajosCercanosActivity`)
-- Se actualizó el título superior a exactamente **"Solicitudes Cercanas"** y se configuró el botón de retroceso (`finish()`).
+### 2. Restricción Estricta de Imágenes (`CrearPortafolioActivity.kt`)
+- Se restringieron todos los selectores de archivos a `image/*`, evitando la selección de documentos genéricos o PDFs.
 
 ---
 

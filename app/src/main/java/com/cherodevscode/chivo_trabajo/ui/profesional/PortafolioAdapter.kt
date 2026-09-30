@@ -1,6 +1,7 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,6 +21,14 @@ class PortafolioAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(portafolio: Portafolio) {
+
+            // Título del trabajo (si existe)
+            if (portafolio.titulo.isNotBlank()) {
+                binding.tvTituloTrabajo.text = portafolio.titulo
+                binding.tvTituloTrabajo.visibility = View.VISIBLE
+            } else {
+                binding.tvTituloTrabajo.visibility = View.GONE
+            }
 
             // Descripción del trabajo
             binding.tvDescripcionTrabajo.text = portafolio.descripcion

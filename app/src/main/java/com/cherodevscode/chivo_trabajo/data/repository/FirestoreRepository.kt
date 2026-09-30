@@ -63,6 +63,7 @@ class FirestoreRepository {
     suspend fun guardarTrabajoPortafolio(
         uidProfesional: String,
         url: String,
+        titulo: String,
         descripcion: String
     ): Result<Unit> {
         return try {
@@ -76,6 +77,7 @@ class FirestoreRepository {
             val trabajo = Portafolio(
                 idFoto = documento.id,
                 url = url,
+                titulo = titulo,
                 descripcion = descripcion
             )
 
@@ -151,6 +153,27 @@ class FirestoreRepository {
 
             Result.success(Unit)
 
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Obtener datos del perfil profesional (incluyendo descripción)
+    suspend fun obtenerProfesional(uid: String): Result<Profesional?> {
+        return try {
+            val doc = db.collection("profesionales").document(uid).get().await()
+            val profesional = doc.toObject(Profesional::class.java)
+            Result.success(profesional)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Actualizar descripción profesional
+    suspend fun actualizarDescripcionProfesional(uid: String, nuevaDescripcion: String): Result<Unit> {
+        return try {
+            db.collection("profesionales").document(uid).update("descripcion", nuevaDescripcion).await()
+            Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
         }

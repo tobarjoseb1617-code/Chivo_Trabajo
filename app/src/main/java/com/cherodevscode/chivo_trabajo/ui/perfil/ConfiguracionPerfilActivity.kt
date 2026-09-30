@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.perfil
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -18,6 +19,8 @@ import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityConfiguracionPerfilBinding
 import com.cherodevscode.chivo_trabajo.ui.autenticacion.IniciarSesionActivity
+import com.cherodevscode.chivo_trabajo.ui.profesional.CrearPortafolioActivity
+import com.cherodevscode.chivo_trabajo.ui.profesional.PortafolioProfesionalActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -25,8 +28,6 @@ import kotlinx.coroutines.withContext
 import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
-import com.cherodevscode.chivo_trabajo.ui.profesional.PortafolioProfesionalActivity
-import android.view.View
 
 class ConfiguracionPerfilActivity : AppCompatActivity() {
     private lateinit var binding: ActivityConfiguracionPerfilBinding
@@ -82,13 +83,9 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             Toast.makeText(this, "Función de edición en desarrollo", Toast.LENGTH_SHORT).show()
         }
 
-        //portafolio solamente para profesionales
+        // Mi Portafolio -> Muestra diálogo para Ver o Crear Portafolio
         binding.btnMiPortafolio.setOnClickListener {
-            val intent = Intent(
-                this,
-                PortafolioProfesionalActivity::class.java
-            )
-            startActivity(intent)
+            mostrarOpcionesPortafolio()
         }
 
         binding.tvSoporte.setOnClickListener {
@@ -108,6 +105,26 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    // Menú desplegable / Diálogo para elegir entre Ver o Crear Portafolio
+    private fun mostrarOpcionesPortafolio() {
+        val opciones = arrayOf("🖼️ Ver Portafolio", "➕ Crear / Agregar al Portafolio")
+        AlertDialog.Builder(this)
+            .setTitle("Gestión de Portafolio")
+            .setItems(opciones) { _, which ->
+                when (which) {
+                    0 -> {
+                        // Ver Portafolio existente
+                        startActivity(Intent(this, PortafolioProfesionalActivity::class.java))
+                    }
+                    1 -> {
+                        // Crear o agregar nuevo trabajo al portafolio
+                        startActivity(Intent(this, CrearPortafolioActivity::class.java))
+                    }
+                }
+            }
+            .show()
     }
 
     private fun cargarDatosUsuario() {
@@ -137,13 +154,6 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
                             binding.tvTelefonoUsuario.text = usuario.telefono.ifBlank { "No registrado" }
                             binding.tvTipoUsuario.text = usuario.tipoUsuario
                             binding.tvEstadoVerificacion.text = usuario.estadoVerificacion
-
-                            // Mostrar Mi Portafolio solamente si el usuario es profesional
-                            if (usuario.tipoUsuario.equals("PROFESIONAL", ignoreCase = true)) {
-                                binding.layoutMiPortafolio.visibility = View.VISIBLE
-                            } else {
-                                binding.layoutMiPortafolio.visibility = View.GONE
-                            }
 
                             if (!usuario.fotoPerfil.isBlank()) {
                                 Glide.with(this@ConfiguracionPerfilActivity)
@@ -176,7 +186,6 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             var secureUrl: String? = null
             val cloudName = BuildConfig.CLOUDINARY_CLOUD_NAME
             val presetConfig = BuildConfig.CLOUDINARY_UPLOAD_PRESET
-            // Try user preset from local.properties first, then common fallbacks
             val presets = listOf(presetConfig, "chivo_trabajo", "chivo_trabajo_preset", "ml_default", "preset_chivo")
 
             for (preset in presets) {

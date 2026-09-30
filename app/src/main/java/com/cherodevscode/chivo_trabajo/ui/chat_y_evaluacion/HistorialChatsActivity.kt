@@ -11,6 +11,7 @@ import com.cherodevscode.chivo_trabajo.ui.cliente.RadarProfesionalesActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.HistorialDeServiciosActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.InicioProfesionalActivity
+import com.cherodevscode.chivo_trabajo.ui.profesional.SolicitudesTrabajosCercanosActivity
 
 class HistorialChatsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistorialChatsBinding
@@ -20,12 +21,19 @@ class HistorialChatsActivity : AppCompatActivity() {
         binding = ActivityHistorialChatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Botón Regresar seguro al inicio
+        // Detectar si el usuario actual es profesional o cliente mediante extra
+        val isPro = intent.getBooleanExtra("EXTRA_IS_PRO", false)
+
+        // Botón Regresar seguro al inicio correspondiente
         binding.btnRegresarHistorialChats.setOnClickListener {
-            val intent = Intent(this, InicioActivity::class.java).apply {
+            val targetIntent = if (isPro) {
+                Intent(this, InicioProfesionalActivity::class.java)
+            } else {
+                Intent(this, InicioActivity::class.java)
+            }.apply {
                 flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
             }
-            startActivity(intent)
+            startActivity(targetIntent)
             finish()
         }
 
@@ -46,19 +54,29 @@ class HistorialChatsActivity : AppCompatActivity() {
 
         // Menú inferior: Inicio
         binding.navInicioChat.setOnClickListener {
-            startActivity(Intent(this, InicioActivity::class.java))
+            val targetIntent = if (isPro) {
+                Intent(this, InicioProfesionalActivity::class.java)
+            } else {
+                Intent(this, InicioActivity::class.java)
+            }
+            startActivity(targetIntent)
             finish()
         }
 
-        // Menú inferior: Solicitudes -> Ir a HistorialSolicitudesClienteActivity
+        // Menú inferior: Solicitudes
         binding.navSolicitudesChat.setOnClickListener {
-            startActivity(Intent(this, HistorialSolicitudesClienteActivity::class.java))
+            val targetIntent = if (isPro) {
+                Intent(this, SolicitudesTrabajosCercanosActivity::class.java)
+            } else {
+                Intent(this, HistorialSolicitudesClienteActivity::class.java)
+            }
+            startActivity(targetIntent)
             finish()
         }
 
         // Menú inferior: Servicios
         binding.navServiciosChat.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+            startActivity(Intent(this, HistorialDeServiciosActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
             finish()
         }
 
