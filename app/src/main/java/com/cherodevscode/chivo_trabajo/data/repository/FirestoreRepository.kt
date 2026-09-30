@@ -38,6 +38,27 @@ class FirestoreRepository {
         }
     }
 
+    suspend fun actualizarVerificacionDuiCompleta(
+        uid: String,
+        dui: String,
+        frenteUrl: String,
+        dorsoUrl: String,
+        estado: String
+    ): Result<Unit> {
+        return try {
+            val datos = mapOf(
+                "dui" to dui,
+                "duiFrenteUrl" to frenteUrl,
+                "duiDorsoUrl" to dorsoUrl,
+                "estadoVerificacion" to estado
+            )
+            db.collection("Usuario").document(uid).update(datos).await()
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     suspend fun actualizarFotoPerfil(uid: String, url: String): Result<Unit> {
         return try {

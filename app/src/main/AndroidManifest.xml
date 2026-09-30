@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -156,6 +159,17 @@
         <!-- ConfiguracionPerfilActivity para la configuración y perfil del usuario con cierre de sesión -->
         <activity
             android:name=".ui.perfil.ConfiguracionPerfilActivity"
+            android:exported="false" />
+
+        <!-- VerificacionDuiActivity para escaneo y subida de DUI (frente y dorso) -->
+        <activity
+            android:name=".ui.perfil.VerificacionDuiActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- EscanearDuiCameraActivity para captura con CameraX y OCR con ML Kit -->
+        <activity
+            android:name=".ui.perfil.EscanearDuiCameraActivity"
             android:exported="false" />
 
         <!-- MainActivity existente -->

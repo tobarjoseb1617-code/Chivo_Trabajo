@@ -224,6 +224,23 @@
                         android:paddingVertical="14dp"
                         android:background="?attr/selectableItemBackground" />
 
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#F3F4F6" />
+
+                    <!-- Opción Verificar DUI -->
+                    <TextView
+                        android:id="@+id/tvVerificarDui"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="🛡️ Verificar Identidad (DUI)"
+                        android:textSize="14sp"
+                        android:textColor="#1F2937"
+                        android:paddingHorizontal="16dp"
+                        android:paddingVertical="14dp"
+                        android:background="?attr/selectableItemBackground" />
+
                     <!-- Opción Mi Portafolio -->
                     <LinearLayout
                         android:id="@+id/layoutMiPortafolio"

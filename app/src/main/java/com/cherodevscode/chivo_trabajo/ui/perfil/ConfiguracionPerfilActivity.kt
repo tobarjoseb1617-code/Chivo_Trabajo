@@ -83,6 +83,10 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             Toast.makeText(this, "Función de edición en desarrollo", Toast.LENGTH_SHORT).show()
         }
 
+        binding.tvVerificarDui.setOnClickListener {
+            startActivity(Intent(this, VerificacionDuiActivity::class.java))
+        }
+
         // Mi Portafolio -> Muestra diálogo para Ver o Crear Portafolio
         binding.btnMiPortafolio.setOnClickListener {
             mostrarOpcionesPortafolio()

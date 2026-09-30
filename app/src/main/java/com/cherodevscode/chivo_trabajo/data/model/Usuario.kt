@@ -7,8 +7,11 @@ data class Usuario(
     val correo: String = "",
     val telefono: String = "",
     val tipoUsuario: String = "CLIENTE", // CLIENTE o PROFESIONAL
-    val estadoVerificacion: String = "PENDIENTE", // PENDIENTE, VERIFICADO
+    val estadoVerificacion: String = "PENDIENTE", // PENDIENTE, VERIFICADO, APROBADO
     val fotoPerfil: String = "",
+    val dui: String = "",
+    val duiFrenteUrl: String = "",
+    val duiDorsoUrl: String = "",
     val direccion: String = "",
     val ciudad: String = "",
     val latitud: Double = 0.0,
