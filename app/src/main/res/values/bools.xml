@@ -1,0 +1,4 @@
+<resources>
+    <!-- Iconos oscuros en modo claro e iconos claros en modo oscuro. -->
+    <bool name="light_system_bars">true</bool>
+</resources>

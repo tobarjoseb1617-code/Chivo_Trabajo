@@ -25,6 +25,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class VerificacionDuiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityVerificacionDuiBinding
     private lateinit var authRepository: AuthRepository
@@ -77,8 +78,8 @@ class VerificacionDuiActivity : AppCompatActivity() {
             insets
         }
 
-        window.statusBarColor = Color.WHITE
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        window.statusBarColor = androidx.core.content.ContextCompat.getColor(this, com.cherodevscode.chivo_trabajo.R.color.ui_background)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = resources.getBoolean(R.bool.light_system_bars)
 
         // Hacer el input de DUI de solo lectura (no editable manualmente)
         binding.etDuiNumero.isFocusable = false

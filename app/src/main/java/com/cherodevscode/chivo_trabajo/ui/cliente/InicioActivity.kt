@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.cliente
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -25,6 +26,27 @@ class InicioActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityInicioBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navInicio
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navSolicitudes -> {
+                    startActivity(Intent(this, HistorialSolicitudesClienteActivity::class.java))
+                }
+                R.id.navServicios -> {
+                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                }
+                R.id.navMensajes -> {
+                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                }
+                R.id.navPerfil -> {
+                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navInicio
+        }
 
         cargarNombreUsuario()
 
@@ -71,25 +93,6 @@ class InicioActivity : AppCompatActivity() {
             startActivity(Intent(this, RadarProfesionalesActivity::class.java))
         }
 
-        // 6. Menú inferior: Solicitudes
-        binding.navSolicitudes.setOnClickListener {
-            startActivity(Intent(this, HistorialSolicitudesClienteActivity::class.java))
-        }
-
-        // 7. Menú inferior: Servicios
-        binding.navServicios.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
-        }
-
-        // 8. Menú inferior: Mensajes
-        binding.navMensajes.setOnClickListener {
-            startActivity(Intent(this, HistorialChatsActivity::class.java))
-        }
-
-        // 9. Menú inferior y botón superior: Perfil / Configuración
-        binding.navPerfil.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
-        }
         binding.btnPerfilTop.setOnClickListener {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }

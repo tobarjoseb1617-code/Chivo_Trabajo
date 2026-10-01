@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/navInicioPro" android:title="Inicio" android:icon="@drawable/ic_m3_home"/>
+  <item android:id="@+id/navSolicitudesPro" android:title="Solicitudes" android:icon="@drawable/ic_m3_list"/>
+  <item android:id="@+id/navServiciosPro" android:title="Servicios" android:icon="@drawable/ic_m3_work"/>
+  <item android:id="@+id/navMensajesPro" android:title="Mensajes" android:icon="@drawable/ic_m3_chat"/>
+  <item android:id="@+id/navPerfilPro" android:title="Perfil" android:icon="@drawable/ic_m3_person"/>
+</menu>

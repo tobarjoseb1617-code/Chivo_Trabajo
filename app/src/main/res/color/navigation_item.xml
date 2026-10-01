@@ -1,0 +1,5 @@
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- La selección se comunica con color e indicador; el resto conserva contraste. -->
+    <item android:state_checked="true" android:color="@color/ui_primary" />
+    <item android:color="@color/ui_text_secondary" />
+</selector>

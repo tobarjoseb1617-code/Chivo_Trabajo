@@ -1,1378 +1,1156 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7">
-
-    <!-- CONTENIDO PRINCIPAL -->
-    <ScrollView
+    android:background="@color/ui_background">
+  <!-- Ajuste para presentación: títulos de 20sp y etiquetas compactas; se conserva el tamaño táctil y la escala de texto del teléfono. -->
+  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
+  <!-- CONTENIDO PRINCIPAL -->
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:fillViewport="true"
+      android:scrollbars="none">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true"
-        android:scrollbars="none">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="40dp">
+      <!-- 1. BARRA SUPERIOR -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:layout_marginBottom="18dp">
+        <ImageView
+            android:id="@+id/btnRegresarHistorialSolicitudesCliente"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_m3_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Regresar"
+            android:minHeight="48dp"
+            app:tint="@color/ui_text"/>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!-- Notificaciones -->
+        <ImageView
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_input_rounded"
+            android:padding="9dp"
+            android:src="@drawable/ic_m3_notifications"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="Notificaciones"
+            app:tint="@color/ui_text_secondary"/>
+        <!-- Perfil -->
+        <ImageView
+            android:id="@+id/btnPerfilHistorialClienteTop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/ui_brand"
+            android:padding="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="Perfil"
+            android:minHeight="48dp"/>
+      </LinearLayout>
+      <!-- 2. TÍTULO -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:layout_marginBottom="16dp">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Panel cliente"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text_secondary"
+              android:letterSpacing="0.08"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Mis Solicitudes"
+              android:textSize="20sp"
+              android:textStyle="normal"
+              android:textColor="@color/ui_text"
+              android:layout_marginTop="2dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+              android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPublicarNuevaSolicitud"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+  Nueva solicitud"
+            android:textAllCaps="false"
+            style="@style/Widget.Chivo.Button"
+            android:minHeight="48dp"
+            android:textSize="14sp"/>
+      </LinearLayout>
+      <!-- 3. BUSCADOR -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="56dp"
+          android:orientation="horizontal"
+          android:background="@drawable/bg_input_rounded"
+          android:gravity="center_vertical"
+          android:paddingHorizontal="16dp"
+          android:layout_marginBottom="14dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_m3_search"
+            app:tint="@color/ui_primary"
+            android:importantForAccessibility="no"/>
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@null"
+            android:hint="Buscar por servicio o #SOL..."
+            android:textSize="14sp"
+            android:textColor="@color/ui_text"
+            android:textColorHint="@color/ui_text_secondary"
+            android:inputType="text"
+            android:singleLine="true"
+            android:minHeight="48dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="☰"
+            android:textSize="17sp"
+            android:textColor="@color/ui_text_secondary"
+            android:padding="4dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            android:fontFamily="sans-serif"
+            android:lineSpacingExtra="2sp"/>
+      </LinearLayout>
+      <!-- 4. FILTROS -->
+      <HorizontalScrollView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:scrollbars="none"
+          android:layout_marginBottom="20dp">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+          <!-- TODAS -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="36dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:background="@color/ui_brand"
+              android:paddingHorizontal="16dp"
+              android:layout_marginEnd="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Todas"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center"
+                android:background="#0284C7"
+                android:text="4"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- ABIERTAS -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="36dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:background="@color/ui_surface"
+              android:paddingHorizontal="16dp"
+              android:layout_marginEnd="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Abiertas"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center"
+                android:background="@color/ui_surface_variant"
+                android:text="2"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- EN PROCESO -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="36dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:background="@color/ui_surface"
+              android:paddingHorizontal="16dp"
+              android:layout_marginEnd="8dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="En proceso"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center"
+                android:background="@color/ui_surface_variant"
+                android:text="1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- FINALIZADAS -->
+          <LinearLayout
+              android:layout_width="wrap_content"
+              android:layout_height="36dp"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:background="@color/ui_surface"
+              android:paddingHorizontal="16dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finalizadas"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginStart="7dp"
+                android:gravity="center"
+                android:background="@color/ui_surface_variant"
+                android:text="1"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+        </LinearLayout>
+      </HorizontalScrollView>
+      <!-- SOLICITUD 1 -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="14dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="40dp">
-
-
-            <!-- 1. BARRA SUPERIOR -->
+            android:padding="16dp">
+          <!-- Código + Estado -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="10dp">
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="18dp">
-
-                <ImageView
-                    android:id="@+id/btnRegresarHistorialSolicitudesCliente"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:src="@android:drawable/ic_menu_revert"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="Regresar" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <!-- Notificaciones -->
-                <ImageView
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:background="@drawable/bg_input_rounded"
-                    android:padding="9dp"
-                    android:src="@drawable/ic_notificacion"
-                    android:layout_marginEnd="10dp"
-                    android:contentDescription="Notificaciones" />
-
-                <!-- Perfil -->
-                <ImageView
-                    android:id="@+id/btnPerfilHistorialClienteTop"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:background="#0B2545"
-                    android:padding="8dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:contentDescription="Perfil" />
-
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="#sol-8942"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_primary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Hace 45 min"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
             </LinearLayout>
-
-
-
-            <!-- 2. TÍTULO -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PANEL CLIENTE"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="#9CA3AF"
-                        android:letterSpacing="0.08" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mis Solicitudes"
-                        android:textSize="22sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-                <Button
-                    android:id="@+id/btnPublicarNuevaSolicitud"
-                    android:layout_width="wrap_content"
-                    android:layout_height="42dp"
-                    android:text="+  Nueva solicitud"
-                    android:textAllCaps="false"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:backgroundTint="#0B2545"
-                    android:paddingHorizontal="14dp" />
-
-            </LinearLayout>
-
-
-
-            <!-- 3. BUSCADOR -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:orientation="horizontal"
-                android:background="@drawable/bg_input_rounded"
-                android:gravity="center_vertical"
-                android:paddingHorizontal="14dp"
-                android:layout_marginBottom="14dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🔍"
-                    android:textSize="15sp"
-                    android:layout_marginEnd="8dp" />
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="Buscar por servicio o #SOL..."
-                    android:textSize="13sp"
-                    android:textColor="#1F2937"
-                    android:textColorHint="#9CA3AF"
-                    android:inputType="text"
-                    android:singleLine="true" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="☰"
-                    android:textSize="17sp"
-                    android:textColor="#64748B"
-                    android:padding="4dp" />
-
-            </LinearLayout>
-
-
-
-            <!-- 4. FILTROS -->
-            <HorizontalScrollView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="20dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!-- TODAS -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:background="#0B2545"
-                        android:paddingHorizontal="14dp"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Todas"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF" />
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="7dp"
-                            android:gravity="center"
-                            android:background="#0284C7"
-                            android:text="4"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF" />
-
-                    </LinearLayout>
-
-
-                    <!-- ABIERTAS -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:background="#FFFFFF"
-                        android:paddingHorizontal="14dp"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Abiertas"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#475569" />
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="7dp"
-                            android:gravity="center"
-                            android:background="#F1F5F9"
-                            android:text="2"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-
-                    <!-- EN PROCESO -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:background="#FFFFFF"
-                        android:paddingHorizontal="14dp"
-                        android:layout_marginEnd="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="En proceso"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#475569" />
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="7dp"
-                            android:gravity="center"
-                            android:background="#F1F5F9"
-                            android:text="1"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-
-                    <!-- FINALIZADAS -->
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="36dp"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:background="#FFFFFF"
-                        android:paddingHorizontal="14dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Finalizadas"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#475569" />
-
-                        <TextView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginStart="7dp"
-                            android:gravity="center"
-                            android:background="#F1F5F9"
-                            android:text="1"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </HorizontalScrollView>
-
-
-
-            <!-- SOLICITUD 1 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-
-                    <!-- Código + Estado -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="#SOL-8942"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#0369A1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Hace 45 min"
-                                android:textSize="10sp"
-                                android:textColor="#94A3B8"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="●  Recibiendo propuestas"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#059669"
-                            android:background="#ECFDF5"
-                            android:paddingHorizontal="9dp"
-                            android:paddingVertical="5dp" />
-
-                    </LinearLayout>
-
-
-                    <!-- Nombre -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Reparación de Fuga en Fregadero"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="5dp" />
-
-                    <!-- Categoría -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="🔧  Fontanería"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:textColor="#0369A1"
-                        android:layout_marginBottom="6dp" />
-
-                    <!-- Ubicación -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Residencial Cumbres de Cuscatlán, Pasaje 3..."
-                        android:textSize="11sp"
-                        android:textColor="#64748B"
-                        android:layout_marginBottom="14dp" />
-
-
-                    <!-- PRESUPUESTO -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="11dp"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PRESUPUESTO"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$20.00 – $35.00"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="USD"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-
-                    <!-- PROPUESTAS -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F0F9FF"
-                        android:padding="10dp"
-                        android:layout_marginBottom="14dp">
-
-                        <TextView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:gravity="center"
-                            android:text="👥"
-                            android:textSize="17sp"
-                            android:background="#E0F2FE" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginStart="10dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="3 propuestas recibidas"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Revisa y elige al técnico que prefieras"
-                                android:textSize="10sp"
-                                android:textColor="#64748B"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="›"
-                            android:textSize="22sp"
-                            android:textColor="#0284C7" />
-
-                    </LinearLayout>
-
-
-                    <!-- BOTONES -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnVerPropuestas1"
-                            android:layout_width="0dp"
-                            android:layout_height="42dp"
-                            android:layout_weight="1.4"
-                            android:text="Ver propuestas"
-                            android:textAllCaps="false"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545"
-                            android:layout_marginEnd="8dp" />
-
-                        <Button
-                            android:id="@+id/btnGestionar1"
-                            android:layout_width="0dp"
-                            android:layout_height="42dp"
-                            android:layout_weight="1"
-                            android:text="Gestionar"
-                            android:textAllCaps="false"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#475569"
-                            android:backgroundTint="#E2E8F0" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- SOLICITUD 2 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-
-                    <!-- Código + Estado -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="#SOL-8910"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#0369A1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Publicada ayer"
-                                android:textSize="10sp"
-                                android:textColor="#94A3B8"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="●  Esperando propuestas"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#B45309"
-                            android:background="#FFF7ED"
-                            android:paddingHorizontal="9dp"
-                            android:paddingVertical="5dp" />
-
-                    </LinearLayout>
-
-
-                    <!-- Nombre -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Instalación de Tomacorrientes 220V"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="5dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="⚡  Electricidad residencial"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:textColor="#0369A1"
-                        android:layout_marginBottom="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Colonia Escalón, Pasaje Los Pinos #5..."
-                        android:textSize="11sp"
-                        android:textColor="#64748B"
-                        android:layout_marginBottom="14dp" />
-
-
-                    <!-- PRESUPUESTO -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="11dp"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PRESUPUESTO"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$35.00 – $50.00"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="USD"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-
-                    <!-- NUEVA PROPUESTA -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#ECFDF5"
-                        android:padding="10dp"
-                        android:layout_marginBottom="14dp">
-
-                        <ImageView
-                            android:layout_width="36dp"
-                            android:layout_height="36dp"
-                            android:src="@mipmap/ic_launcher"
-                            android:background="#E5E7EB"
-                            android:layout_marginEnd="10dp"
-                            android:contentDescription="David Henríquez" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Nueva propuesta recibida"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:textColor="#059669" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="David Henríquez  •  $40.00"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <Button
-                        android:id="@+id/btnVerPropuesta2"
-                        android:layout_width="match_parent"
-                        android:layout_height="42dp"
-                        android:text="Ver propuesta"
-                        android:textAllCaps="false"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#0B2545" />
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-
-            <!-- SOLICITUD 3 - EN PROCESO -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="3dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-
-                    <!-- Código + Estado -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="#SOL-8874"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#0369A1" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Servicio en curso"
-                                android:textSize="10sp"
-                                android:textColor="#94A3B8"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="●  Técnico asignado"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#166534"
-                            android:background="#DCFCE7"
-                            android:paddingHorizontal="9dp"
-                            android:paddingVertical="5dp" />
-
-                    </LinearLayout>
-
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cambio de Chapa de Seguridad"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="5dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="🔑  Cerrajería"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:textColor="#0369A1"
-                        android:layout_marginBottom="14dp" />
-
-
-                    <!-- MONTO -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="11dp"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="MONTO ACORDADO"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$25.00"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="USD"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#64748B" />
-
-                    </LinearLayout>
-
-
-                    <!-- TÉCNICO -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F0F9FF"
-                        android:padding="11dp"
-                        android:layout_marginBottom="14dp">
-
-                        <ImageView
-                            android:layout_width="42dp"
-                            android:layout_height="42dp"
-                            android:src="@mipmap/ic_launcher"
-                            android:background="#E5E7EB"
-                            android:layout_marginEnd="11dp"
-                            android:contentDescription="Mauricio Galdámez" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="TÉCNICO ASIGNADO"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#64748B" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Mauricio Galdámez  ✓"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="★ 4.95  •  Identidad verificada"
-                                android:textSize="10sp"
-                                android:textColor="#64748B"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <!-- BOTONES -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnSeguimiento3"
-                            android:layout_width="0dp"
-                            android:layout_height="42dp"
-                            android:layout_weight="1.2"
-                            android:text="Ver seguimiento"
-                            android:textAllCaps="false"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545"
-                            android:layout_marginEnd="8dp" />
-
-                        <Button
-                            android:id="@+id/btnChatDirecto3"
-                            android:layout_width="0dp"
-                            android:layout_height="42dp"
-                            android:layout_weight="0.8"
-                            android:text="💬  Chat"
-                            android:textAllCaps="false"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:backgroundTint="#E2E8F0" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- HISTORIAL -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Historial reciente"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tus servicios finalizados"
-                        android:textSize="10sp"
-                        android:textColor="#94A3B8"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 finalizada"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
-                    android:textColor="#64748B" />
-
-            </LinearLayout>
-
-
-            <!-- SOLICITUD FINALIZADA -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-
-                    <!-- Código -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="#SOL-8760"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#64748B" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Completada el 28 Ene"
-                                android:textSize="10sp"
-                                android:textColor="#94A3B8"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="✓  Finalizado"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#166534"
-                            android:background="#DCFCE7"
-                            android:paddingHorizontal="9dp"
-                            android:paddingVertical="5dp" />
-
-                    </LinearLayout>
-
-
-                    <!-- Servicio -->
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Mantenimiento Preventivo A/C"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="6dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="❄️ Climatización  •  Nelson Peña"
-                        android:textSize="11sp"
-                        android:textColor="#64748B"
-                        android:layout_marginBottom="12dp" />
-
-
-                    <!-- PRECIO Y CALIFICACIÓN -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:background="#F8FAFC"
-                        android:padding="10dp"
-                        android:layout_marginBottom="14dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="TOTAL PAGADO"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$45.00 USD"
-                                android:textSize="15sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:gravity="end">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="TU CALIFICACIÓN"
-                                android:textSize="9sp"
-                                android:textStyle="bold"
-                                android:textColor="#94A3B8" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="★★★★★"
-                                android:textSize="14sp"
-                                android:textColor="#D97706"
-                                android:layout_marginTop="2dp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-
-                    <!-- BOTONES -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnVerReciboDigital4"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:text="Ver recibo"
-                            android:textAllCaps="false"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#475569"
-                            android:backgroundTint="#E2E8F0"
-                            android:layout_marginEnd="8dp" />
-
-                        <Button
-                            android:id="@+id/btnSolicitarNuevo4"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_weight="1"
-                            android:text="Solicitar de nuevo"
-                            android:textAllCaps="false"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-
-            <!-- GARANTÍA CHIVOTRABAJO -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:background="#DCFCE7"
-                android:padding="14dp"
-                android:layout_marginBottom="16dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="🛡️"
-                    android:textSize="22sp"
-                    android:layout_marginEnd="12dp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Garantía ChivoTrabajo"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#166534" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Fondos protegidos en depósito hasta tu conformidad."
-                        android:textSize="11sp"
-                        android:textColor="#15803D"
-                        android:layout_marginTop="2dp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <!-- BARRA DE NAVEGACIÓN INFERIOR -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:elevation="8dp"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="4dp">
-
-
-        <!-- INICIO -->
-        <LinearLayout
-            android:id="@+id/navInicioSolCliente"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🏠"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Inicio"
-                android:textSize="9sp"
-                android:textColor="#6B7280" />
-
-        </LinearLayout>
-
-
-        <!-- SOLICITUDES -->
-        <LinearLayout
-            android:id="@+id/navSolicitudesSolCliente"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="📋"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Solicitudes"
-                android:textSize="9sp"
+                android:text="●  Recibiendo propuestas"
+                android:textSize="13sp"
                 android:textStyle="bold"
-                android:textColor="#0284C7" />
-
+                android:textColor="@color/ui_success"
+                android:background="@drawable/bg_m3_success"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- Nombre -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Reparación de Fuga en Fregadero"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="5dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <!-- Categoría -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Fontanería"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:layout_marginBottom="6dp"
+              android:drawableStart="@drawable/ic_m3_build"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <!-- Ubicación -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Residencial Cumbres de Cuscatlán, Pasaje 3..."
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="14dp"
+              android:drawableStart="@drawable/ic_m3_location"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+          <!-- PRESUPUESTO -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@color/ui_background"
+              android:padding="11dp"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Presupuesto"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$20.00 – $35.00"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USD"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- PROPUESTAS -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@drawable/bg_m3_info"
+              android:padding="10dp"
+              android:layout_marginBottom="14dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:gravity="center"
+                android:background="@drawable/bg_m3_info"
+                android:src="@drawable/ic_m3_person"
+                app:tint="@color/ui_primary"
+                android:importantForAccessibility="no"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="10dp">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="3 propuestas recibidas"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Revisa y elige al técnico que prefieras"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="›"
+                android:textSize="20sp"
+                android:textColor="@color/ui_primary"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:fontFamily="sans-serif-medium"
+                android:textStyle="normal"/>
+          </LinearLayout>
+          <!-- BOTONES -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerPropuestas1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.4"
+                android:text="Ver propuestas"
+                android:textAllCaps="false"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.Chivo.Button.Secondary"
+                android:minHeight="48dp"
+                android:textSize="14sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGestionar1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Gestionar"
+                android:textAllCaps="false"
+                style="@style/Widget.Chivo.Button"
+                android:minHeight="48dp"
+                android:textSize="14sp"/>
+          </LinearLayout>
         </LinearLayout>
-
-
-        <!-- SERVICIOS -->
+      </com.google.android.material.card.MaterialCardView>
+      <!-- SOLICITUD 2 -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="14dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
         <LinearLayout
-            android:id="@+id/navServiciosSolCliente"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
-
+            android:padding="16dp">
+          <!-- Código + Estado -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="#sol-8910"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_primary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Publicada ayer"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="🛠️"
-                android:textSize="14sp" />
-
+                android:text="●  Esperando propuestas"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_warning"
+                android:background="@drawable/bg_m3_warning"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- Nombre -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Instalación de Tomacorrientes 220V"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="5dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Electricidad residencial"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:layout_marginBottom="6dp"
+              android:drawableStart="@drawable/ic_m3_bolt"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Colonia Escalón, Pasaje Los Pinos #5..."
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="14dp"
+              android:drawableStart="@drawable/ic_m3_location"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+          <!-- PRESUPUESTO -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@color/ui_background"
+              android:padding="11dp"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Presupuesto"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$35.00 – $50.00"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Servicios"
-                android:textSize="9sp"
-                android:textColor="#6B7280" />
-
+                android:text="USD"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- NUEVA PROPUESTA -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@drawable/bg_m3_success"
+              android:padding="10dp"
+              android:layout_marginBottom="14dp">
+            <ImageView
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:src="@mipmap/ic_launcher"
+                android:background="@color/ui_outline"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="David Henríquez"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Nueva propuesta recibida"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_success"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="David Henríquez  •  $40.00"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+          </LinearLayout>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnVerPropuesta2"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Ver propuesta"
+              android:textAllCaps="false"
+              style="@style/Widget.Chivo.Button.Secondary"
+              android:minHeight="48dp"
+              android:textSize="14sp"/>
         </LinearLayout>
-
-
-        <!-- MENSAJES -->
+      </com.google.android.material.card.MaterialCardView>
+      <!-- SOLICITUD 3 - EN PROCESO -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="24dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
         <LinearLayout
-            android:id="@+id/navMensajesSolCliente"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
-
+            android:padding="16dp">
+          <!-- Código + Estado -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="#sol-8874"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_primary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Servicio en curso"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="💬"
-                android:textSize="14sp" />
-
+                android:text="●  Técnico asignado"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_success"
+                android:background="@drawable/bg_m3_success"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Cambio de Chapa de Seguridad"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="5dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Cerrajería"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:layout_marginBottom="14dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <!-- MONTO -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@color/ui_background"
+              android:padding="11dp"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Monto acordado"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$25.00"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Mensajes"
-                android:textSize="9sp"
-                android:textColor="#6B7280" />
-
+                android:text="USD"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- TÉCNICO -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@drawable/bg_m3_info"
+              android:padding="11dp"
+              android:layout_marginBottom="14dp">
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:src="@mipmap/ic_launcher"
+                android:background="@color/ui_outline"
+                android:layout_marginEnd="11dp"
+                android:contentDescription="Mauricio Galdámez"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Técnico asignado"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Mauricio Galdámez"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="4.95  •  Identidad verificada"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </LinearLayout>
+          <!-- BOTONES -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSeguimiento3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:text="Ver seguimiento"
+                android:textAllCaps="false"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.Chivo.Button.Secondary"
+                android:minHeight="48dp"
+                android:textSize="14sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChatDirecto3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.8"
+                android:text="Chat"
+                android:textAllCaps="false"
+                style="@style/Widget.Chivo.Button"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_m3_chat"
+                app:iconSize="20dp"
+                android:textSize="14sp"/>
+          </LinearLayout>
         </LinearLayout>
-
-
-        <!-- PERFIL -->
+      </com.google.android.material.card.MaterialCardView>
+      <!-- HISTORIAL -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:layout_marginBottom="12dp">
         <LinearLayout
-            android:id="@+id/navPerfilSolCliente"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:clickable="true"
-            android:focusable="true">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="👤"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Perfil"
-                android:textSize="9sp"
-                android:textColor="#6B7280" />
-
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Historial reciente"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Tus servicios finalizados"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginTop="2dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
         </LinearLayout>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1 finalizada"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_text_secondary"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:fontFamily="sans-serif-medium"/>
+      </LinearLayout>
+      <!-- SOLICITUD FINALIZADA -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="20dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <!-- Código -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="#sol-8760"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Completada el 28 Ene"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Finalizado"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_success"
+                android:background="@drawable/bg_m3_success"
+                android:paddingHorizontal="9dp"
+                android:paddingVertical="5dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- Servicio -->
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Mantenimiento Preventivo A/C"
+              android:textSize="15sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="6dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Climatización  •  Nelson Peña"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="12dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+          <!-- PRECIO Y CALIFICACIÓN -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@color/ui_background"
+              android:padding="10dp"
+              android:layout_marginBottom="14dp">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Total pagado"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$45.00 usd"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="end">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Tu calificación"
+                  android:textSize="13sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="★★★★★"
+                  android:textSize="14sp"
+                  android:textColor="@color/ui_warning"
+                  android:layout_marginTop="2dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                  android:fontFamily="sans-serif"
+                  android:lineSpacingExtra="2sp"/>
+            </LinearLayout>
+          </LinearLayout>
+          <!-- BOTONES -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnVerReciboDigital4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Ver recibo"
+                android:textAllCaps="false"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.Chivo.Button.Secondary"
+                android:minHeight="48dp"
+                android:textSize="14sp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSolicitarNuevo4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Solicitar de nuevo"
+                android:textAllCaps="false"
+                style="@style/Widget.Chivo.Button"
+                android:minHeight="48dp"
+                android:textSize="14sp"/>
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- GARANTÍA CHIVOTRABAJO -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:background="@drawable/bg_m3_success"
+          android:padding="16dp"
+          android:layout_marginBottom="16dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_m3_shield"
+            app:tint="@color/ui_primary"
+            android:importantForAccessibility="no"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Garantía ChivoTrabajo"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_success"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Fondos protegidos en depósito hasta tu conformidad."
+              android:textSize="12sp"
+              android:textColor="@color/ui_success"
+              android:layout_marginTop="2dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+        </LinearLayout>
+      </LinearLayout>
     </LinearLayout>
-
+  </ScrollView>
+  <!-- BARRA DE NAVEGACIÓN INFERIOR -->
+  <!-- Material 3: barra de navegación con indicador, iconos y cinco destinos. -->
+  <com.google.android.material.bottomnavigation.BottomNavigationView
+      android:id="@+id/bottomNavigation"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      style="@style/Widget.Chivo.Navigation"
+      app:menu="@menu/menu_activity_historial_solicitudes_cliente"/>
 </LinearLayout>

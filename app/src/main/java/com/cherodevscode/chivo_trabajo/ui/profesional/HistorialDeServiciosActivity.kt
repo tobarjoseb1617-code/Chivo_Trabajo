@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -16,6 +17,34 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistorialDeServiciosBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navServiciosServicios
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navInicioServicios -> {
+                    startActivity(Intent(this, InicioProfesionalActivity::class.java))
+                    finish()
+                }
+                R.id.navSolicitudesServicios -> {
+                    startActivity(Intent(this, SolicitudesTrabajosCercanosActivity::class.java))
+                    finish()
+                }
+                R.id.navServiciosServicios -> {
+                    // Ya estamos aquí
+                }
+                R.id.navMensajesServicios -> {
+                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                    finish()
+                }
+                R.id.navPerfilServicios -> {
+                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                    finish()
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navServiciosServicios
+        }
 
         // Botón Regresar seguro al inicio profesional
         binding.btnRegresarServicios.setOnClickListener {
@@ -61,33 +90,5 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
             startActivity(Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java))
         }
 
-        // Menú inferior: Inicio
-        binding.navInicioServicios.setOnClickListener {
-            startActivity(Intent(this, InicioProfesionalActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Solicitudes
-        binding.navSolicitudesServicios.setOnClickListener {
-            startActivity(Intent(this, SolicitudesTrabajosCercanosActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Servicios (Actual)
-        binding.navServiciosServicios.setOnClickListener {
-            // Ya estamos aquí
-        }
-
-        // Menú inferior: Mensajes
-        binding.navMensajesServicios.setOnClickListener {
-            startActivity(Intent(this, HistorialChatsActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Perfil
-        binding.navPerfilServicios.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
-            finish()
-        }
     }
 }

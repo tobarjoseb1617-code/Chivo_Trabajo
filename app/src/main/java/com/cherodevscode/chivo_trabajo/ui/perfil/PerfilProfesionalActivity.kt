@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.perfil
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -19,6 +20,34 @@ class PerfilProfesionalActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityPerfilProfesionalBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navPerfilPerfilPro
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navInicioPerfilPro -> {
+                    startActivity(Intent(this, InicioProfesionalActivity::class.java))
+                    finish()
+                }
+                R.id.navSolicitudesPerfilPro -> {
+                    startActivity(Intent(this, SolicitudesTrabajosCercanosActivity::class.java))
+                    finish()
+                }
+                R.id.navServiciosPerfilPro -> {
+                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    finish()
+                }
+                R.id.navMensajesPerfilPro -> {
+                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                    finish()
+                }
+                R.id.navPerfilPerfilPro -> {
+                    // Ya estamos aquí
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navPerfilPerfilPro
+        }
 
         // Botón Regresar
         binding.btnRegresarPerfilPro.setOnClickListener {
@@ -42,33 +71,5 @@ class PerfilProfesionalActivity : AppCompatActivity() {
             Toast.makeText(this, "Enlace del perfil de Roberto Méndez copiado", Toast.LENGTH_SHORT).show()
         }
 
-        // Menú inferior: Inicio
-        binding.navInicioPerfilPro.setOnClickListener {
-            startActivity(Intent(this, InicioProfesionalActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Solicitudes
-        binding.navSolicitudesPerfilPro.setOnClickListener {
-            startActivity(Intent(this, SolicitudesTrabajosCercanosActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Servicios
-        binding.navServiciosPerfilPro.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Mensajes
-        binding.navMensajesPerfilPro.setOnClickListener {
-            startActivity(Intent(this, HistorialChatsActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Perfil (Actual)
-        binding.navPerfilPerfilPro.setOnClickListener {
-            // Ya estamos aquí
-        }
     }
 }

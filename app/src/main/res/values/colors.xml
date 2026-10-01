@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Paleta clara. Los nombres se repiten en values-night para cambiar todas las pantallas. -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="ui_background">#F4F5F7</color>
+    <color name="ui_surface">#FFFFFF</color>
+    <color name="ui_surface_variant">#F1F5F9</color>
+    <color name="ui_text">#1F2937</color>
+    <color name="ui_text_secondary">#64748B</color>
+    <color name="ui_outline">#CBD5E1</color>
+    <color name="ui_primary">#0369A1</color>
+    <color name="ui_on_primary">#FFFFFF</color>
+    <color name="ui_brand">#0B2545</color>
+    <color name="ui_info_background">#E0F2FE</color>
+    <color name="ui_success_background">#DCFCE7</color>
+    <color name="ui_success">#166534</color>
+    <color name="ui_warning_background">#FEF3C7</color>
+    <color name="ui_warning">#92400E</color>
+    <color name="ui_error_background">#FEE2E2</color>
+    <color name="ui_error">#B91C1C</color>
+    <color name="ui_on_brand">#FFFFFF</color>
 </resources>

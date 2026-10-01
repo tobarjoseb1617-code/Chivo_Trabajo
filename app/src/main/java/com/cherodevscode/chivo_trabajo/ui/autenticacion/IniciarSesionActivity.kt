@@ -16,6 +16,7 @@ import com.cherodevscode.chivo_trabajo.databinding.ActivityIniciarSesionBinding
 import com.cherodevscode.chivo_trabajo.ui.cliente.InicioActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.InicioProfesionalActivity
 
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class IniciarSesionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityIniciarSesionBinding
     private lateinit var autenticacionViewModel: AutenticacionViewModel
@@ -40,8 +41,8 @@ class IniciarSesionActivity : AppCompatActivity() {
             insets
         }
 
-        window.statusBarColor = Color.WHITE
-        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = true
+        window.statusBarColor = androidx.core.content.ContextCompat.getColor(this, com.cherodevscode.chivo_trabajo.R.color.ui_background)
+        WindowInsetsControllerCompat(window, window.decorView).isAppearanceLightStatusBars = resources.getBoolean(R.bool.light_system_bars)
 
         autenticacionViewModel = AutenticacionViewModel(this)
 

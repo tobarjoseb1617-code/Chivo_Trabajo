@@ -1,239 +1,236 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7">
-
-    <!-- Toolbar -->
+    android:background="@color/ui_background">
+  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
+  <!-- Toolbar -->
+  <com.google.android.material.appbar.MaterialToolbar
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/ui_surface"
+      android:elevation="0dp"
+      android:minHeight="64dp"
+      app:contentInsetStart="0dp"
+      app:contentInsetEnd="0dp">
+    <!-- App bar Material 3; los botones de regreso conservan sus listeners. -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#FFFFFF"
-        android:elevation="2dp"
-        android:paddingHorizontal="16dp">
-
-        <ImageView
-            android:id="@+id/btnRegresar"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/ic_launcher_foreground"
-            android:contentDescription="Regresar"
-            android:layout_marginEnd="16dp" />
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Verificación de Identidad (DUI)"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#0B2545" />
-
+        android:background="@color/ui_surface"
+        android:paddingHorizontal="16dp"
+        android:minHeight="64dp">
+      <ImageView
+          android:id="@+id/btnRegresar"
+          android:layout_width="48dp"
+          android:layout_height="48dp"
+          android:src="@drawable/ic_m3_back"
+          android:contentDescription="Regresar"
+          android:layout_marginEnd="16dp"
+          android:minHeight="48dp"
+          android:background="?attr/selectableItemBackground"
+          app:tint="@color/ui_text"
+          android:padding="12dp"/>
+      <TextView
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="Verificación de Identidad (DUI)"
+          android:textSize="22sp"
+          android:textStyle="bold"
+          android:textColor="@color/ui_text"
+          android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+          android:fontFamily="sans-serif-medium"
+          android:maxLines="1"
+          android:ellipsize="end"/>
     </LinearLayout>
-
-    <ScrollView
+  </com.google.android.material.appbar.MaterialToolbar>
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:fillViewport="true">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+      <!-- Card Estado Actual -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="20dp">
-
-            <!-- Card Estado Actual -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Estado de Verificación"
-                        android:textSize="13sp"
-                        android:textColor="#6B7280"
-                        android:layout_marginBottom="4dp" />
-
-                    <TextView
-                        android:id="@+id/tvEstadoVerificacionDui"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="PENDIENTE"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#B45309"
-                        android:background="#FEF3C7"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="4dp" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Card Frente del DUI -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="1. Fotografía Frontal del DUI"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="8dp" />
-
-                    <ImageView
-                        android:id="@+id/ivDuiFrente"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:scaleType="centerCrop"
-                        android:background="#E5E7EB"
-                        android:src="@android:drawable/ic_menu_camera"
-                        android:contentDescription="DUI Frente"
-                        android:layout_marginBottom="12dp" />
-
-                    <Button
-                        android:id="@+id/btnSeleccionarFrente"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="📸 Escanear Frente con Cámara"
-                        android:textSize="12sp"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#0B2545" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Card Dorso del DUI -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="2. Fotografía del Dorso del DUI"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="8dp" />
-
-                    <ImageView
-                        android:id="@+id/ivDuiDorso"
-                        android:layout_width="match_parent"
-                        android:layout_height="180dp"
-                        android:scaleType="centerCrop"
-                        android:background="#E5E7EB"
-                        android:src="@android:drawable/ic_menu_camera"
-                        android:contentDescription="DUI Dorso"
-                        android:layout_marginBottom="12dp" />
-
-                    <Button
-                        android:id="@+id/btnSeleccionarDorso"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="📸 Escanear Dorso con Cámara"
-                        android:textSize="12sp"
-                        android:textColor="#FFFFFF"
-                        android:backgroundTint="#0B2545" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Card Número de DUI -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="3. Número de DUI (Formato: 00000000-0)"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="8dp" />
-
-                    <EditText
-                        android:id="@+id/etDuiNumero"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/bg_input_rounded"
-                        android:hint="01234567-8"
-                        android:textSize="14sp"
-                        android:paddingHorizontal="16dp"
-                        android:focusable="false"
-                        android:clickable="false"
-                        android:cursorVisible="false"
-                        android:focusableInTouchMode="false"
-                        android:textColor="#0B2545"
-                        android:inputType="text" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Botón Enviar -->
-            <Button
-                android:id="@+id/btnEnviarDui"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:text="Enviar para Verificación"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:backgroundTint="#0B2545"
-                app:cornerRadius="12dp" />
-
+            android:padding="16dp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Estado de Verificación"
+              android:textSize="14sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="4dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+              android:fontFamily="sans-serif"
+              android:lineSpacingExtra="2sp"/>
+          <TextView
+              android:id="@+id/tvEstadoVerificacionDui"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Pendiente"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_warning"
+              android:background="@drawable/bg_m3_warning"
+              android:paddingHorizontal="10dp"
+              android:paddingVertical="4dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
         </LinearLayout>
-    </ScrollView>
-
+      </com.google.android.material.card.MaterialCardView>
+      <!-- Card Frente del DUI -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="1. Fotografía Frontal del DUI"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <ImageView
+              android:id="@+id/ivDuiFrente"
+              android:layout_width="match_parent"
+              android:layout_height="180dp"
+              android:scaleType="centerCrop"
+              android:background="@color/ui_outline"
+              android:src="@android:drawable/ic_menu_camera"
+              android:contentDescription="DUI Frente"
+              android:layout_marginBottom="12dp"/>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnSeleccionarFrente"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Escanear Frente con Cámara"
+              style="@style/Widget.Chivo.Button"
+              android:minHeight="48dp"/>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- Card Dorso del DUI -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="2. Fotografía del Dorso del DUI"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <ImageView
+              android:id="@+id/ivDuiDorso"
+              android:layout_width="match_parent"
+              android:layout_height="180dp"
+              android:scaleType="centerCrop"
+              android:background="@color/ui_outline"
+              android:src="@android:drawable/ic_menu_camera"
+              android:contentDescription="DUI Dorso"
+              android:layout_marginBottom="12dp"/>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnSeleccionarDorso"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Escanear Dorso con Cámara"
+              style="@style/Widget.Chivo.Button"
+              android:minHeight="48dp"/>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- Card Número de DUI -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="24dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="3. Número de DUI (Formato: 00000000-0)"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <com.google.android.material.textfield.TextInputLayout
+              style="@style/Widget.Chivo.TextInput"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="01234567-8">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etDuiNumero"
+                android:textSize="16sp"
+                android:paddingHorizontal="16dp"
+                android:focusable="false"
+                android:clickable="false"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:textColor="@color/ui_text"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="56dp"/>
+          </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- Botón Enviar -->
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnEnviarDui"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Enviar para Verificación"
+          style="@style/Widget.Chivo.Button"
+          android:minHeight="48dp"/>
+    </LinearLayout>
+  </ScrollView>
 </LinearLayout>

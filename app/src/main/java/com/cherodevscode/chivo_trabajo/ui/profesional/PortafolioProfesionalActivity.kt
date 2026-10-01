@@ -1,12 +1,14 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
-import android.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.content.Intent
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
+import com.google.android.material.textfield.TextInputLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -14,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+// Los iconos Material se resuelven con el R generado del módulo app.
+import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.BuildConfig
 import com.cherodevscode.chivo_trabajo.data.model.Portafolio
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
@@ -27,6 +31,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class PortafolioProfesionalActivity : AppCompatActivity() {
 
     private lateinit var authRepository: AuthRepository
@@ -118,17 +123,17 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
     private fun mostrarDialogoAgregarTrabajo() {
         imagenSeleccionadaUri = null
 
-        val inputTitulo = EditText(this).apply {
+        val inputTitulo = TextInputEditText(this).apply {
             hint = "Título del trabajo (Ej: Instalación eléctrica)"
         }
-        val inputDescripcion = EditText(this).apply {
+        val inputDescripcion = TextInputEditText(this).apply {
             hint = "Descripción breve del trabajo realizado"
             minLines = 2
         }
-        val btnElegirFoto = android.widget.Button(this).apply {
-            text = "📷 Seleccionar Foto del Trabajo"
-            setBackgroundColor(Color.parseColor("#0B2545"))
-            setTextColor(Color.WHITE)
+        val btnElegirFoto = MaterialButton(this).apply {
+            text = "Seleccionar foto del trabajo"
+            // MaterialButton conserva el ripple y usa colorPrimary/colorOnPrimary.
+            setIconResource(R.drawable.ic_m3_camera)
         }
         btnElegirFotoRef = btnElegirFoto
 
@@ -137,15 +142,16 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
             val margen = (16 * resources.displayMetrics.density).toInt()
             setPadding(margen, margen, margen, margen)
             addView(btnElegirFoto, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
-            addView(inputTitulo, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
-            addView(inputDescripcion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            addView(campoMaterial(inputTitulo), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
+            addView(campoMaterial(inputDescripcion), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
 
         btnElegirFoto.setOnClickListener {
             seleccionarImagenLauncher.launch("image/*")
         }
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Agregar Trabajo")
             .setView(contenedor)
             .setPositiveButton("Guardar") { _, _ ->
@@ -167,13 +173,13 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
     private fun mostrarDialogoAgregarTitulo() {
         imagenSeleccionadaUri = null
 
-        val inputTitulo = EditText(this).apply {
+        val inputTitulo = TextInputEditText(this).apply {
             hint = "Título o Especialidad (Ej: Técnico en Redes)"
         }
-        val btnElegirFoto = android.widget.Button(this).apply {
-            text = "📷 Seleccionar Foto de Acreditación / Título"
-            setBackgroundColor(Color.parseColor("#0B2545"))
-            setTextColor(Color.WHITE)
+        val btnElegirFoto = MaterialButton(this).apply {
+            text = "Seleccionar acreditación"
+            // MaterialButton conserva el ripple y usa colorPrimary/colorOnPrimary.
+            setIconResource(R.drawable.ic_m3_camera)
         }
         btnElegirFotoRef = btnElegirFoto
 
@@ -182,14 +188,15 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
             val margen = (16 * resources.displayMetrics.density).toInt()
             setPadding(margen, margen, margen, margen)
             addView(btnElegirFoto, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT).apply { bottomMargin = 12 })
-            addView(inputTitulo, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            addView(campoMaterial(inputTitulo), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
 
         btnElegirFoto.setOnClickListener {
             seleccionarImagenLauncher.launch("image/*")
         }
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Agregar Título o Acreditación")
             .setView(contenedor)
             .setPositiveButton("Guardar") { _, _ ->
@@ -329,7 +336,8 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
 
     private fun mostrarOpcionesTrabajo(trabajo: Portafolio) {
         val opciones = arrayOf("Editar descripción", "Eliminar trabajo")
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Opciones del trabajo")
             .setItems(opciones) { _, opcion ->
                 when (opcion) {
@@ -342,9 +350,9 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
     }
 
     private fun editarDescripcionTrabajo(trabajo: Portafolio) {
-        val inputDescripcion = EditText(this).apply {
+        val inputDescripcion = TextInputEditText(this).apply {
             setText(trabajo.descripcion)
-            setSelection(text.length)
+            setSelection(text?.length ?: 0)
             minLines = 3
         }
 
@@ -352,10 +360,11 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
             orientation = LinearLayout.VERTICAL
             val margen = (20 * resources.displayMetrics.density).toInt()
             setPadding(margen, margen / 2, margen, 0)
-            addView(inputDescripcion, LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
+            addView(campoMaterial(inputDescripcion), LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT))
         }
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Editar descripción")
             .setView(contenedor)
             .setPositiveButton("Guardar") { _, _ ->
@@ -380,7 +389,8 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
     }
 
     private fun confirmarEliminarTrabajo(trabajo: Portafolio) {
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Eliminar trabajo")
             .setMessage("¿Deseas eliminar este elemento del portafolio?")
             .setPositiveButton("Eliminar") { _, _ ->
@@ -402,6 +412,22 @@ class PortafolioProfesionalActivity : AppCompatActivity() {
                     Toast.makeText(this@PortafolioProfesionalActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
+        }
+    }
+
+    /** Envuelve los campos del diálogo sin cambiar sus referencias ni la lógica de guardado. */
+    private fun campoMaterial(campo: EditText): TextInputLayout {
+        val espacio = (16 * resources.displayMetrics.density).toInt()
+        return TextInputLayout(this).apply {
+            boxBackgroundMode = TextInputLayout.BOX_BACKGROUND_OUTLINE
+            hint = campo.hint
+            campo.hint = null
+            campo.background = null
+            campo.minHeight = (56 * resources.displayMetrics.density).toInt()
+            campo.setPadding(espacio, espacio, espacio, espacio)
+            addView(campo, LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ))
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityRegistroBinding
 import android.text.InputType
 import com.cherodevscode.chivo_trabajo.R
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class RegistroActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegistroBinding
     private lateinit var autenticacionViewModel: AutenticacionViewModel
@@ -65,11 +66,11 @@ class RegistroActivity : AppCompatActivity() {
             binding.cbProfesional.isChecked = false
 
             binding.cardCliente.setCardBackgroundColor(
-                Color.parseColor("#F0F9FF")
+                androidx.core.content.ContextCompat.getColor(this@RegistroActivity, com.cherodevscode.chivo_trabajo.R.color.ui_info_background)
             )
 
             binding.cardProfesional.setCardBackgroundColor(
-                Color.parseColor("#FFFFFF")
+                androidx.core.content.ContextCompat.getColor(this@RegistroActivity, com.cherodevscode.chivo_trabajo.R.color.ui_surface)
             )
         }
 
@@ -80,11 +81,11 @@ class RegistroActivity : AppCompatActivity() {
             binding.cbProfesional.isChecked = true
 
             binding.cardProfesional.setCardBackgroundColor(
-                Color.parseColor("#F0F9FF")
+                androidx.core.content.ContextCompat.getColor(this@RegistroActivity, com.cherodevscode.chivo_trabajo.R.color.ui_info_background)
             )
 
             binding.cardCliente.setCardBackgroundColor(
-                Color.parseColor("#FFFFFF")
+                androidx.core.content.ContextCompat.getColor(this@RegistroActivity, com.cherodevscode.chivo_trabajo.R.color.ui_surface)
             )
         }
 

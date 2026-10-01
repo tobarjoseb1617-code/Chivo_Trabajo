@@ -1,50 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="24dp"
-    android:background="#F8F9FA">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ejecución de Servicio"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#0B2545"
-        android:layout_marginBottom="12dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ingrese el PIN de 4 dígitos proporcionado por el cliente:"
-        android:textSize="14sp"
-        android:textColor="#6B7280"
-        android:gravity="center"
-        android:layout_marginBottom="24dp" />
-
-    <EditText
+    android:background="@color/ui_background">
+  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Ejecución de Servicio"
+      android:textSize="22sp"
+      android:textStyle="bold"
+      android:textColor="@color/ui_text"
+      android:layout_marginBottom="12dp"
+      android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+      android:fontFamily="sans-serif-medium"/>
+  <com.google.android.material.textfield.TextInputLayout
+      style="@style/Widget.Chivo.TextInput"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="20dp"
+      android:hint="PIN de 4 dígitos">
+    <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/etPinIngresado"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:background="#FFFFFF"
-        android:hint="PIN de 4 dígitos"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:gravity="center"
         android:inputType="numberPassword"
         android:maxLength="4"
-        android:layout_marginBottom="20dp" />
-
-    <Button
-        android:id="@+id/btnValidarPin"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:text="Validar PIN e Iniciar Trabajo"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="#059669" />
-
+        android:layout_height="wrap_content"
+        android:minHeight="56dp"/>
+  </com.google.android.material.textfield.TextInputLayout>
+  <com.google.android.material.button.MaterialButton
+      android:id="@+id/btnValidarPin"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Validar PIN e Iniciar Trabajo"
+      style="@style/Widget.Chivo.Button"
+      android:minHeight="48dp"/>
 </LinearLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Iconografía de 24dp: misma escala y color temático en modo claro y oscuro. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24">
+    <path android:fillColor="@color/ui_text" android:fillType="evenOdd" android:pathData="M5,5h14l3,8v7h-3v-2H5v2H2v-7z M6,7l-2,5h16l-2,-5z M6,13a2,2 0,1 1,0,4a2,2 0,0 1,0,-4z M18,13a2,2 0,1 1,0,4a2,2 0,0 1,0,-4z" />
+</vector>

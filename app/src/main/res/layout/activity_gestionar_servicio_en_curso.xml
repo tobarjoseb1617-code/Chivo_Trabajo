@@ -1,861 +1,859 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F5F7"
+    android:background="@color/ui_background"
     android:fitsSystemWindows="true">
-
-    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
-    <ScrollView
+  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
+  <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:fillViewport="true">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fillViewport="true">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="16dp"
+        android:paddingTop="40dp">
+      <!-- 1. BARRA SUPERIOR -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:layout_marginBottom="12dp">
+        <ImageView
+            android:id="@+id/btnRegresarGestion"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="12dp"
+            android:src="@drawable/ic_m3_back"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="Regresar"
+            android:minHeight="48dp"
+            app:tint="@color/ui_text"/>
+        <!-- Badge Título -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_input_rounded"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="6dp"
+            android:layout_marginEnd="8dp">
+          <ImageView
+              android:layout_width="24dp"
+              android:layout_height="24dp"
+              android:layout_marginEnd="4dp"
+              android:src="@drawable/ic_m3_shield"
+              app:tint="@color/ui_primary"
+              android:importantForAccessibility="no"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Detalle De Solicitud"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
+        <!-- Avatar -->
+        <ImageView
+            android:id="@+id/btnPerfilGestionTop"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@color/ui_brand"
+            android:padding="8dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="Perfil"
+            android:minHeight="48dp"/>
+      </LinearLayout>
+      <!-- 2. BANNER: SERVICIO EN CURSO ORDEN #3821 -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_brand"
+          android:layout_marginBottom="16dp"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="16dp">
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Servicio en curso"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="#34D399"
+                android:layout_marginBottom="2dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Orden #3821"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="ChivoSeguro"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="#FFFFFF"
+              android:background="#059669"
+              android:paddingHorizontal="10dp"
+              android:paddingVertical="5dp"
+              android:drawableStart="@drawable/ic_m3_shield"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 3. TARJETA DE REPARACIÓN Y CLIENTE -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_surface"
+          android:layout_marginBottom="16dp"
+          style="@style/Widget.Chivo.Card">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="40dp">
-
-            <!-- 1. BARRA SUPERIOR -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            android:padding="16dp">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="8dp">
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="12dp">
-
-                <ImageView
-                    android:id="@+id/btnRegresarGestion"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:padding="8dp"
-                    android:src="@android:drawable/ic_menu_revert"
-                    android:background="?attr/selectableItemBackgroundBorderless"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:layout_marginEnd="8dp"
-                    android:contentDescription="Regresar" />
-
-                <!-- Badge Título -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="@drawable/bg_input_rounded"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="6dp"
-                    android:layout_marginEnd="8dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🛡️"
-                        android:textSize="14sp"
-                        android:layout_marginEnd="4dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Detalle De Solicitud"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545" />
-                </LinearLayout>
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <!-- Avatar -->
-                <ImageView
-                    android:id="@+id/btnPerfilGestionTop"
-                    android:layout_width="36dp"
-                    android:layout_height="36dp"
-                    android:background="#0B2545"
-                    android:padding="8dp"
-                    android:src="@mipmap/ic_launcher"
-                    android:contentDescription="Perfil" />
+                android:text="Fontanería Residencial"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_primary"
+                android:background="@drawable/bg_m3_info"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:drawableStart="@drawable/ic_m3_build"
+                android:drawableTint="@color/ui_primary"
+                android:drawablePadding="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/btnLlamarClienteGestion"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:text=""
+                android:textSize="16sp"
+                android:gravity="center"
+                android:background="@drawable/bg_m3_info"
+                android:textColor="@color/ui_primary"
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+                android:fontFamily="sans-serif"
+                android:lineSpacingExtra="2sp"
+                android:minHeight="48dp"
+                android:drawableTop="@drawable/ic_m3_phone"
+                android:drawableTint="@color/ui_primary"
+                android:contentDescription="Llamar al cliente"/>
+          </LinearLayout>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Reparación de fuga bajo\nfregadero"
+              android:textSize="17sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Cliente: Carlos Rivera"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="2dp"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Res. Cumbres de Cuscatlán, Pol. D #14, An..."
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:drawableStart="@drawable/ic_m3_location"
+              android:drawableTint="@color/ui_primary"
+              android:drawablePadding="8dp"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 4. FASES DE LA ORDEN (STEPPER) -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_surface"
+          android:layout_marginBottom="16dp"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fases de la Orden"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paso 2 de 5"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_primary"
+                android:background="@drawable/bg_m3_info"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <!-- Stepper visual simplificado -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center"
+              android:paddingVertical="4dp">
+            <!-- Fase 1: Aceptado -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+              <TextView
+                  android:layout_width="28dp"
+                  android:layout_height="28dp"
+                  android:background="#059669"
+                  android:textColor="#FFFFFF"
+                  android:text=" ✓ "
+                  android:textSize="12sp"
+                  android:gravity="center"
+                  android:layout_marginBottom="4dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Aceptado"
+                  android:textSize="14sp"
+                  android:textColor="@color/ui_success"
+                  android:textStyle="bold"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
             </LinearLayout>
-
-            <!-- 2. BANNER: SERVICIO EN CURSO ORDEN #3821 -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="3dp"
-                app:cardBackgroundColor="#0B2545"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:padding="14dp">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🔵 SERVICIO EN CURSO"
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#34D399"
-                            android:layout_marginBottom="2dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Orden #3821"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🛡️ ChivoSeguro"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:textColor="#FFFFFF"
-                        android:background="#059669"
-                        android:paddingHorizontal="10dp"
-                        android:paddingVertical="5dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 3. TARJETA DE REPARACIÓN Y CLIENTE -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🔧 Fontanería Residencial"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0369A1"
-                            android:background="#E0F2FE"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="3dp" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:id="@+id/btnLlamarClienteGestion"
-                            android:layout_width="38dp"
-                            android:layout_height="38dp"
-                            android:text="📞"
-                            android:textSize="16sp"
-                            android:gravity="center"
-                            android:background="#E0F2FE"
-                            android:textColor="#0369A1" />
-                    </LinearLayout>
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Reparación de fuga bajo\nfregadero"
-                        android:textSize="17sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="8dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Cliente: Carlos Rivera"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937"
-                        android:layout_marginBottom="2dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="📍 Res. Cumbres de Cuscatlán, Pol. D #14, An..."
-                        android:textSize="12sp"
-                        android:textColor="#6B7280" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 4. FASES DE LA ORDEN (STEPPER) -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="14dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Fases de la Orden"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Paso 2 de 5"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#0369A1"
-                            android:background="#E0F2FE"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="3dp" />
-                    </LinearLayout>
-
-                    <!-- Stepper visual simplificado -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center"
-                        android:paddingVertical="4dp">
-
-                        <!-- Fase 1: Aceptado -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:background="#059669"
-                                android:textColor="#FFFFFF"
-                                android:text=" ✓ "
-                                android:textSize="12sp"
-                                android:gravity="center"
-                                android:layout_marginBottom="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Aceptado"
-                                android:textSize="10sp"
-                                android:textColor="#059669"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="3dp"
-                            android:background="#059669" />
-
-                        <!-- Fase 2: En camino (Activa) -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:background="#0B2545"
-                                android:textColor="#FFFFFF"
-                                android:text=" 🏍️ "
-                                android:textSize="12sp"
-                                android:gravity="center"
-                                android:layout_marginBottom="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="En camino"
-                                android:textSize="10sp"
-                                android:textColor="#0B2545"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="3dp"
-                            android:background="#E5E7EB" />
-
-                        <!-- Fase 3: Llegada -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:background="#E5E7EB"
-                                android:textColor="#9CA3AF"
-                                android:text=" 📍 "
-                                android:textSize="12sp"
-                                android:gravity="center"
-                                android:layout_marginBottom="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Llegada"
-                                android:textSize="10sp"
-                                android:textColor="#9CA3AF" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="3dp"
-                            android:background="#E5E7EB" />
-
-                        <!-- Fase 4: Trabajo -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:background="#E5E7EB"
-                                android:textColor="#9CA3AF"
-                                android:text=" 🛠️ "
-                                android:textSize="12sp"
-                                android:gravity="center"
-                                android:layout_marginBottom="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Trabajo"
-                                android:textSize="10sp"
-                                android:textColor="#9CA3AF" />
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="30dp"
-                            android:layout_height="3dp"
-                            android:background="#E5E7EB" />
-
-                        <!-- Fase 5: Cobro -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="28dp"
-                                android:layout_height="28dp"
-                                android:background="#E5E7EB"
-                                android:textColor="#9CA3AF"
-                                android:text=" 💵 "
-                                android:textSize="12sp"
-                                android:gravity="center"
-                                android:layout_marginBottom="4dp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Cobro"
-                                android:textSize="10sp"
-                                android:textColor="#9CA3AF" />
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 5. MAPA INTERACTIVO Y NAVEGACIÓN GPS -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="140dp"
-                        android:background="#E5E7EB"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:text="🗺️ [Navegación GPS en Ruta]"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:textColor="#4B5563" />
-
-                        <!-- Badge Tiempo estimado -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="10dp"
-                            android:background="#FFFFFF"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
-                            android:paddingVertical="6dp"
-                            android:elevation="4dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="⏱️ "
-                                android:textSize="12sp" />
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tiempo estimado"
-                                    android:textSize="9sp"
-                                    android:textColor="#9CA3AF" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="12 min (3.2 km)"
-                                    android:textSize="12sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#0B2545" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <!-- Badge Tráfico fluido -->
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentTop="true"
-                            android:layout_margin="10dp"
-                            android:background="#DCFCE7"
-                            android:text="🟢 Tráfico fluido"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#166534"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:elevation="4dp" />
-                    </RelativeLayout>
-
-                    <!-- Botones GPS y Chat -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnAbrirGpsWaze"
-                            android:layout_width="0dp"
-                            android:layout_height="44dp"
-                            android:layout_weight="1"
-                            android:text="🧭  Abrir GPS / Waze"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:backgroundTint="#E2E8F0"
-                            android:layout_marginEnd="8dp" />
-
-                        <Button
-                            android:id="@+id/btnChatConCarlos"
-                            android:layout_width="0dp"
-                            android:layout_height="44dp"
-                            android:layout_weight="1"
-                            android:text="💬  Chat con Carlos"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:backgroundTint="#0B2545" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 6. VALIDACIÓN DE INGRESO RESIDENCIAL -->
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:background="#059669"/>
+            <!-- Fase 2: En camino (Activa) -->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:background="@color/ui_brand"
+                  android:textColor="#FFFFFF"
+                  android:gravity="center"
+                  android:layout_marginBottom="4dp"
+                  android:src="@drawable/ic_m3_car"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="En camino"
+                  android:textSize="14sp"
+                  android:textColor="@color/ui_text"
+                  android:textStyle="bold"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:background="@color/ui_outline"/>
+            <!-- Fase 3: Llegada -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:background="@color/ui_outline"
+                  android:textColor="@color/ui_text_secondary"
+                  android:gravity="center"
+                  android:layout_marginBottom="4dp"
+                  android:src="@drawable/ic_m3_location"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Llegada"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:background="@color/ui_outline"/>
+            <!-- Fase 4: Trabajo -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:background="@color/ui_outline"
+                  android:textColor="@color/ui_text_secondary"
+                  android:gravity="center"
+                  android:layout_marginBottom="4dp"
+                  android:src="@drawable/ic_m3_build"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Trabajo"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+            <View
+                android:layout_width="30dp"
+                android:layout_height="3dp"
+                android:background="@color/ui_outline"/>
+            <!-- Fase 5: Cobro -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:background="@color/ui_outline"
+                  android:textColor="@color/ui_text_secondary"
+                  android:gravity="center"
+                  android:layout_marginBottom="4dp"
+                  android:src="@drawable/ic_m3_payments"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Cobro"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 5. MAPA INTERACTIVO Y NAVEGACIÓN GPS -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_surface"
+          android:layout_marginBottom="16dp"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <RelativeLayout
+              android:layout_width="match_parent"
+              android:layout_height="140dp"
+              android:background="@color/ui_outline"
+              android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="[Navegación GPS en Ruta]"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:drawableStart="@drawable/ic_m3_map"
+                android:drawableTint="@color/ui_primary"
+                android:drawablePadding="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <!-- Badge Tiempo estimado -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:background="@color/ui_surface"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="#EFF6FF"
-                android:padding="14dp"
-                android:layout_marginBottom="16dp">
-
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:elevation="4dp">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="⏱"
+                  android:textSize="12sp"
+                  android:drawableStart="@drawable/ic_m3_clock"
+                  android:drawableTint="@color/ui_primary"
+                  android:drawablePadding="8dp"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+              <LinearLayout
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="🪪"
-                    android:textSize="22sp"
-                    android:layout_marginEnd="12dp" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
+                    android:text="Tiempo estimado"
+                    android:textSize="12sp"
+                    android:textColor="@color/ui_text_secondary"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:fontFamily="sans-serif"/>
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Validación de Ingreso Residencial"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#1E40AF" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Recuerda presentar tu DUI físico en la caseta de seguridad de Cumbres de Cuscatlán para validar tu pase digital registrado con ChivoSeguro."
-                        android:textSize="11sp"
-                        android:textColor="#1D4ED8" />
-                </LinearLayout>
+                    android:text="12 min (3.2 km)"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:fontFamily="sans-serif-medium"/>
+              </LinearLayout>
             </LinearLayout>
-
-            <!-- 7. ACUERDO DE PAGO -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+            <!-- Badge Tráfico fluido -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="16dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🛡️ Acuerdo de Pago"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545" />
-
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=" Garantía 30 días "
-                            android:textSize="10sp"
-                            android:textStyle="bold"
-                            android:textColor="#FFFFFF"
-                            android:background="#059669"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="3dp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="8dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Mano de obra (diagnóstico y sellado)"
-                            android:textSize="12sp"
-                            android:textColor="#4B5563" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="$25.00\nUSD"
-                            android:textSize="16sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545"
-                            android:gravity="end" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="14dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Modalidad de liquidación"
-                            android:textSize="11sp"
-                            android:textColor="#9CA3AF" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Efectivo / Chivo Wallet"
-                            android:textSize="11sp"
-                            android:textStyle="bold"
-                            android:textColor="#1F2937" />
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btnRegistrarRepuestos"
-                        android:layout_width="match_parent"
-                        android:layout_height="44dp"
-                        android:text="➕  Registrar repuestos o piezas extra"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:backgroundTint="#E2E8F0" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 8. EVIDENCIA DE GARANTÍA -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/bg_m3_success"
+                android:text="Tráfico fluido"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_success"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="4dp"
+                android:elevation="4dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </RelativeLayout>
+          <!-- Botones GPS y Chat -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAbrirGpsWaze"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF"
-                android:layout_marginBottom="24dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="📷 Evidencia de Garantía"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#0B2545" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Requerido para ChivoSeguro"
-                            android:textSize="10sp"
-                            android:textColor="#6B7280" />
-                    </LinearLayout>
-
-                    <!-- Fila de fotos -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <!-- Foto Antes -->
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="6dp"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="1dp">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:src="@mipmap/ic_launcher"
-                                    android:background="#E5E7EB"
-                                    android:contentDescription="Foto Antes" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:background="#059669"
-                                    android:text=" Foto Antes ✓ "
-                                    android:textSize="10sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#FFFFFF"
-                                    android:paddingHorizontal="6dp"
-                                    android:paddingVertical="2dp" />
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentBottom="true"
-                                    android:background="#1F2937"
-                                    android:text="Fuga previa capturada"
-                                    android:textSize="10sp"
-                                    android:textColor="#FFFFFF"
-                                    android:padding="6dp"
-                                    android:gravity="center" />
-                            </RelativeLayout>
-                        </androidx.cardview.widget.CardView>
-
-                        <!-- Foto Después (Placeholder) -->
-                        <androidx.cardview.widget.CardView
-                            android:id="@+id/btnTomarFotoDespues"
-                            android:layout_width="0dp"
-                            android:layout_height="100dp"
-                            android:layout_weight="1"
-                            android:layout_marginStart="6dp"
-                            app:cardCornerRadius="10dp"
-                            app:cardElevation="1dp"
-                            app:cardBackgroundColor="#F8FAFC">
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:orientation="vertical"
-                                android:gravity="center"
-                                android:padding="8dp">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="📷"
-                                    android:textSize="22sp"
-                                    android:layout_marginBottom="4dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tomar foto Después"
-                                    android:textSize="11sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#0284C7"
-                                    android:gravity="center" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Pendiente al culminar"
-                                    android:textSize="9sp"
-                                    android:textColor="#9CA3AF"
-                                    android:gravity="center"
-                                    android:layout_marginTop="2dp" />
-                            </LinearLayout>
-                        </androidx.cardview.widget.CardView>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- 9. BOTÓN PRINCIPAL: ¡HE LLEGADO A LA UBICACIÓN DEL CLIENTE! -->
-            <Button
-                android:id="@+id/btnLlegueUbicacion"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:text="📍  ¡He llegado a la ubicación del cliente!"
+                android:layout_weight="1"
+                android:text="Abrir GPS / Waze"
+                android:layout_marginEnd="8dp"
+                style="@style/Widget.Chivo.Button"
+                android:minHeight="48dp"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnChatConCarlos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Chat con Carlos"
+                style="@style/Widget.Chivo.Button"
+                android:minHeight="48dp"
+                app:icon="@drawable/ic_m3_chat"
+                app:iconSize="20dp"/>
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 6. VALIDACIÓN DE INGRESO RESIDENCIAL -->
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center_vertical"
+          android:background="@drawable/bg_m3_info"
+          android:padding="16dp"
+          android:layout_marginBottom="16dp">
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/ic_m3_shield"
+            app:tint="@color/ui_primary"
+            android:importantForAccessibility="no"/>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Validación de Ingreso Residencial"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Recuerda presentar tu DUI físico en la caseta de seguridad de Cumbres de Cuscatlán para validar tu pase digital registrado con ChivoSeguro."
+              android:textSize="12sp"
+              android:textColor="@color/ui_primary"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+        </LinearLayout>
+      </LinearLayout>
+      <!-- 7. ACUERDO DE PAGO -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_surface"
+          android:layout_marginBottom="16dp"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Acuerdo de Pago"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:drawableStart="@drawable/ic_m3_shield"
+                android:drawableTint="@color/ui_primary"
+                android:drawablePadding="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Garantía 30 días"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:backgroundTint="#0B2545"
-                android:layout_marginBottom="8dp" />
-
+                android:background="#059669"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="8dp">
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="🔒 Carlos Rivera recibirá una notificación automática."
-                android:textSize="11sp"
-                android:gravity="center"
-                android:textColor="#9CA3AF"
-                android:layout_marginBottom="16dp" />
-
+                android:layout_weight="1"
+                android:text="Mano de obra (diagnóstico y sellado)"
+                android:textSize="12sp"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:fontFamily="sans-serif"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$25.00\nUSD"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:gravity="end"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="14dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Modalidad de liquidación"
+                android:textSize="12sp"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:fontFamily="sans-serif"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Efectivo / Chivo Wallet"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+          <com.google.android.material.button.MaterialButton
+              android:id="@+id/btnRegistrarRepuestos"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Registrar repuestos o piezas extra"
+              style="@style/Widget.Chivo.Button"
+              android:minHeight="48dp"
+              app:icon="@drawable/ic_m3_add"
+              app:iconSize="20dp"/>
         </LinearLayout>
-    </ScrollView>
-
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 8. EVIDENCIA DE GARANTÍA -->
+      <com.google.android.material.card.MaterialCardView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:cardBackgroundColor="@color/ui_surface"
+          android:layout_marginBottom="24dp"
+          style="@style/Widget.Chivo.Card">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:layout_marginBottom="12dp">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Evidencia de Garantía"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:drawableStart="@drawable/ic_m3_camera"
+                android:drawableTint="@color/ui_primary"
+                android:drawablePadding="8dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Requerido para ChivoSeguro"
+                android:textSize="12sp"
+                android:textColor="@color/ui_text_secondary"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:fontFamily="sans-serif"/>
+          </LinearLayout>
+          <!-- Fila de fotos -->
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal">
+            <!-- Foto Antes -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                style="@style/Widget.Chivo.Card">
+              <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher"
+                    android:background="@color/ui_outline"
+                    android:contentDescription="Foto Antes"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:background="#059669"
+                    android:text="Foto Antes"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:paddingHorizontal="6dp"
+                    android:paddingVertical="2dp"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:fontFamily="sans-serif-medium"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="#1F2937"
+                    android:text="Fuga previa capturada"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:padding="6dp"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:fontFamily="sans-serif"/>
+              </RelativeLayout>
+            </com.google.android.material.card.MaterialCardView>
+            <!-- Foto Después (Placeholder) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnTomarFotoDespues"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                app:cardBackgroundColor="@color/ui_background"
+                style="@style/Widget.Chivo.Card">
+              <LinearLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical"
+                  android:gravity="center"
+                  android:padding="8dp">
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginBottom="4dp"
+                    android:src="@drawable/ic_m3_camera"
+                    app:tint="@color/ui_primary"
+                    android:importantForAccessibility="no"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tomar foto Después"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_primary"
+                    android:gravity="center"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:fontFamily="sans-serif-medium"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pendiente al culminar"
+                    android:textSize="12sp"
+                    android:textColor="@color/ui_text_secondary"
+                    android:gravity="center"
+                    android:layout_marginTop="2dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:fontFamily="sans-serif"/>
+              </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+          </LinearLayout>
+        </LinearLayout>
+      </com.google.android.material.card.MaterialCardView>
+      <!-- 9. BOTÓN PRINCIPAL: ¡HE LLEGADO A LA UBICACIÓN DEL CLIENTE! -->
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnLlegueUbicacion"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="¡He llegado a la ubicación del cliente!"
+          android:layout_marginBottom="8dp"
+          style="@style/Widget.Chivo.Button"
+          android:minHeight="48dp"
+          app:icon="@drawable/ic_m3_location"
+          app:iconSize="20dp"/>
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Carlos Rivera recibirá una notificación automática."
+          android:textSize="12sp"
+          android:gravity="center"
+          android:textColor="@color/ui_text_secondary"
+          android:layout_marginBottom="16dp"
+          android:drawableStart="@drawable/ic_m3_shield"
+          android:drawableTint="@color/ui_primary"
+          android:drawablePadding="8dp"
+          android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+          android:fontFamily="sans-serif"/>
+    </LinearLayout>
+  </ScrollView>
 </LinearLayout>

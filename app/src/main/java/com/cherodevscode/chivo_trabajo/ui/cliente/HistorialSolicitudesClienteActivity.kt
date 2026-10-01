@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.cliente
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -17,6 +18,34 @@ class HistorialSolicitudesClienteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHistorialSolicitudesClienteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navSolicitudesSolCliente
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navInicioSolCliente -> {
+                    startActivity(Intent(this, InicioActivity::class.java))
+                    finish()
+                }
+                R.id.navSolicitudesSolCliente -> {
+                    // Ya estamos aquí
+                }
+                R.id.navServiciosSolCliente -> {
+                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    finish()
+                }
+                R.id.navMensajesSolCliente -> {
+                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                    finish()
+                }
+                R.id.navPerfilSolCliente -> {
+                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                    finish()
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navSolicitudesSolCliente
+        }
 
         // Botón Regresar
         binding.btnRegresarHistorialSolicitudesCliente.setOnClickListener {
@@ -71,33 +100,5 @@ class HistorialSolicitudesClienteActivity : AppCompatActivity() {
             startActivity(Intent(this, CrearSolicitudActivity::class.java))
         }
 
-        // Menú inferior: Inicio
-        binding.navInicioSolCliente.setOnClickListener {
-            startActivity(Intent(this, InicioActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Solicitudes (Actual)
-        binding.navSolicitudesSolCliente.setOnClickListener {
-            // Ya estamos aquí
-        }
-
-        // Menú inferior: Servicios
-        binding.navServiciosSolCliente.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Mensajes
-        binding.navMensajesSolCliente.setOnClickListener {
-            startActivity(Intent(this, HistorialChatsActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Perfil
-        binding.navPerfilSolCliente.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
-            finish()
-        }
     }
 }

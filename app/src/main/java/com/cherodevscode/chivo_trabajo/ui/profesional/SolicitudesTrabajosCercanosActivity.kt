@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -16,6 +17,33 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
         binding = ActivitySolicitudesTrabajosCercanosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navSolicitudesPro
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navPerfilPro -> {
+                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                }
+                R.id.navInicioPro -> {
+                    startActivity(Intent(this, InicioProfesionalActivity::class.java))
+                    finish()
+                }
+                R.id.navSolicitudesPro -> {
+                    // Ya estamos aquí
+                }
+                R.id.navServiciosPro -> {
+                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    finish()
+                }
+                R.id.navMensajesPro -> {
+                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                    finish()
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navSolicitudesPro
+        }
+
         // Botón Regresar seguro al inicio profesional
         binding.btnRegresarSolicitudesPro.setOnClickListener {
             val intent = Intent(this, InicioProfesionalActivity::class.java).apply {
@@ -27,9 +55,6 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
 
         // Perfil superior y menú inferior - Perfil
         binding.btnPerfilSolicitudesTop.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
-        }
-        binding.navPerfilPro?.setOnClickListener {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
 
@@ -63,27 +88,5 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
 //            Toast.makeText(this, "Alertas sonoras por WhatsApp activadas correctamente", Toast.LENGTH_SHORT).show()
 //        }
 
-        // Menú inferior: Inicio
-        binding.navInicioPro?.setOnClickListener {
-            startActivity(Intent(this, InicioProfesionalActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Solicitudes (Actual)
-        binding.navSolicitudesPro?.setOnClickListener {
-            // Ya estamos aquí
-        }
-
-        // Menú inferior: Servicios
-        binding.navServiciosPro?.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
-            finish()
-        }
-
-        // Menú inferior: Mensajes
-        binding.navMensajesPro?.setOnClickListener {
-            startActivity(Intent(this, HistorialChatsActivity::class.java))
-            finish()
-        }
     }
 }

@@ -1,9 +1,35 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+<resources>
+    <!-- Tema adaptable: Material y las paletas de values/values-night siguen la preferencia guardada. -->
     <style name="Base.Theme.Chivo_Trabajo" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/ui_primary</item>
+        <item name="colorOnPrimary">@color/ui_on_primary</item>
+        <item name="colorPrimaryContainer">@color/ui_brand</item>
+        <item name="colorOnPrimaryContainer">@color/ui_on_brand</item>
+        <item name="colorSecondary">@color/ui_success</item>
+        <item name="colorOnSecondary">@color/ui_on_primary</item>
+        <item name="colorSurface">@color/ui_surface</item>
+        <item name="colorOnSurface">@color/ui_text</item>
+        <item name="colorSurfaceVariant">@color/ui_surface_variant</item>
+        <item name="colorOnSurfaceVariant">@color/ui_text_secondary</item>
+        <item name="colorOutline">@color/ui_outline</item>
+        <item name="colorError">@color/ui_error</item>
+        <item name="colorOnError">@color/ui_error_background</item>
+        <item name="android:colorBackground">@color/ui_background</item>
+        <item name="android:windowBackground">@color/ui_background</item>
+        <item name="android:textColorPrimary">@color/ui_text</item>
+        <item name="android:textColorSecondary">@color/ui_text_secondary</item>
+        <item name="android:statusBarColor">@color/ui_background</item>
+        <item name="android:navigationBarColor">@color/ui_background</item>
+        <item name="android:windowLightStatusBar">@bool/light_system_bars</item>
+        <item name="android:windowLightNavigationBar">@bool/light_system_bars</item>
+        <item name="android:forceDarkAllowed">false</item>
+        <!-- Roles de Material 3 compartidos por botones, navegación y formularios. -->
+        <item name="colorSecondaryContainer">@color/ui_info_background</item>
+        <item name="colorOnSecondaryContainer">@color/ui_primary</item>
+        <item name="materialButtonStyle">@style/Widget.Chivo.Button</item>
+        <item name="textInputStyle">@style/Widget.Chivo.TextInput</item>
+        <item name="bottomNavigationStyle">@style/Widget.Chivo.Navigation</item>
+        <item name="android:fontFamily">sans-serif</item>
     </style>
-
     <style name="Theme.Chivo_Trabajo" parent="Base.Theme.Chivo_Trabajo" />
 </resources>

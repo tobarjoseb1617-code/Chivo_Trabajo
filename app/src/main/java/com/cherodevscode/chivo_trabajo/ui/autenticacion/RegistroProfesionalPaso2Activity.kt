@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.data.model.Profesional
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
@@ -20,6 +20,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class RegistroProfesionalPaso2Activity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegistroProfesionalPaso2Binding
@@ -215,7 +216,8 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
             especialidadesSeleccionadas.contains(categoriasArray[i])
         }
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Seleccione sus Especialidades (Puede elegir varias)")
             .setMultiChoiceItems(categoriasArray, checkedItems) { _, which, isChecked ->
                 val categoria = categoriasArray[which]
@@ -256,7 +258,7 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
             val tvVacio = TextView(this).apply {
                 text = "Seleccione arriba una especialidad para ver sus servicios específicos."
                 textSize = 12f
-                setTextColor(Color.parseColor("#9CA3AF"))
+                setTextColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_text_secondary))
             }
             layoutContainer.addView(tvVacio)
             return
@@ -280,8 +282,8 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
                 text = servicio
                 textSize = 11f
                 setTypeface(null, android.graphics.Typeface.BOLD)
-                setTextColor(Color.parseColor("#4B5563"))
-                setBackgroundColor(Color.parseColor("#F1F5F9"))
+                setTextColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_text_secondary))
+                setBackgroundColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_surface_variant))
                 setPadding(24, 16, 24, 16)
                 layoutParams = LinearLayout.LayoutParams(
                     0,
@@ -306,13 +308,13 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
         if (serviciosSeleccionados.contains(servicio)) {
             serviciosSeleccionados.remove(servicio)
             vista.text = servicio
-            vista.setTextColor(Color.parseColor("#4B5563"))
-            vista.setBackgroundColor(Color.parseColor("#F1F5F9"))
+            vista.setTextColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_text_secondary))
+            vista.setBackgroundColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_surface_variant))
         } else {
             serviciosSeleccionados.add(servicio)
             vista.text = "✓ $servicio"
             vista.setTextColor(Color.WHITE)
-            vista.setBackgroundColor(Color.parseColor("#0B2545"))
+            vista.setBackgroundColor(androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_brand))
         }
         actualizarContadorServicios()
     }
@@ -417,7 +419,8 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
             return
         }
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Agregar municipio")
             .setItems(municipiosFiltrados) { _, which ->
 
@@ -461,11 +464,11 @@ class RegistroProfesionalPaso2Activity : AppCompatActivity() {
             )
 
             textView.setTextColor(
-                Color.parseColor("#0B2545")
+                androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_primary)
             )
 
             textView.setBackgroundColor(
-                Color.parseColor("#E0F2FE")
+                androidx.core.content.ContextCompat.getColor(this@RegistroProfesionalPaso2Activity, com.cherodevscode.chivo_trabajo.R.color.ui_info_background)
             )
 
             textView.setPadding(

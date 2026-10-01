@@ -1,858 +1,819 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version='1.0' encoding='utf-8'?>
+<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
-    android:background="#F4F5F7"
+    android:background="@color/ui_background"
     android:fitsSystemWindows="true">
-
-    <LinearLayout
+  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:padding="16dp">
+    <!-- FORMULARIO PRINCIPAL -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
-
-        <!-- FORMULARIO PRINCIPAL -->
-        <androidx.cardview.widget.CardView
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp"
+        app:cardBackgroundColor="@color/ui_surface"
+        style="@style/Widget.Chivo.Card">
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:padding="20dp">
+        <!-- ENCABEZADO -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="3dp"
-            app:cardBackgroundColor="#FFFFFF">
-
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Nueva solicitud"
+              android:textSize="22sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="10dp"
+              android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Paso 2 de 5"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_primary"
+                  android:layout_marginBottom="5dp"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <View
+                  android:layout_width="match_parent"
+                  android:layout_height="4dp"
+                  android:background="#0284C7"/>
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Detalles del trabajo"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text_secondary"
+                android:layout_marginStart="14dp"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+          </LinearLayout>
+        </LinearLayout>
+        <!-- 1. SERVICIO -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. servicio"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_text"
+            android:layout_marginBottom="7dp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:fontFamily="sans-serif-medium"/>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/ui_background"
+            android:layout_marginBottom="20dp"
+            style="@style/Widget.Chivo.Card">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:padding="11dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_m3_build"
+                app:tint="@color/ui_primary"
+                android:importantForAccessibility="no"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Categoría de servicio"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+              <TextView
+                  android:id="@+id/tvCategoriaServicio"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Selecciona una categoría"
+                  android:textSize="14sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                  android:fontFamily="sans-serif"
+                  android:lineSpacingExtra="2sp"/>
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCambiarCategoria"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Seleccionar"
+                style="@style/Widget.Chivo.Button.Secondary"
+                android:minHeight="48dp"/>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- 2. DESCRIPCIÓN DEL PROBLEMA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="7dp">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="2. describe el problema"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Requerido"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_success"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Chivo.TextInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="3dp"
+            android:hint="Descripción del problema"
+            app:placeholderText="Cuéntanos qué problema tienes...">
+          <com.google.android.material.textfield.TextInputEditText
+              android:id="@+id/etDetallesSolicitud"
+              android:textSize="16sp"
+              android:padding="12dp"
+              android:gravity="top|start"
+              android:inputType="textMultiLine"
+              android:maxLength="300"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:minHeight="105dp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/tvContadorCaracteres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 / 300 caracteres"
+            android:textSize="12sp"
+            android:textColor="@color/ui_text_secondary"
+            android:gravity="end"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:fontFamily="sans-serif"/>
+        <!-- 3. FOTOGRAFÍAS -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="7dp">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="3. fotografías"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Opcional · Recomendado"
+              android:textSize="12sp"
+              android:textColor="@color/ui_primary"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+        </LinearLayout>
+        <!-- Galería -->
+        <LinearLayout
+            android:id="@+id/layoutGaleriaFotos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="6dp">
+          <!-- Agregar foto -->
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/btnAgregarFoto"
+              android:layout_width="68dp"
+              android:layout_height="68dp"
+              app:cardBackgroundColor="@color/ui_background"
+              android:layout_marginEnd="8dp"
+              style="@style/Widget.Chivo.Card">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:src="@drawable/ic_m3_camera"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Agregar"
+                  android:textSize="14sp"
+                  android:textColor="@color/ui_primary"
+                  android:textStyle="bold"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+            </LinearLayout>
+          </com.google.android.material.card.MaterialCardView>
+          <!-- Límite -->
+          <com.google.android.material.card.MaterialCardView
+              android:layout_width="68dp"
+              android:layout_height="68dp"
+              app:cardBackgroundColor="@color/ui_surface_variant"
+              style="@style/Widget.Chivo.Card">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:src="@drawable/ic_m3_image"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Hasta 5 fotos"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:gravity="center"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Las fotos ayudan al profesional a conocer mejor el problema."
+            android:textSize="12sp"
+            android:textColor="@color/ui_text_secondary"
+            android:layout_marginBottom="20dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:fontFamily="sans-serif"/>
+        <!-- 4. UBICACIÓN -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="7dp">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="4. ubicación"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:id="@+id/tvEditarUbicacion"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Seleccionar"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"
+              android:minHeight="48dp"
+              android:gravity="center_vertical"
+              android:background="?attr/selectableItemBackground"/>
+        </LinearLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardUbicacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/ui_background"
+            android:layout_marginBottom="20dp"
+            style="@style/Widget.Chivo.Card">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:padding="11dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="7dp">
+              <ImageView
+                  android:layout_width="24dp"
+                  android:layout_height="24dp"
+                  android:layout_marginEnd="8dp"
+                  android:src="@drawable/ic_m3_location"
+                  app:tint="@color/ui_primary"
+                  android:importantForAccessibility="no"/>
+              <LinearLayout
+                  android:layout_width="0dp"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDireccionUbicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Seleccionar ubicación"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text_secondary"
+                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                    android:fontFamily="sans-serif-medium"/>
+                <TextView
+                    android:id="@+id/tvDetalleUbicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Aquí aparecerá la dirección seleccionada"
+                    android:textSize="12sp"
+                    android:textColor="@color/ui_text_secondary"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                    android:fontFamily="sans-serif"/>
+              </LinearLayout>
+            </LinearLayout>
+            <!-- Mini mapa -->
+            <RelativeLayout
+                android:id="@+id/miniMapa"
+                android:layout_width="match_parent"
+                android:layout_height="75dp"
+                android:background="@color/ui_outline">
+              <TextView
+                  android:id="@+id/tvTextoMapa"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:text="Selecciona una ubicación"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:id="@+id/tvMarcadorMapa"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerInParent="true"
+                  android:textColor="#FFFFFF"
+                  android:text=""
+                  android:textSize="12sp"
+                  android:visibility="gone"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"
+                  android:drawableStart="@drawable/ic_m3_location"
+                  android:drawableTint="@color/ui_primary"/>
+            </RelativeLayout>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- 5. FECHA Y HORA -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="5. fecha y hora"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_text"
+            android:layout_marginBottom="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+            android:fontFamily="sans-serif-medium"/>
+        <!-- Opción 1 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardLoAntesPosible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/ui_background"
+            android:layout_marginBottom="7dp"
+            style="@style/Widget.Chivo.Card">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:padding="11dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_m3_bolt"
+                app:tint="@color/ui_primary"
+                android:importantForAccessibility="no"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:id="@+id/tvLoAntesPosible"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Lo antes posible"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Solicitar atención lo antes posible"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- Opción 2 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardManana"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/ui_background"
+            android:layout_marginBottom="7dp"
+            style="@style/Widget.Chivo.Card">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:padding="11dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_m3_calendar"
+                app:tint="@color/ui_primary"
+                android:importantForAccessibility="no"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Mañana"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Durante la mañana o tarde"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- Opción 3 -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardProgramarFecha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/ui_background"
+            android:layout_marginBottom="20dp"
+            style="@style/Widget.Chivo.Card">
+          <LinearLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:padding="11dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_m3_calendar"
+                app:tint="@color/ui_primary"
+                android:importantForAccessibility="no"/>
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Elegir fecha y hora"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:text="Escoge día y franja horaria"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+        <!-- 6. PRESUPUESTO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="7dp">
+          <TextView
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:text="6. presupuesto"
+              android:textSize="14sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+              android:fontFamily="sans-serif-medium"/>
+          <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="USD ($)"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+              android:fontFamily="sans-serif"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona un rango aproximado para tu trabajo"
+            android:textSize="12sp"
+            android:textColor="@color/ui_text_secondary"
+            android:layout_marginBottom="7dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:fontFamily="sans-serif"/>
+        <!-- Presupuestos -->
+        <LinearLayout
+            android:id="@+id/layoutPresupuestos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+          <!-- Presupuesto 1 -->
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/cardPresupuesto15_30"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginEnd="4dp"
+              app:cardBackgroundColor="@color/ui_background"
+              style="@style/Widget.Chivo.Card">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp">
-
-                <!-- ENCABEZADO -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="20dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Nueva solicitud"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="#0B2545"
-                        android:layout_marginBottom="10dp" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="PASO 2 DE 5"
-                                android:textSize="11sp"
-                                android:textStyle="bold"
-                                android:textColor="#0369A1"
-                                android:layout_marginBottom="5dp" />
-
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_height="4dp"
-                                android:background="#0284C7" />
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Detalles del trabajo"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#6B7280"
-                            android:layout_marginStart="14dp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- 1. SERVICIO -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="1. SERVICIO"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#1F2937"
-                    android:layout_marginBottom="7dp" />
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="11dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="🛠️"
-                            android:textSize="20sp"
-                            android:layout_marginEnd="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Categoría de servicio"
-                                android:textSize="10sp"
-                                android:textColor="#9CA3AF" />
-
-                            <TextView
-                                android:id="@+id/tvCategoriaServicio"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Selecciona una categoría"
-                                android:textSize="15sp"
-                                android:textColor="#6B7280" />
-
-                        </LinearLayout>
-
-                        <Button
-                            android:id="@+id/btnCambiarCategoria"
-                            android:layout_width="wrap_content"
-                            android:layout_height="34dp"
-                            android:text="Seleccionar"
-                            android:textSize="11sp"
-                            android:textColor="#0B2545"
-                            android:backgroundTint="#E2E8F0"
-                            android:paddingHorizontal="10dp" />
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- 2. DESCRIPCIÓN DEL PROBLEMA -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="7dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="2. DESCRIBE EL PROBLEMA"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Requerido"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="#059669" />
-
-                </LinearLayout>
-
-                <EditText
-                    android:id="@+id/etDetallesSolicitud"
-                    android:layout_width="match_parent"
-                    android:layout_height="105dp"
-                    android:background="@drawable/bg_input_rounded"
-                    android:hint="Cuéntanos qué problema tienes..."
-                    android:textSize="13sp"
-                    android:padding="12dp"
-                    android:gravity="top|start"
-                    android:inputType="textMultiLine"
-                    android:maxLength="300"
-                    android:layout_marginBottom="3dp" />
-
-                <TextView
-                    android:id="@+id/tvContadorCaracteres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="0 / 300 caracteres"
-                    android:textSize="10sp"
-                    android:textColor="#9CA3AF"
-                    android:gravity="end"
-                    android:layout_marginBottom="20dp" />
-
-                <!-- 3. FOTOGRAFÍAS -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="7dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="3. FOTOGRAFÍAS"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Opcional · Recomendado"
-                        android:textSize="10sp"
-                        android:textColor="#0284C7" />
-
-                </LinearLayout>
-
-                <!-- Galería -->
-                <LinearLayout
-                    android:id="@+id/layoutGaleriaFotos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="6dp">
-
-                    <!-- Agregar foto -->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/btnAgregarFoto"
-                        android:layout_width="68dp"
-                        android:layout_height="68dp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8FAFC"
-                        android:layout_marginEnd="8dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="📷"
-                                android:textSize="17sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Agregar"
-                                android:textSize="10sp"
-                                android:textColor="#0284C7"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Límite -->
-                    <androidx.cardview.widget.CardView
-                        android:layout_width="68dp"
-                        android:layout_height="68dp"
-                        app:cardCornerRadius="10dp"
-                        app:cardElevation="0dp"
-                        app:cardBackgroundColor="#F1F5F9">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="🖼️"
-                                android:textSize="15sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Hasta 5 fotos"
-                                android:textSize="8sp"
-                                android:textColor="#9CA3AF"
-                                android:gravity="center" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Las fotos ayudan al profesional a conocer mejor el problema."
-                    android:textSize="10sp"
-                    android:textColor="#9CA3AF"
-                    android:layout_marginBottom="20dp" />
-
-                <!-- 4. UBICACIÓN -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="7dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="4. UBICACIÓN"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:id="@+id/tvEditarUbicacion"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Seleccionar"
-                        android:textSize="10sp"
-                        android:textStyle="bold"
-                        android:textColor="#0284C7" />
-
-                </LinearLayout>
-
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardUbicacion"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="11dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center_vertical"
-                            android:layout_marginBottom="7dp">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="📍"
-                                android:textSize="16sp"
-                                android:layout_marginEnd="8dp" />
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:id="@+id/tvDireccionUbicacion"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Seleccionar ubicación"
-                                    android:textSize="13sp"
-                                    android:textStyle="bold"
-                                    android:textColor="#6B7280" />
-
-                                <TextView
-                                    android:id="@+id/tvDetalleUbicacion"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Aquí aparecerá la dirección seleccionada"
-                                    android:textSize="10sp"
-                                    android:textColor="#9CA3AF" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <!-- Mini mapa -->
-                        <RelativeLayout
-                            android:id="@+id/miniMapa"
-                            android:layout_width="match_parent"
-                            android:layout_height="75dp"
-                            android:background="#E5E7EB">
-
-                            <TextView
-                                android:id="@+id/tvTextoMapa"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:text="Selecciona una ubicación"
-                                android:textSize="10sp"
-                                android:textStyle="bold"
-                                android:textColor="#4B5563" />
-
-                            <TextView
-                                android:id="@+id/tvMarcadorMapa"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:textColor="#FFFFFF"
-                                android:text=" 📍 "
-                                android:textSize="10sp"
-                                android:visibility="gone" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- 5. FECHA Y HORA -->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="5. FECHA Y HORA"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
-                    android:textColor="#1F2937"
-                    android:layout_marginBottom="8dp" />
-
-                <!-- Opción 1 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardLoAntesPosible"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="7dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="11dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="⚡"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tvLoAntesPosible"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Lo antes posible"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="#1F2937" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Solicitar atención lo antes posible"
-                                android:textSize="10sp"
-                                android:textColor="#6B7280" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Opción 2 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardManana"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="7dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="11dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📅"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Mañana"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="#1F2937" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Durante la mañana o tarde"
-                                android:textSize="10sp"
-                                android:textColor="#6B7280" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- Opción 3 -->
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cardProgramarFecha"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="10dp"
-                    app:cardElevation="1dp"
-                    app:cardBackgroundColor="#F8FAFC"
-                    android:layout_marginBottom="20dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:padding="11dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="📆"
-                            android:textSize="18sp"
-                            android:layout_marginEnd="10dp" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Elegir fecha y hora"
-                                android:textSize="13sp"
-                                android:textStyle="bold"
-                                android:textColor="#1F2937" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:text="Escoge día y franja horaria"
-                                android:textSize="10sp"
-                                android:textColor="#6B7280" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </androidx.cardview.widget.CardView>
-
-                <!-- 6. PRESUPUESTO -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="7dp">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="6. PRESUPUESTO"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
-                        android:textColor="#1F2937" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="USD ($)"
-                        android:textSize="10sp"
-                        android:textColor="#6B7280" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Selecciona un rango aproximado para tu trabajo"
-                    android:textSize="10sp"
-                    android:textColor="#6B7280"
-                    android:layout_marginBottom="7dp" />
-
-                <!-- Presupuestos -->
-                <LinearLayout
-                    android:id="@+id/layoutPresupuestos"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp">
-
-                    <!-- Presupuesto 1 -->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardPresupuesto15_30"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="4dp"
-                        app:cardCornerRadius="9dp"
-                        app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8FAFC">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="9dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="RANGO 1"
-                                android:textSize="8sp"
-                                android:textStyle="bold"
-                                android:textColor="#6B7280" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$15 – $30"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Presupuesto aproximado"
-                                android:textSize="8sp"
-                                android:textColor="#4B5563" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Presupuesto 2 -->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardPresupuesto30_50"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginHorizontal="2dp"
-                        app:cardCornerRadius="9dp"
-                        app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8FAFC">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="9dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="RANGO 2"
-                                android:textSize="8sp"
-                                android:textStyle="bold"
-                                android:textColor="#6B7280" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="$30 – $50"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Presupuesto aproximado"
-                                android:textSize="8sp"
-                                android:textColor="#4B5563" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                    <!-- Presupuesto 3 -->
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/cardPresupuestoConvenir"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginStart="4dp"
-                        app:cardCornerRadius="9dp"
-                        app:cardElevation="1dp"
-                        app:cardBackgroundColor="#F8FAFC">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="9dp"
-                            android:gravity="center">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="FLEXIBLE"
-                                android:textSize="8sp"
-                                android:textStyle="bold"
-                                android:textColor="#6B7280" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="A convenir"
-                                android:textSize="12sp"
-                                android:textStyle="bold"
-                                android:textColor="#0B2545" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Según revisión"
-                                android:textSize="8sp"
-                                android:textColor="#4B5563" />
-
-                        </LinearLayout>
-
-                    </androidx.cardview.widget.CardView>
-
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ℹ️ Los profesionales enviarán sus ofertas basadas en este rango."
-                    android:textSize="10sp"
-                    android:textColor="#9CA3AF"
-                    android:layout_marginBottom="18dp" />
-
-                <!-- 7. GARANTÍA -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:background="#DCFCE7"
-                    android:padding="11dp"
-                    android:layout_marginBottom="18dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="🛡️"
-                        android:textSize="19sp"
-                        android:layout_marginEnd="10dp" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Garantía ChivoSeguro"
-                            android:textSize="12sp"
-                            android:textStyle="bold"
-                            android:textColor="#166534" />
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Profesionales auditados con Solvencia Policial y DUI vigente."
-                            android:textSize="10sp"
-                            android:textColor="#15803D" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-                <!-- BOTÓN CONTINUAR -->
-                <Button
-                    android:id="@+id/btnPublicarSolicitud"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="Continuar →"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:backgroundTint="#0B2545"
-                    android:layout_marginBottom="4dp" />
-
+                android:padding="9dp"
+                android:gravity="center">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Rango 1"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$15 – $30"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Presupuesto aproximado"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
             </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- FOOTER -->
+          </com.google.android.material.card.MaterialCardView>
+          <!-- Presupuesto 2 -->
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/cardPresupuesto30_50"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginHorizontal="2dp"
+              app:cardBackgroundColor="@color/ui_background"
+              style="@style/Widget.Chivo.Card">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="9dp"
+                android:gravity="center">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Rango 2"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="$30 – $50"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Presupuesto aproximado"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </com.google.android.material.card.MaterialCardView>
+          <!-- Presupuesto 3 -->
+          <com.google.android.material.card.MaterialCardView
+              android:id="@+id/cardPresupuestoConvenir"
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:layout_marginStart="4dp"
+              app:cardBackgroundColor="@color/ui_background"
+              style="@style/Widget.Chivo.Card">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="9dp"
+                android:gravity="center">
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Flexible"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="A convenir"
+                  android:textSize="14sp"
+                  android:textStyle="bold"
+                  android:textColor="@color/ui_text"
+                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                  android:fontFamily="sans-serif-medium"/>
+              <TextView
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Según revisión"
+                  android:textSize="12sp"
+                  android:textColor="@color/ui_text_secondary"
+                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                  android:fontFamily="sans-serif"/>
+            </LinearLayout>
+          </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="⏱️ Respuesta promedio en Santa Tecla y Antiguo Cuscatlán: 7 min"
-            android:textSize="10sp"
-            android:gravity="center"
-            android:textColor="#9CA3AF"
-            android:layout_marginBottom="16dp"
-            android:paddingHorizontal="12dp" />
-
-    </LinearLayout>
-
+            android:text="ℹ Los profesionales enviarán sus ofertas basadas en este rango."
+            android:textSize="12sp"
+            android:textColor="@color/ui_text_secondary"
+            android:layout_marginBottom="18dp"
+            android:drawableStart="@drawable/ic_m3_info"
+            android:drawableTint="@color/ui_primary"
+            android:drawablePadding="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+            android:fontFamily="sans-serif"/>
+        <!-- 7. GARANTÍA -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_m3_success"
+            android:padding="11dp"
+            android:layout_marginBottom="18dp">
+          <ImageView
+              android:layout_width="24dp"
+              android:layout_height="24dp"
+              android:layout_marginEnd="10dp"
+              android:src="@drawable/ic_m3_shield"
+              app:tint="@color/ui_primary"
+              android:importantForAccessibility="no"/>
+          <LinearLayout
+              android:layout_width="0dp"
+              android:layout_height="wrap_content"
+              android:layout_weight="1"
+              android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Garantía ChivoSeguro"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_success"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profesionales auditados con Solvencia Policial y DUI vigente."
+                android:textSize="12sp"
+                android:textColor="@color/ui_success"
+                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+                android:fontFamily="sans-serif"/>
+          </LinearLayout>
+        </LinearLayout>
+        <!-- BOTÓN CONTINUAR -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPublicarSolicitud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Continuar →"
+            android:layout_marginBottom="4dp"
+            style="@style/Widget.Chivo.Button"
+            android:minHeight="48dp"/>
+      </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+    <!-- FOOTER -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="⏱ Respuesta promedio en Santa Tecla y Antiguo Cuscatlán: 7 min"
+        android:textSize="12sp"
+        android:gravity="center"
+        android:textColor="@color/ui_text_secondary"
+        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="12dp"
+        android:drawableStart="@drawable/ic_m3_clock"
+        android:drawableTint="@color/ui_primary"
+        android:drawablePadding="8dp"
+        android:textAppearance="@style/TextAppearance.Material3.BodySmall"
+        android:fontFamily="sans-serif"/>
+  </LinearLayout>
 </ScrollView>

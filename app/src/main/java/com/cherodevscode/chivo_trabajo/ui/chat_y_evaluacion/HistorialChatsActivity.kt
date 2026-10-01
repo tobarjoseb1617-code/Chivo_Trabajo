@@ -1,5 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion
 
+import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
@@ -21,8 +22,47 @@ class HistorialChatsActivity : AppCompatActivity() {
         binding = ActivityHistorialChatsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Detectar si el usuario actual es profesional o cliente mediante extra
         val isPro = intent.getBooleanExtra("EXTRA_IS_PRO", false)
+
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navMensajesChat
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navInicioChat -> {
+                    val targetIntent = if (isPro) {
+                        Intent(this, InicioProfesionalActivity::class.java)
+                    } else {
+                        Intent(this, InicioActivity::class.java)
+                    }
+                    startActivity(targetIntent)
+                    finish()
+                }
+                R.id.navSolicitudesChat -> {
+                    val targetIntent = if (isPro) {
+                        Intent(this, SolicitudesTrabajosCercanosActivity::class.java)
+                    } else {
+                        Intent(this, HistorialSolicitudesClienteActivity::class.java)
+                    }
+                    startActivity(targetIntent)
+                    finish()
+                }
+                R.id.navServiciosChat -> {
+                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
+                    finish()
+                }
+                R.id.navMensajesChat -> {
+                    // Actual
+                }
+                R.id.navPerfilChat -> {
+                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                    finish()
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navMensajesChat
+        }
+
+        // Detectar si el usuario actual es profesional o cliente mediante extra
 
         // Botón Regresar seguro al inicio correspondiente
         binding.btnRegresarHistorialChats.setOnClickListener {
@@ -52,43 +92,5 @@ class HistorialChatsActivity : AppCompatActivity() {
             startActivity(Intent(this, RadarProfesionalesActivity::class.java))
         }
 
-        // Menú inferior: Inicio
-        binding.navInicioChat.setOnClickListener {
-            val targetIntent = if (isPro) {
-                Intent(this, InicioProfesionalActivity::class.java)
-            } else {
-                Intent(this, InicioActivity::class.java)
-            }
-            startActivity(targetIntent)
-            finish()
-        }
-
-        // Menú inferior: Solicitudes
-        binding.navSolicitudesChat.setOnClickListener {
-            val targetIntent = if (isPro) {
-                Intent(this, SolicitudesTrabajosCercanosActivity::class.java)
-            } else {
-                Intent(this, HistorialSolicitudesClienteActivity::class.java)
-            }
-            startActivity(targetIntent)
-            finish()
-        }
-
-        // Menú inferior: Servicios
-        binding.navServiciosChat.setOnClickListener {
-            startActivity(Intent(this, HistorialDeServiciosActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
-            finish()
-        }
-
-        // Menú inferior: Mensajes (Ya estamos aquí)
-        binding.navMensajesChat.setOnClickListener {
-            // Actual
-        }
-
-        // Menú inferior: Perfil
-        binding.navPerfilChat.setOnClickListener {
-            startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
-            finish()
-        }
     }
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <!-- Paleta oscura; se activa mediante values-night cuando se elige modo oscuro. -->
+    <color name="ui_background">#10151D</color>
+    <color name="ui_surface">#1B2430</color>
+    <color name="ui_surface_variant">#253244</color>
+    <color name="ui_text">#F1F5F9</color>
+    <color name="ui_text_secondary">#B8C4D4</color>
+    <color name="ui_outline">#465469</color>
+    <color name="ui_primary">#7DD3FC</color>
+    <color name="ui_on_primary">#082F49</color>
+    <color name="ui_brand">#163B60</color>
+    <color name="ui_info_background">#163449</color>
+    <color name="ui_success_background">#123D32</color>
+    <color name="ui_success">#6EE7B7</color>
+    <color name="ui_warning_background">#42331B</color>
+    <color name="ui_warning">#FCD34D</color>
+    <color name="ui_error_background">#482329</color>
+    <color name="ui_error">#FCA5A5</color>
+    <color name="ui_on_brand">#FFFFFF</color>
+</resources>

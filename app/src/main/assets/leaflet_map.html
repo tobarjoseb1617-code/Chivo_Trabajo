@@ -12,6 +12,15 @@
             margin: 0;
             padding: 0;
         }
+        /* Apariencia: el mapa y sus controles se adaptan al modo activo de la WebView. */
+        html, body, #map { background: #F4F5F7; }
+        @media (prefers-color-scheme: dark) {
+            html, body, #map { background: #10151D; }
+            .leaflet-tile-pane { filter: invert(1) hue-rotate(180deg) brightness(0.8) contrast(0.9); }
+            .leaflet-bar a, .leaflet-control-attribution,
+            .leaflet-popup-content-wrapper, .leaflet-popup-tip { background: #1B2430; color: #F1F5F9; }
+            .leaflet-control-attribution a { color: #7DD3FC; }
+        }
     </style>
 </head>
 <body>

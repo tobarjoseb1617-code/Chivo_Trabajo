@@ -28,6 +28,47 @@ class InicioProfesionalActivity : AppCompatActivity() {
         binding = ActivityInicioProfesionalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        binding.bottomNavigation.selectedItemId = R.id.navInicioPro
+        binding.bottomNavigation.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navSolicitudesPro -> {
+                    startActivity(
+                        Intent(
+                            this,
+                            SolicitudesTrabajosCercanosActivity::class.java
+                        )
+                    )
+                }
+                R.id.navServiciosPro -> {
+                    startActivity(
+                        Intent(
+                            this,
+                            HistorialDeServiciosActivity::class.java
+                        )
+                    )
+                }
+                R.id.navMensajesPro -> {
+                    startActivity(
+                        Intent(
+                            this,
+                            HistorialChatsActivity::class.java
+                        ).putExtra("EXTRA_IS_PRO", true)
+                    )
+                }
+                R.id.navPerfilPro -> {
+                    startActivity(
+                        Intent(
+                            this,
+                            ConfiguracionPerfilActivity::class.java
+                        )
+                    )
+                }
+            }
+            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+            item.itemId == R.id.navInicioPro
+        }
+
         // Cargar nombre y foto del profesional
         cargarDatosProfesional()
 
@@ -81,45 +122,7 @@ class InicioProfesionalActivity : AppCompatActivity() {
             )
         }
 
-        // 6. Menú inferior: Solicitudes
-        binding.navSolicitudesPro.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    SolicitudesTrabajosCercanosActivity::class.java
-                )
-            )
-        }
-
-        // 7. Menú inferior: Servicios
-        binding.navServiciosPro.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    HistorialDeServiciosActivity::class.java
-                )
-            )
-        }
-
-        // 8. Menú inferior: Mensajes
-        binding.navMensajesPro.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    HistorialChatsActivity::class.java
-                ).putExtra("EXTRA_IS_PRO", true)
-            )
-        }
-
         // 9. Perfil
-        binding.navPerfilPro.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    ConfiguracionPerfilActivity::class.java
-                )
-            )
-        }
 
         binding.btnPerfilProTop.setOnClickListener {
             startActivity(

@@ -1,6 +1,6 @@
 package com.cherodevscode.chivo_trabajo.ui.perfil
 
-import android.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import android.content.Intent
 import android.graphics.Color
 import android.net.Uri
@@ -15,6 +15,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.bumptech.glide.Glide
 import com.cherodevscode.chivo_trabajo.BuildConfig
+import com.cherodevscode.chivo_trabajo.utils.ThemePreferences
 import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
@@ -30,6 +31,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
+// Apariencia: los colores creados desde Kotlin respetan el modo elegido.
 class ConfiguracionPerfilActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityConfiguracionPerfilBinding
@@ -75,13 +77,20 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
             insets
         }
 
-        window.statusBarColor = Color.WHITE
+        window.statusBarColor = androidx.core.content.ContextCompat.getColor(this, com.cherodevscode.chivo_trabajo.R.color.ui_background)
 
         WindowInsetsControllerCompat(
             window,
             window.decorView
-        ).isAppearanceLightStatusBars = true
+        ).isAppearanceLightStatusBars = resources.getBoolean(R.bool.light_system_bars)
 
+
+        // Apariencia: inicializar antes del listener evita un cambio al cargar el interruptor.
+        binding.switchModoOscuro.isChecked = ThemePreferences.isDark(this)
+        binding.switchModoOscuro.setOnCheckedChangeListener { _, activado ->
+            // AppCompat recrea las pantallas para aplicar también layouts, controles y diálogos.
+            ThemePreferences.setDark(this, activado)
+        }
 
         // Inicializar repositorios
         authRepository = AuthRepository(this)
@@ -229,11 +238,12 @@ class ConfiguracionPerfilActivity : AppCompatActivity() {
     private fun mostrarOpcionesPortafolio() {
 
         val opciones = arrayOf(
-            "🖼️ Ver Portafolio",
-            "➕ Crear / Agregar al Portafolio"
+            "Ver portafolio",
+            "Agregar trabajo al portafolio"
         )
 
-        AlertDialog.Builder(this)
+        // Material 3: el diálogo hereda colores y formas del tema activo.
+        MaterialAlertDialogBuilder(this)
             .setTitle("Gestión de Portafolio")
             .setItems(opciones) { _, which ->
 
