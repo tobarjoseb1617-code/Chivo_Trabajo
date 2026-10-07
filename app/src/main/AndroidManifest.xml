@@ -83,6 +83,12 @@
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <!-- SeleccionarUbicacionActivity para elegir dirección en el mapa -->
+        <activity
+            android:name=".ui.cliente.SeleccionarUbicacionActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- ExplorarMapaActivity para el mapa / radar de técnicos -->
         <activity
             android:name=".ui.cliente.ExplorarMapaActivity"

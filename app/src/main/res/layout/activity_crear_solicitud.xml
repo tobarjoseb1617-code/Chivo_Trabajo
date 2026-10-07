@@ -609,7 +609,7 @@
             android:layout_marginBottom="5dp">
           <!-- Presupuesto 1 -->
           <com.google.android.material.card.MaterialCardView
-              android:id="@+id/cardPresupuesto15_30"
+              android:id="@+id/cardPresupuestoUno"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
@@ -652,7 +652,7 @@
           </com.google.android.material.card.MaterialCardView>
           <!-- Presupuesto 2 -->
           <com.google.android.material.card.MaterialCardView
-              android:id="@+id/cardPresupuesto30_50"
+              android:id="@+id/cardPresupuestoDos"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"
@@ -695,7 +695,7 @@
           </com.google.android.material.card.MaterialCardView>
           <!-- Presupuesto 3 -->
           <com.google.android.material.card.MaterialCardView
-              android:id="@+id/cardPresupuestoConvenir"
+              android:id="@+id/cardPresupuestoTres"
               android:layout_width="0dp"
               android:layout_height="wrap_content"
               android:layout_weight="1"

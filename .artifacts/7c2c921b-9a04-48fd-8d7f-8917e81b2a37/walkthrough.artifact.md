@@ -1,15 +1,18 @@
-# Walkthrough - Diálogos Modales para Portafolio y Restricción de Imágenes
+# Walkthrough - Correcciones en Creación de Solicitudes y Mapa
 
-Se han implementado diálogos modales rápidos y limpios en `PortafolioProfesionalActivity` para "+ Agregar trabajo" y "+ Agregar título / Acreditación", limitando estrictamente la selección a archivos de imagen (`image/*`) y guardando los datos en la subcolección `Portafolio` de Firestore.
+Se han implementado todas las correcciones solicitadas en `CrearSolicitudActivity` y `SeleccionarUbicacionActivity`.
 
 ## Changes Made
 
-### 1. Diálogos Modales Interactivos (`PortafolioProfesionalActivity.kt`)
-- **Agregar Trabajo**: Abre un diálogo modal para seleccionar una imagen de trabajo (`image/*`), ingresar el título y la descripción, subiéndola a Cloudinary y guardándola en Firestore.
-- **Agregar Título / Acreditación**: Abre un diálogo modal para seleccionar una imagen de carnet/título (`image/*`) y su respectivo título.
+### 1. Selección Múltiple de Fotos y Previsualización (`CrearSolicitudActivity.kt`)
+- Se actualizó el selector de fotografías a `ActivityResultContracts.GetMultipleContents()` (hasta 5 fotos simultáneas).
+- Se implementó la previsualización dinámica en miniatura directamente en la galería de fotos de la pantalla antes de publicar.
 
-### 2. Restricción Estricta de Imágenes (`CrearPortafolioActivity.kt`)
-- Se restringieron todos los selectores de archivos a `image/*`, evitando la selección de documentos genéricos o PDFs.
+### 2. Sombreado Sutil de Selección en Tarjetas
+- Se actualizaron `destacarCardFecha` y `destacarCardPresupuesto` para usar un tinte semitransparente sutil (`#26FFFFFF`) que resalta la selección claramente sin volver el fondo blanco ni ocultar el texto de las tarjetas.
+
+### 3. Buscador del Mapa (`activity_seleccionar_ubicacion.xml`)
+- Se configuró el campo de búsqueda de direcciones (`etBuscarUbicacion`) con texto en color blanco (`#FFFFFF`) para una perfecta legibilidad sobre el fondo.
 
 ---
 

@@ -6,6 +6,7 @@ import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
 import com.cherodevscode.chivo_trabajo.data.model.Profesional
 import com.cherodevscode.chivo_trabajo.data.model.Portafolio
+import com.cherodevscode.chivo_trabajo.data.model.Solicitud
 
 class FirestoreRepository {
     private val db = FirebaseFirestore.getInstance()
@@ -174,6 +175,18 @@ class FirestoreRepository {
 
             Result.success(Unit)
 
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    // Guardar nueva solicitud de servicio en la colección "Solicitudes"
+    suspend fun guardarSolicitud(solicitud: Solicitud): Result<String> {
+        return try {
+            val docRef = db.collection("Solicitudes").document()
+            val solicitudConId = solicitud.copy(idSolicitud = docRef.id)
+            docRef.set(solicitudConId).await()
+            Result.success(docRef.id)
         } catch (e: Exception) {
             Result.failure(e)
         }
