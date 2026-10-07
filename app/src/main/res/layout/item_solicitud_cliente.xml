@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.Chivo.Card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="14dp"
+    app:cardBackgroundColor="@color/ui_surface">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- ID Y ESTADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvIdSolicitudItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="#SOL-0000"
+                    android:textSize="13sp"
+                    android:textColor="@color/ui_primary"
+                    android:fontFamily="sans-serif-medium"
+                    android:maxLines="1"
+                    android:ellipsize="end"/>
+
+                <TextView
+                    android:id="@+id/tvFechaSolicitudItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="Fecha de publicación"
+                    android:textSize="12sp"
+                    android:textColor="@color/ui_text_secondary"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvEstadoSolicitudItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_m3_warning"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="Pendiente"
+                android:textSize="12sp"
+                android:textColor="@color/ui_warning"
+                android:fontFamily="sans-serif-medium"/>
+
+        </LinearLayout>
+
+        <!-- DESCRIPCIÓN -->
+        <TextView
+            android:id="@+id/tvDescripcionSolicitudItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Descripción del trabajo solicitado"
+            android:textSize="16sp"
+            android:textColor="@color/ui_text"
+            android:fontFamily="sans-serif-medium"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- CATEGORÍA -->
+        <TextView
+            android:id="@+id/tvCategoriaSolicitudItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categoría del servicio"
+            android:textSize="13sp"
+            android:textColor="@color/ui_primary"
+            android:drawableStart="@drawable/ic_m3_build"
+            android:drawableTint="@color/ui_primary"
+            android:drawablePadding="8dp"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- UBICACIÓN -->
+        <TextView
+            android:id="@+id/tvUbicacionSolicitudItem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ubicación del servicio"
+            android:textSize="12sp"
+            android:textColor="@color/ui_text_secondary"
+            android:drawableStart="@drawable/ic_m3_location"
+            android:drawableTint="@color/ui_primary"
+            android:drawablePadding="8dp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- PRESUPUESTO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@color/ui_background"
+            android:padding="12dp"
+            android:layout_marginBottom="14dp">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Presupuesto estimado"
+                    android:textSize="12sp"
+                    android:textColor="@color/ui_text_secondary"/>
+
+                <TextView
+                    android:id="@+id/tvPresupuestoSolicitudItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="$0.00"
+                    android:textSize="15sp"
+                    android:textColor="@color/ui_text"
+                    android:fontFamily="sans-serif-medium"/>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="USD"
+                android:textSize="12sp"
+                android:textColor="@color/ui_text_secondary"/>
+
+        </LinearLayout>
+
+        <!-- BOTÓN DETALLES -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerDetalleSolicitudItem"
+            style="@style/Widget.Chivo.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:text="Ver detalles"
+            android:textAllCaps="false"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
