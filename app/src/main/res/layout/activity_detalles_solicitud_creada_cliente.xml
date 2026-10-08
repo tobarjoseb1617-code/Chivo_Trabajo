@@ -1,5 +1,5 @@
-<?xml version='1.0' encoding='utf-8'?>
-<!-- Apariencia: los colores compartidos cambian con la paleta clara u oscura. -->
+<?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,764 +8,403 @@
     android:orientation="vertical"
     android:background="@color/ui_background"
     android:fitsSystemWindows="true">
-  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
-  <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-      <!-- 1. BARRA SUPERIOR -->
+
+      <!-- BARRA SUPERIOR -->
+
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:gravity="center_vertical"
-          android:layout_marginBottom="12dp">
+          android:layout_marginBottom="16dp">
+
         <ImageView
             android:id="@+id/btnRegresarSeguimientoCliente"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/ic_m3_back"
-            android:layout_marginEnd="12dp"
+            android:padding="12dp"
             android:contentDescription="Regresar"
-            android:minHeight="48dp"
             android:background="?attr/selectableItemBackground"
-            app:tint="@color/ui_text"
-            android:padding="12dp"/>
-        <!-- Badge Título -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_input_rounded"
-            android:paddingHorizontal="10dp"
-            android:paddingVertical="6dp"
-            android:layout_marginEnd="8dp">
-          <ImageView
-              android:layout_width="24dp"
-              android:layout_height="24dp"
-              android:layout_marginEnd="4dp"
-              android:src="@drawable/ic_m3_shield"
-              app:tint="@color/ui_primary"
-              android:importantForAccessibility="no"/>
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Seguimiento En Vivo"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="@color/ui_text"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
-        </LinearLayout>
-        <View
+            app:tint="@color/ui_text"/>
+
+        <TextView
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-        <!-- Avatar -->
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Detalles de la solicitud"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/ui_text"
+            android:layout_marginStart="8dp"/>
+
         <ImageView
             android:id="@+id/btnPerfilDetallesTop"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:background="@color/ui_brand"
             android:padding="8dp"
+            android:background="@color/ui_brand"
             android:src="@mipmap/ic_launcher"
-            android:contentDescription="Perfil"
-            android:minHeight="48dp"/>
+            android:contentDescription="Perfil"/>
+
       </LinearLayout>
-      <!-- 2. CABECERA DE LA SOLICITUD (#SOL-8942) -->
+
+      <!-- INFORMACIÓN PRINCIPAL -->
+
       <com.google.android.material.card.MaterialCardView
+          style="@style/Widget.Chivo.Card"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
           android:layout_marginBottom="14dp"
-          style="@style/Widget.Chivo.Card">
+          app:cardBackgroundColor="@color/ui_surface">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
               android:gravity="center_vertical"
-              android:layout_marginBottom="6dp">
+              android:layout_marginBottom="12dp">
+
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="#sol-8942"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/ui_primary"
-                android:background="@drawable/bg_m3_info"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
-            <View
+                android:id="@+id/tvIdSolicitudDetalle"
                 android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="#SOL-0000"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_primary"/>
+
             <TextView
+                android:id="@+id/tvEstadoSolicitudDetalle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3 propuestas"
-                android:textSize="14sp"
+                android:text="Pendiente"
+                android:textSize="12sp"
                 android:textStyle="bold"
-                android:textColor="@color/ui_success"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
+                android:textColor="@color/ui_warning"
+                android:background="@drawable/bg_m3_warning"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"/>
+
           </LinearLayout>
+
           <TextView
+              android:id="@+id/tvTituloSolicitudDetalle"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Reparación de Fuga en Fregadero"
-              android:textSize="17sp"
+              android:text="Título de la solicitud"
+              android:textSize="19sp"
               android:textStyle="bold"
               android:textColor="@color/ui_text"
-              android:layout_marginBottom="4dp"
-              android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-              android:fontFamily="sans-serif-medium"/>
+              android:layout_marginBottom="8dp"/>
+
           <TextView
+              android:id="@+id/tvFechaCreacionDetalle"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="⏱ Hace 25 min • Urgencia: Hoy"
+              android:text="Fecha de publicación"
               android:textSize="12sp"
               android:textColor="@color/ui_text_secondary"
               android:drawableStart="@drawable/ic_m3_clock"
               android:drawableTint="@color/ui_primary"
-              android:drawablePadding="8dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
+              android:drawablePadding="8dp"/>
+
         </LinearLayout>
+
       </com.google.android.material.card.MaterialCardView>
-      <!-- 3. DETALLE DEL PROBLEMA -->
+
+      <!-- DETALLE DEL PROBLEMA -->
+
       <com.google.android.material.card.MaterialCardView
+          style="@style/Widget.Chivo.Card"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
           android:layout_marginBottom="14dp"
-          style="@style/Widget.Chivo.Card">
+          app:cardBackgroundColor="@color/ui_surface">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:layout_marginBottom="8dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Detalle del Problema"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/ui_text"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Fontanería"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="@color/ui_primary"
-                android:background="@drawable/bg_m3_info"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
-          </LinearLayout>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Fuga constante en la bacha del fregadero por sifón goteando. Requiere cambio de trampa y..."
-              android:textSize="12sp"
-              android:textColor="@color/ui_text_secondary"
-              android:layout_marginBottom="12dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
-          <!-- Fila de Fotos de Evidencia -->
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@mipmap/ic_launcher"
-                android:background="@color/ui_outline"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="Foto 1"/>
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:src="@mipmap/ic_launcher"
-                android:background="@color/ui_outline"
-                android:contentDescription="Foto 2"/>
-          </LinearLayout>
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
-      <!-- 4. UBICACIÓN Y HORARIO -->
-      <com.google.android.material.card.MaterialCardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
-          android:layout_marginBottom="14dp"
-          style="@style/Widget.Chivo.Card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Ubicación y Horario"
-              android:textSize="14sp"
+              android:text="Detalle del problema"
+              android:textSize="16sp"
               android:textStyle="bold"
               android:textColor="@color/ui_text"
-              android:layout_marginBottom="8dp"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
+              android:layout_marginBottom="12dp"/>
+
+          <TextView
+              android:text="Categoría"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="5dp"/>
+
+          <TextView
+              android:id="@+id/tvCategoriaSolicitudDetalle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Categoría del servicio"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"
+              android:background="@drawable/bg_m3_info"
+              android:paddingHorizontal="10dp"
+              android:paddingVertical="6dp"
+              android:layout_marginBottom="14dp"/>
+
+          <TextView
+              android:text="Descripción"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="6dp"/>
+
+          <TextView
+              android:id="@+id/tvDescripcionSolicitudDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Descripción del problema"
+              android:textSize="14sp"
+              android:textColor="@color/ui_text"
+              android:lineSpacingExtra="4dp"
+              android:layout_marginBottom="16dp"/>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Residencial Cumbres de Cuscatlán\nPasaje 3, Casa #14, Antiguo Cuscatlán"
+              android:text="Fotografía del problema"
+              android:textSize="13sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"/>
+
+          <ImageView
+              android:id="@+id/ivFotoProblemaDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="190dp"
+              android:scaleType="centerCrop"
+              android:background="@color/ui_background"
+              android:contentDescription="Fotografía del problema"
+              android:visibility="gone"/>
+
+          <TextView
+              android:id="@+id/tvSinFotoDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No se agregó ninguna fotografía"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"/>
+
+        </LinearLayout>
+
+      </com.google.android.material.card.MaterialCardView>
+
+      <!-- UBICACIÓN Y HORARIO -->
+
+      <com.google.android.material.card.MaterialCardView
+          style="@style/Widget.Chivo.Card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="14dp"
+          app:cardBackgroundColor="@color/ui_surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Ubicación y horario"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="14dp"/>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Dirección del servicio"
               android:textSize="12sp"
               android:textColor="@color/ui_text_secondary"
-              android:layout_marginBottom="6dp"
+              android:layout_marginBottom="6dp"/>
+
+          <TextView
+              android:id="@+id/tvUbicacionSolicitudDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Ubicación no disponible"
+              android:textSize="14sp"
+              android:textColor="@color/ui_text"
               android:drawableStart="@drawable/ic_m3_location"
               android:drawableTint="@color/ui_primary"
               android:drawablePadding="8dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
+              android:layout_marginBottom="16dp"/>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="⏱ Hoy entre 1:00 PM – 3:30 PM"
+              android:text="Fecha y hora solicitada"
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="6dp"/>
+
+          <TextView
+              android:id="@+id/tvFechaServicioDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Fecha y hora no disponibles"
               android:textSize="14sp"
               android:textStyle="bold"
               android:textColor="@color/ui_primary"
               android:drawableStart="@drawable/ic_m3_clock"
               android:drawableTint="@color/ui_primary"
-              android:drawablePadding="8dp"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
+              android:drawablePadding="8dp"/>
+
         </LinearLayout>
+
       </com.google.android.material.card.MaterialCardView>
-      <!-- 5. PRESUPUESTO ESTIMADO -->
+
+      <!-- PRESUPUESTO -->
+
       <com.google.android.material.card.MaterialCardView
+          style="@style/Widget.Chivo.Card"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
-          android:layout_marginBottom="20dp"
-          style="@style/Widget.Chivo.Card">
+          android:layout_marginBottom="14dp"
+          app:cardBackgroundColor="@color/ui_surface">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:orientation="vertical"
             android:padding="16dp">
-          <LinearLayout
-              android:layout_width="0dp"
-              android:layout_height="wrap_content"
-              android:layout_weight="1"
-              android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Presupuesto estimado"
-                android:textSize="12sp"
-                android:textColor="@color/ui_text_secondary"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:fontFamily="sans-serif"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="$20.00 – $35.00 usd"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/ui_text"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:fontFamily="sans-serif-medium"/>
-          </LinearLayout>
+
           <TextView
-              android:layout_width="wrap_content"
+              android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Efectivo /\nTransferencia"
-              android:textSize="14sp"
+              android:text="Presupuesto estimado"
+              android:textSize="13sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="8dp"/>
+
+          <TextView
+              android:id="@+id/tvPresupuestoSolicitudDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="No especificado"
+              android:textSize="22sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_primary"/>
+
+        </LinearLayout>
+
+      </com.google.android.material.card.MaterialCardView>
+
+      <!-- PROPUESTAS -->
+
+      <com.google.android.material.card.MaterialCardView
+          style="@style/Widget.Chivo.Card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="22dp">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Propuestas recibidas"
+              android:textSize="16sp"
               android:textStyle="bold"
               android:textColor="@color/ui_text"
-              android:background="@color/ui_outline"
-              android:paddingHorizontal="10dp"
-              android:paddingVertical="6dp"
               android:gravity="center"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
-      <!-- 6. PROPUESTAS RECIBIDAS (3 PROFESIONALES) -->
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center_vertical"
-          android:layout_marginBottom="12dp">
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Propuestas recibidas"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="@color/ui_text"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:fontFamily="sans-serif-medium"/>
-        <TextView
-            android:layout_width="26dp"
-            android:layout_height="26dp"
-            android:background="@color/ui_brand"
-            android:textColor="#FFFFFF"
-            android:text="3"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:layout_marginEnd="8dp"
-            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-            android:fontFamily="sans-serif-medium"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ordenadas por cercanía"
-            android:textSize="12sp"
-            android:textColor="@color/ui_text_secondary"
-            android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-            android:fontFamily="sans-serif"/>
-      </LinearLayout>
-      <!-- Propuesta 1: Roberto Méndez (Más Recomendado) -->
-      <com.google.android.material.card.MaterialCardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
-          android:layout_marginBottom="14dp"
-          style="@style/Widget.Chivo.Card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-          <!-- Badge Más Recomendado -->
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="end"
-              android:layout_marginBottom="4dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="⭐ Más Recomendado"
-                android:textSize="14sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"
-                android:background="#0369A1"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
-          </LinearLayout>
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:layout_marginBottom="10dp">
-            <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:src="@mipmap/ic_launcher"
-                android:background="@color/ui_outline"
-                android:layout_marginEnd="12dp"
-                android:contentDescription="Roberto Méndez"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Roberto Méndez"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_text"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Maestro Fontanero • 8 años exp."
-                  android:textSize="12sp"
-                  android:textColor="@color/ui_text_secondary"
-                  android:layout_marginTop="2dp"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:gravity="center_vertical"
-                  android:layout_marginTop="2dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4.9 (142)"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_warning"
-                    android:layout_marginEnd="8dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DUI Verificado"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:background="#059669"
-                    android:paddingHorizontal="5dp"
-                    android:paddingVertical="2dp"
-                    android:drawableStart="@drawable/ic_m3_shield"
-                    android:drawableTint="@color/ui_primary"
-                    android:drawablePadding="8dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-              </LinearLayout>
-            </LinearLayout>
-          </LinearLayout>
-          <!-- Tarjeta interna de oferta -->
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical"
-              android:background="@color/ui_background"
-              android:padding="12dp"
-              android:layout_marginBottom="12dp">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:layout_marginBottom="6dp">
-              <TextView
-                  android:layout_width="0dp"
-                  android:layout_height="wrap_content"
-                  android:layout_weight="1"
-                  android:text="Llega en 15 min"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_success"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Oferta: $25.00 USD"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_text"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-            </LinearLayout>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="&quot;Incluye cambio de trampa PVC, 2 empaques de teflón y ajuste hermético con prueba de goteo.&quot;"
-                android:textSize="12sp"
-                android:textColor="@color/ui_text_secondary"
-                android:textStyle="italic"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:fontFamily="sans-serif"/>
-          </LinearLayout>
-          <!-- Botones de Acción: Perfil, Chatear, Aceptar -->
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal">
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnPerfilPro1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Perfil"
-                android:layout_marginEnd="6dp"
-                style="@style/Widget.Chivo.Button"
-                android:minHeight="48dp"/>
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnChatearPro1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Chatear"
-                android:layout_marginEnd="6dp"
-                style="@style/Widget.Chivo.Button"
-                android:minHeight="48dp"/>
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAceptarPro1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:text="Aceptar"
-                style="@style/Widget.Chivo.Button"
-                android:minHeight="48dp"/>
-          </LinearLayout>
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
-      <!-- Propuesta 2: Carlos Mendoza -->
-      <com.google.android.material.card.MaterialCardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
-          android:layout_marginBottom="12dp"
-          style="@style/Widget.Chivo.Card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:layout_marginBottom="10dp">
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:src="@mipmap/ic_launcher"
-                android:background="@color/ui_outline"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Carlos Mendoza"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Carlos Mendoza"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_text"
-                    android:layout_marginEnd="6dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="DUI"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"
-                    android:background="#059669"
-                    android:paddingHorizontal="4dp"
-                    android:paddingVertical="1dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$28.00 usd"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_text"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-              </LinearLayout>
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Fontanería 24/7 &amp; Repuestos •  4.8 (89) • En 25 min"
-                  android:textSize="12sp"
-                  android:textColor="@color/ui_text_secondary"
-                  android:layout_marginTop="2dp"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-            </LinearLayout>
-          </LinearLayout>
+              android:layout_marginBottom="10dp"/>
+
           <TextView
+              android:id="@+id/tvEstadoPropuestasDetalle"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="&quot;Llevo piezas de reemplazo universal...&quot;"
-              android:textSize="12sp"
+              android:text="Las propuestas de profesionales aparecerán aquí cuando estén disponibles."
+              android:textSize="13sp"
               android:textColor="@color/ui_text_secondary"
-              android:textStyle="italic"
-              android:layout_marginBottom="10dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
-          <com.google.android.material.button.MaterialButton
-              android:id="@+id/btnVerPropuesta2"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Ver Propuesta"
-              style="@style/Widget.Chivo.Button.Secondary"
-              android:minHeight="48dp"/>
+              android:gravity="center"
+              android:lineSpacingExtra="3dp"/>
+
         </LinearLayout>
+
       </com.google.android.material.card.MaterialCardView>
-      <!-- Propuesta 3: David Ramos -->
-      <com.google.android.material.card.MaterialCardView
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
-          android:layout_marginBottom="24dp"
-          style="@style/Widget.Chivo.Card">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:layout_marginBottom="10dp">
-            <ImageView
-                android:layout_width="42dp"
-                android:layout_height="42dp"
-                android:src="@mipmap/ic_launcher"
-                android:background="@color/ui_outline"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="David Ramos"/>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-              <LinearLayout
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
-                  android:gravity="center_vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="David Ramos"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_text"
-                    android:layout_marginEnd="6dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Certificado"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_primary"
-                    android:background="@drawable/bg_m3_info"
-                    android:paddingHorizontal="4dp"
-                    android:paddingVertical="1dp"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="$22.00 usd"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/ui_text"
-                    android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                    android:fontFamily="sans-serif-medium"/>
-              </LinearLayout>
-              <TextView
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:text="Técnico en Mantenimiento Residencial •  4.7 (34) • En 45 min"
-                  android:textSize="12sp"
-                  android:textColor="@color/ui_text_secondary"
-                  android:layout_marginTop="2dp"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-            </LinearLayout>
-          </LinearLayout>
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="&quot;Mano de obra para ajuste y sellador...&quot;"
-              android:textSize="12sp"
-              android:textColor="@color/ui_text_secondary"
-              android:textStyle="italic"
-              android:layout_marginBottom="10dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
-          <com.google.android.material.button.MaterialButton
-              android:id="@+id/btnVerPropuesta3"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Ver Propuesta"
-              style="@style/Widget.Chivo.Button.Secondary"
-              android:minHeight="48dp"/>
-        </LinearLayout>
-      </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
+
   </ScrollView>
-  <!-- 7. BOTONES INFERIORES DE ACCIÓN: EDITAR Y CANCELAR -->
+
+  <!-- BOTONES INFERIORES -->
+
   <LinearLayout
       android:layout_width="match_parent"
-      android:layout_height="64dp"
+      android:layout_height="wrap_content"
       android:orientation="horizontal"
+      android:gravity="center_vertical"
       android:background="@color/ui_surface"
       android:elevation="8dp"
-      android:gravity="center_vertical"
-      android:paddingHorizontal="16dp">
+      android:padding="12dp">
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnEditarSolicitud"
+        style="@style/Widget.Chivo.Button.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="Editar"
         android:layout_marginEnd="8dp"
-        style="@style/Widget.Chivo.Button.Secondary"
+        android:text="Editar"
         android:minHeight="48dp"
         app:icon="@drawable/ic_m3_edit"
         app:iconSize="20dp"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCancelarSolicitud"
+        style="@style/Widget.Chivo.Button.Secondary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:text="Cancelar"
-        style="@style/Widget.Chivo.Button.Secondary"
         android:minHeight="48dp"/>
+
   </LinearLayout>
+
 </LinearLayout>

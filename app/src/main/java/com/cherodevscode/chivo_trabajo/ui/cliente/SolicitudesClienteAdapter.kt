@@ -127,7 +127,7 @@ class SolicitudesClienteAdapter(
         binding.tvEstadoSolicitudItem.setBackgroundResource(fondo)
 
         binding.btnVerDetalleSolicitudItem.setOnClickListener {
-            onVerDetalles(idSolicitud)
+            onVerDetalles(documento.id)
         }
     }
 
