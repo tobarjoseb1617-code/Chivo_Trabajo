@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardUseCompatPadding="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- CATEGORÍA Y ESTADO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tvCategoriaSolicitudPro"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fontanería y Tuberías"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorOnSurface"/>
+
+            <TextView
+                android:id="@+id/tvEstadoSolicitudPro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:text="PENDIENTE"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="?attr/colorPrimary"/>
+
+        </LinearLayout>
+
+        <!-- DESCRIPCIÓN -->
+        <TextView
+            android:id="@+id/tvDescripcionSolicitudPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Descripción del trabajo solicitado por el cliente."
+            android:textSize="14sp"
+            android:maxLines="3"
+            android:ellipsize="end"
+            android:textColor="?attr/colorOnSurface"/>
+
+        <!-- UBICACIÓN -->
+        <TextView
+            android:id="@+id/tvUbicacionSolicitudPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Ubicación del servicio"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"/>
+
+        <!-- FECHA -->
+        <TextView
+            android:id="@+id/tvFechaSolicitudPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Fecha del servicio"
+            android:textSize="13sp"
+            android:textColor="?attr/colorOnSurfaceVariant"/>
+
+        <!-- PRESUPUESTO -->
+        <TextView
+            android:id="@+id/tvPresupuestoSolicitudPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Presupuesto por definir"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="?attr/colorPrimary"/>
+
+        <!-- BOTÓN VER DETALLES -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnVerDetalleSolicitudPro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:text="Ver detalles"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>
