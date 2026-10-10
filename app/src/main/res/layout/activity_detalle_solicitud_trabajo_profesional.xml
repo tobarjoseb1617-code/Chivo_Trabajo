@@ -66,6 +66,7 @@
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"/>
             <TextView
+                android:id="@+id/tvCodigoDetallePro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="#sol-8942"
@@ -111,6 +112,7 @@
               android:gravity="center_vertical"
               android:layout_marginBottom="8dp">
             <TextView
+                android:id="@+id/tvCategoriaDetallePro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Fontanería"
@@ -136,6 +138,7 @@
                 android:fontFamily="sans-serif"/>
           </LinearLayout>
           <TextView
+              android:id="@+id/tvTituloDetallePro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="Reparación de Fuga en Fregadero"
@@ -146,6 +149,7 @@
               android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
               android:fontFamily="sans-serif-medium"/>
           <TextView
+              android:id="@+id/tvDescripcionDetallePro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:text="Fuga continua en trampa de desagüe bajo mueble de cocina. Requiere cambio de sellos o piezas con urgencia."
@@ -160,6 +164,7 @@
               android:layout_height="140dp"
               android:background="@color/ui_outline">
             <ImageView
+                android:id="@+id/ivFotoProblemaDetalle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:src="@mipmap/ic_launcher"
@@ -235,6 +240,7 @@
                   android:gravity="center_vertical"
                   android:layout_marginBottom="2dp">
                 <TextView
+                    android:id="@+id/tvClienteNombreDetallePro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Carlos Rivera"
@@ -277,9 +283,10 @@
               android:background="@color/ui_outline"
               android:layout_marginBottom="10dp"/>
           <TextView
+              android:id="@+id/tvUbicacionDetallePro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Cumbres de Cuscatlán, Antiguo Cuscatlán\nA 1.4 km de ti • ~8 min en moto/vehículo"
+              android:text="Cumbres de Cuscatlán, Antiguo Cuscatlán"
               android:textSize="12sp"
               android:textColor="@color/ui_text_secondary"
               android:layout_marginBottom="8dp"
@@ -289,9 +296,10 @@
               android:textAppearance="@style/TextAppearance.Material3.BodySmall"
               android:fontFamily="sans-serif"/>
           <TextView
+              android:id="@+id/tvHorarioDetallePro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="⏱ Horario solicitado: Hoy entre 1:00 PM – 3:30 PM (Urgente)"
+              android:text="⏱ Horario solicitado: Lo antes posible"
               android:textSize="14sp"
               android:textStyle="bold"
               android:textColor="@color/ui_primary"
@@ -334,6 +342,7 @@
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
               <TextView
+                  android:id="@+id/tvPresupuestoDetallePro"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="$20.00 – $35.00 usd"

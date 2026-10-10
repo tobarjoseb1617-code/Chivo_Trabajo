@@ -1,18 +1,18 @@
-# Walkthrough - Correcciones en Creación de Solicitudes y Mapa
+# Walkthrough - Detalle de Solicitud Profesional con MVVM y Visualización de Imagen
 
-Se han implementado todas las correcciones solicitadas en `CrearSolicitudActivity` y `SeleccionarUbicacionActivity`.
+Se ha implementado con éxito la visualización de los detalles exactos de cada solicitud para los profesionales, incluyendo la carga de fotografías mediante Glide y separando la lógica en un `ViewModel` (MVVM).
 
 ## Changes Made
 
-### 1. Selección Múltiple de Fotos y Previsualización (`CrearSolicitudActivity.kt`)
-- Se actualizó el selector de fotografías a `ActivityResultContracts.GetMultipleContents()` (hasta 5 fotos simultáneas).
-- Se implementó la previsualización dinámica en miniatura directamente en la galería de fotos de la pantalla antes de publicar.
+### 1. Repositorio y ViewModel (`FirestoreRepository.kt`, `DetallesSolicitudProfesionalViewModel.kt`)
+- Se añadió `obtenerSolicitudPorId` para consultar solicitudes específicas en la colección `"Solicitudes"`.
+- Se creó `DetallesSolicitudProfesionalViewModel` para manejar la lógica de obtención de datos mediante Corrutinas.
 
-### 2. Sombreado Sutil de Selección en Tarjetas
-- Se actualizaron `destacarCardFecha` y `destacarCardPresupuesto` para usar un tinte semitransparente sutil (`#26FFFFFF`) que resalta la selección claramente sin volver el fondo blanco ni ocultar el texto de las tarjetas.
-
-### 3. Buscador del Mapa (`activity_seleccionar_ubicacion.xml`)
-- Se configuró el campo de búsqueda de direcciones (`etBuscarUbicacion`) con texto en color blanco (`#FFFFFF`) para una perfecta legibilidad sobre el fondo.
+### 2. Vista de Detalles (`DetallesSolicitudTrabajoProfesionalActivity.kt`, `activity_detalle_solicitud_trabajo_profesional.xml`)
+- La Activity actúa como Vista pura observando el `LiveData` del ViewModel.
+- Muestra el código exacto de la solicitud, categoría, título y descripción detallada.
+- **Carga de Fotografía**: Utiliza **Glide** para mostrar la imagen de evidencia/problema publicada por el cliente.
+- Todo el código está documentado con comentarios claros y breves.
 
 ---
 

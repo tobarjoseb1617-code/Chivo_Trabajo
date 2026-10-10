@@ -192,6 +192,17 @@ class FirestoreRepository {
         }
     }
 
+    // Obtener una solicitud específica por su ID desde la colección "Solicitudes"
+    suspend fun obtenerSolicitudPorId(idSolicitud: String): Result<Solicitud?> {
+        return try {
+            val doc = db.collection("Solicitudes").document(idSolicitud).get().await()
+            val solicitud = doc.toObject(Solicitud::class.java)?.copy(idSolicitud = doc.id)
+            Result.success(solicitud)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
     // Obtener datos del perfil profesional (incluyendo descripción)
     suspend fun obtenerProfesional(uid: String): Result<Profesional?> {
         return try {

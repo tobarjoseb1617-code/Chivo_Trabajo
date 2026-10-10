@@ -15,34 +15,28 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.cherodevscode.chivo_trabajo.BuildConfig
 import com.cherodevscode.chivo_trabajo.data.model.Solicitud
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
-import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityCrearSolicitudBinding
 import com.cherodevscode.chivo_trabajo.utils.CategoriasConfig
 import com.cherodevscode.chivo_trabajo.utils.PinGenerator
 import com.google.android.material.card.MaterialCardView
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import java.io.DataOutputStream
-import java.net.HttpURLConnection
-import java.net.URL
 import java.util.Calendar
 import java.util.Locale
 
+/**
+ * Activity para crear solicitudes (Vista pura en MVVM, delegando toda la lógica de negocio al CrearSolicitudViewModel).
+ */
 class CrearSolicitudActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityCrearSolicitudBinding
     private lateinit var authRepository: AuthRepository
-    private lateinit var firestoreRepository: FirestoreRepository
+    private lateinit var viewModel: CrearSolicitudViewModel
 
     // Variables de estado del formulario
     private var categoriaSeleccionada: String = ""
-    private val listaFotosUris = mutableListOf<Uri>() // Soporte para múltiples fotos (hasta 5)
     private var latitudServicio: Double = 13.6894
     private var longitudServicio: Double = -89.2361
     private var direccionServicio: String = ""
@@ -51,19 +45,20 @@ class CrearSolicitudActivity : AppCompatActivity() {
     private var horaServicioSeleccionada: String = "Inmediato"
     private var presupuestoSeleccionado: String = "$15 – $30"
 
-    // Selector múltiple de fotografías (hasta 5 imágenes con previsualización)
+    // Selector múltiple de fotografías (hasta 5 imágenes)
     private val seleccionarFotosLauncher = registerForActivityResult(
         ActivityResultContracts.GetMultipleContents()
     ) { uris ->
         if (uris.isNotEmpty()) {
             listaFotosUris.clear()
-            listaFotosUris.addAll(uris.take(5)) // Límite máximo de 5 fotos
+            listaFotosUris.addAll(uris.take(5))
             actualizarGaleriaPreview()
             Toast.makeText(this, "✓ ${listaFotosUris.size} fotografía(s) adjuntada(s)", Toast.LENGTH_SHORT).show()
         }
     }
+    private val listaFotosUris = mutableListOf<Uri>()
 
-    // Receptor para el resultado de la pantalla de ubicación (SeleccionarUbicacionActivity)
+    // Receptor de ubicación
     private val ubicacionLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
@@ -75,7 +70,6 @@ class CrearSolicitudActivity : AppCompatActivity() {
                 direccionServicio = data.getStringExtra("EXTRA_DIRECCION") ?: "Ubicación seleccionada"
                 ciudadServicio = data.getStringExtra("EXTRA_CIUDAD") ?: "San Salvador"
 
-                // Actualizar UI con la dirección elegida
                 binding.tvDireccionUbicacion.text = ciudadServicio
                 binding.tvDetalleUbicacion.text = direccionServicio
                 binding.tvTextoMapa.text = "📍 $ciudadServicio"
@@ -89,9 +83,12 @@ class CrearSolicitudActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         authRepository = AuthRepository(this)
-        firestoreRepository = FirestoreRepository()
+        viewModel = ViewModelProvider(this)[CrearSolicitudViewModel::class.java]
 
-        // Configurar secciones del formulario
+        // Observar resultados del ViewModel (MVVM)
+        observarViewModel()
+
+        // Configurar secciones
         configurarCategoria()
         configurarDescripcion()
         configurarFotografias()
@@ -101,7 +98,31 @@ class CrearSolicitudActivity : AppCompatActivity() {
         configurarBotonPublicar()
     }
 
-    // 1. SELECCIÓN DE CATEGORÍA DE SERVICIO
+    // Observar LiveData del ViewModel
+    private fun observarViewModel() {
+        viewModel.cargando.observe(this) { cargando ->
+            binding.btnPublicarSolicitud.isEnabled = !cargando
+            binding.btnPublicarSolicitud.text = if (cargando) "Publicando..." else "Continuar →"
+        }
+
+        viewModel.resultadoCreacion.observe(this) { resultado ->
+            resultado.onSuccess { idSolicitud ->
+                val pinSeguridad = PinGenerator.generarPin()
+                Toast.makeText(this, "¡Solicitud publicada con éxito!", Toast.LENGTH_LONG).show()
+
+                val intent = Intent(this, SeguimientoActivity::class.java).apply {
+                    putExtra("EXTRA_PIN", pinSeguridad)
+                    putExtra("EXTRA_SOLICITUD_ID", idSolicitud)
+                }
+                startActivity(intent)
+                finish()
+            }.onFailure { e ->
+                Toast.makeText(this, "Error al publicar solicitud: ${e.message}", Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+
+    // 1. SELECCIÓN DE CATEGORÍA
     private fun configurarCategoria() {
         val seleccionarCat = {
             val categoriasArray = CategoriasConfig.listaCategorias.toTypedArray()
@@ -119,7 +140,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         binding.tvCategoriaServicio.setOnClickListener { seleccionarCat() }
     }
 
-    // 2. DESCRIPCIÓN DEL PROBLEMA (Con contador de 300 caracteres)
+    // 2. DESCRIPCIÓN CON CONTADOR
     private fun configurarDescripcion() {
         binding.etDetallesSolicitud.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -131,7 +152,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         })
     }
 
-    // 3. FOTOGRAFÍAS (Selector múltiple y previsualización en miniatura)
+    // 3. FOTOGRAFÍAS
     private fun configurarFotografias() {
         binding.btnAgregarFoto.setOnClickListener {
             seleccionarFotosLauncher.launch("image/*")
@@ -140,15 +161,12 @@ class CrearSolicitudActivity : AppCompatActivity() {
 
     private fun actualizarGaleriaPreview() {
         val layoutGaleria = binding.layoutGaleriaFotos
-        // Mantener el botón de agregar y el límite, e insertar las miniaturas de previsualización
-        // Guardamos las primeras dos vistas (botón agregar y tarjeta de límite)
         val botonAgregar = layoutGaleria.getChildAt(0)
         val tarjetaLimite = layoutGaleria.getChildAt(1)
 
         layoutGaleria.removeAllViews()
         layoutGaleria.addView(botonAgregar)
 
-        // Dibujar miniaturas de cada foto seleccionada
         listaFotosUris.forEach { uri ->
             val cardThumbnail = MaterialCardView(this).apply {
                 layoutParams = LinearLayout.LayoutParams(68.dpToPx(), 68.dpToPx()).apply {
@@ -178,7 +196,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
 
     private fun Int.dpToPx(): Int = (this * resources.displayMetrics.density).toInt()
 
-    // 4. UBICACIÓN (Abre SeleccionarUbicacionActivity con mapa y buscador)
+    // 4. UBICACIÓN
     private fun configurarUbicacion() {
         val abrirMapa = {
             val intent = Intent(this, SeleccionarUbicacionActivity::class.java)
@@ -189,7 +207,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         binding.cardUbicacion.setOnClickListener { abrirMapa() }
     }
 
-    // 5. FECHA Y HORA (Tarjetas interactivas con sombreado sutil de selección)
+    // 5. FECHA Y HORA
     private fun configurarFechaHora() {
         binding.cardLoAntesPosible.setOnClickListener {
             fechaServicioSeleccionada = "Lo antes posible"
@@ -225,7 +243,6 @@ class CrearSolicitudActivity : AppCompatActivity() {
     }
 
     private fun destacarCardFecha(opcion: Int) {
-        // Usar un sutil sombreado/tinte blanco semitransparente (#26FFFFFF) que no oculte el texto
         val tinteSeleccionado = Color.parseColor("#26FFFFFF")
         val colorNormal = Color.TRANSPARENT
         binding.cardLoAntesPosible.setCardBackgroundColor(if (opcion == 1) tinteSeleccionado else colorNormal)
@@ -233,7 +250,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         binding.cardProgramarFecha.setCardBackgroundColor(if (opcion == 3) tinteSeleccionado else colorNormal)
     }
 
-    // 6. PRESUPUESTO (Rangos aproximados con sombreado sutil legible)
+    // 6. PRESUPUESTO
     private fun configurarPresupuesto() {
         binding.cardPresupuestoUno.setOnClickListener {
             presupuestoSeleccionado = "$15 – $30"
@@ -257,7 +274,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         binding.cardPresupuestoTres.setCardBackgroundColor(if (opcion == 3) tinteSeleccionado else colorNormal)
     }
 
-    // 7. BOTÓN PUBLICAR / CONTINUAR (Sube fotos a Cloudinary y guarda en Firestore)
+    // 7. BOTÓN PUBLICAR (Delega toda la lógica de negocio al CrearSolicitudViewModel - MVVM)
     private fun configurarBotonPublicar() {
         binding.btnPublicarSolicitud.setOnClickListener {
             val descripcion = binding.etDetallesSolicitud.text.toString().trim()
@@ -268,7 +285,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
             }
 
             if (descripcion.isEmpty()) {
-                Toast.makeText(this, "Por favor describa el problema", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Por fundar describa el problema", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
@@ -283,119 +300,25 @@ class CrearSolicitudActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            Toast.makeText(this, "Publicando solicitud...", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Publicando solicitud con múltiples fotos...", Toast.LENGTH_SHORT).show()
 
-            // Si hay fotografías adjuntas, subir la primera (o principal) a Cloudinary
-            if (listaFotosUris.isNotEmpty()) {
-                subirFotoYGuardarSolicitud(currentUser.uid, descripcion)
-            } else {
-                guardarSolicitudEnFirestore(currentUser.uid, descripcion, "")
-            }
-        }
-    }
+            val solicitud = Solicitud(
+                clientId = currentUser.uid,
+                categoryId = categoriaSeleccionada,
+                descripcion = descripcion,
+                direccion = direccionServicio,
+                ciudad = ciudadServicio,
+                latitud = latitudServicio,
+                longitud = longitudServicio,
+                fechaServicio = fechaServicioSeleccionada,
+                horaServicio = horaServicioSeleccionada,
+                presupuesto = presupuestoSeleccionado,
+                estado = "PENDIENTE",
+                profesionalId = null
+            )
 
-    // Subir la fotografía principal a Cloudinary
-    private fun subirFotoYGuardarSolicitud(clientId: String, descripcion: String) {
-        CoroutineScope(Dispatchers.IO).launch {
-            var uploadSuccess = false
-            var secureUrl: String? = null
-            val cloudName = BuildConfig.CLOUDINARY_CLOUD_NAME
-            val presetConfig = BuildConfig.CLOUDINARY_UPLOAD_PRESET
-            val presets = listOf(presetConfig, "chivo_trabajo", "chivo_trabajo_preset", "ml_default", "preset_chivo")
-
-            for (preset in presets) {
-                try {
-                    val urlString = "https://api.cloudinary.com/v1_1/$cloudName/image/upload"
-                    val url = URL(urlString)
-                    val connection = url.openConnection() as HttpURLConnection
-                    connection.requestMethod = "POST"
-                    connection.doOutput = true
-                    connection.doInput = true
-
-                    val boundary = "Boundary-${System.currentTimeMillis()}"
-                    connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=$boundary")
-
-                    val outputStream = DataOutputStream(connection.outputStream)
-                    outputStream.writeBytes("--$boundary\r\n")
-                    outputStream.writeBytes("Content-Disposition: form-data; name=\"upload_preset\"\r\n\r\n")
-                    outputStream.writeBytes("$preset\r\n")
-
-                    outputStream.writeBytes("--$boundary\r\n")
-                    outputStream.writeBytes("Content-Disposition: form-data; name=\"file\"; filename=\"solicitud_${System.currentTimeMillis()}.jpg\"\r\n")
-                    outputStream.writeBytes("Content-Type: image/jpeg\r\n\r\n")
-
-                    contentResolver.openInputStream(listaFotosUris[0])?.use { inputStream ->
-                        val buffer = ByteArray(4096)
-                        var bytesRead: Int
-                        while (inputStream.read(buffer).also { bytesRead = it } != -1) {
-                            outputStream.write(buffer, 0, bytesRead)
-                        }
-                    }
-
-                    outputStream.writeBytes("\r\n--$boundary--\r\n")
-                    outputStream.flush()
-                    outputStream.close()
-
-                    if (connection.responseCode == HttpURLConnection.HTTP_OK) {
-                        val responseString = connection.inputStream.bufferedReader().use { it.readText() }
-                        val regex = "\"secure_url\"\\s*:\\s*\"(.*?)\"".toRegex()
-                        val matchResult = regex.find(responseString)
-                        secureUrl = matchResult?.groups?.get(1)?.value?.replace("\\/", "/")
-                        if (!secureUrl.isNullOrBlank()) {
-                            uploadSuccess = true
-                            break
-                        }
-                    }
-                } catch (ex: Exception) {
-                    // Siguiente preset
-                }
-            }
-
-            withContext(Dispatchers.Main) {
-                if (uploadSuccess && !secureUrl.isNullOrBlank()) {
-                    guardarSolicitudEnFirestore(clientId, descripcion, secureUrl!!)
-                } else {
-                    Toast.makeText(this@CrearSolicitudActivity, "Error al subir la foto a Cloudinary", Toast.LENGTH_LONG).show()
-                }
-            }
-        }
-    }
-
-    // Guardar solicitud en Firestore en la colección "solicitudes"
-    private fun guardarSolicitudEnFirestore(clientId: String, descripcion: String, fotoUrl: String) {
-        val solicitud = Solicitud(
-            clientId = clientId,
-            categoryId = categoriaSeleccionada,
-            descripcion = descripcion,
-            fotoProblema = fotoUrl,
-            direccion = direccionServicio,
-            ciudad = ciudadServicio,
-            latitud = latitudServicio,
-            longitud = longitudServicio,
-            fechaServicio = fechaServicioSeleccionada,
-            horaServicio = horaServicioSeleccionada,
-            presupuesto = presupuestoSeleccionado,
-            estado = "PENDIENTE",
-            profesionalId = null
-        )
-
-        CoroutineScope(Dispatchers.IO).launch {
-            val resultado = firestoreRepository.guardarSolicitud(solicitud)
-            withContext(Dispatchers.Main) {
-                resultado.onSuccess { idSolicitud ->
-                    val pinSeguridad = PinGenerator.generarPin()
-                    Toast.makeText(this@CrearSolicitudActivity, "¡Solicitud publicada con éxito!", Toast.LENGTH_LONG).show()
-
-                    val intent = Intent(this@CrearSolicitudActivity, SeguimientoActivity::class.java).apply {
-                        putExtra("EXTRA_PIN", pinSeguridad)
-                        putExtra("EXTRA_SOLICITUD_ID", idSolicitud)
-                    }
-                    startActivity(intent)
-                    finish()
-                }.onFailure { e ->
-                    Toast.makeText(this@CrearSolicitudActivity, "Error al publicar solicitud: ${e.message}", Toast.LENGTH_LONG).show()
-                }
-            }
+            // Delegar la subida de todas las fotos seleccionadas al ViewModel (MVVM)
+            viewModel.publicarSolicitud(contentResolver, solicitud, listaFotosUris)
         }
     }
 }

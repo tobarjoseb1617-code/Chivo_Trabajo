@@ -3,14 +3,15 @@ package com.cherodevscode.chivo_trabajo.data.model
 import com.google.firebase.Timestamp
 
 /**
- * Modelo de datos para la colección "solicitudes" en Cloud Firestore.
+ * Modelo de datos para la colección "Solicitudes" en Cloud Firestore.
  */
 data class Solicitud(
     val idSolicitud: String = "",
     val clientId: String = "",
     val categoryId: String = "",
     val descripcion: String = "",
-    val fotoProblema: String = "",
+    val fotoProblema: String = "", // Foto principal (compatibilidad)
+    val fotosProblema: List<String> = emptyList(), // Lista de múltiples fotografías de evidencia
     val direccion: String = "",
     val ciudad: String = "",
     val latitud: Double = 0.0,
