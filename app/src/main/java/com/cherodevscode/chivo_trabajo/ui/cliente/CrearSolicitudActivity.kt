@@ -20,8 +20,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.data.model.Solicitud
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityCrearSolicitudBinding
@@ -313,8 +315,9 @@ class CrearSolicitudActivity : AppCompatActivity() {
 
         binding.tvCategoriaServicio.text = categoriaSeleccionada
 
+        // Usa el color del tema para que se vea en modo claro y oscuro.
         binding.tvCategoriaServicio.setTextColor(
-            Color.parseColor("#0B2545")
+            ContextCompat.getColor(this, R.color.ui_text)
         )
 
         binding.etDetallesSolicitud.setText(solicitud.descripcion)
@@ -368,6 +371,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
         binding.tvTextoMapa.text = "📍 $ciudadServicio"
     }
 
+    // Permite seleccionar una categoría y actualiza su color según el tema.
     private fun configurarCategoria() {
 
         val seleccionarCategoria = {
@@ -384,8 +388,9 @@ class CrearSolicitudActivity : AppCompatActivity() {
                     binding.tvCategoriaServicio.text =
                         categoriaSeleccionada
 
+                    // Evita usar un color oscuro fijo.
                     binding.tvCategoriaServicio.setTextColor(
-                        Color.parseColor("#0B2545")
+                        ContextCompat.getColor(this, R.color.ui_text)
                     )
                 }
                 .show()

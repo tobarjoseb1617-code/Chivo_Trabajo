@@ -365,6 +365,16 @@
               android:gravity="center"
               android:lineSpacingExtra="3dp"/>
 
+
+          <!-- Contenedor para las propuestas recibidas -->
+          <LinearLayout
+              android:id="@+id/contenedorPropuestasDetalle"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginTop="12dp"
+              android:visibility="gone" />
+
         </LinearLayout>
 
       </com.google.android.material.card.MaterialCardView>

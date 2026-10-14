@@ -392,143 +392,92 @@
               android:fontFamily="sans-serif-medium"/>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
+
+
       <!-- 5. SECCIÓN: TU PROPUESTA -->
       <com.google.android.material.card.MaterialCardView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
           android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface"
           style="@style/Widget.Chivo.Card">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp">
-          <LinearLayout
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:gravity="center_vertical"
-              android:layout_marginBottom="4dp">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Tu Propuesta"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/ui_text"
-                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-                android:fontFamily="sans-serif-medium"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Mano de obra"
-                android:textSize="12sp"
-                android:textColor="@color/ui_text_secondary"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:fontFamily="sans-serif"/>
-          </LinearLayout>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Indica tu tarifa para este servicio:"
-              android:textSize="12sp"
-              android:textColor="@color/ui_text_secondary"
-              android:layout_marginBottom="12dp"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
-          <!-- Opciones de Tarifa -->
-          <LinearLayout
+              android:text="Tu Propuesta"
+              android:textSize="18sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:layout_marginBottom="8dp"/>
+
+          <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:orientation="horizontal"
-              android:layout_marginBottom="16dp">
-            <!-- Opción 1: $25.00 (Sugerido - Seleccionado) -->
-            <LinearLayout
-                android:layout_width="0dp"
+              android:text="Selecciona cómo deseas ofrecer tu servicio:"
+              android:textSize="14sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="12dp"/>
+
+          <RadioGroup
+              android:id="@+id/rgTipoPropuestaPro"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:layout_marginBottom="12dp">
+
+            <RadioButton
+                android:id="@+id/rbAceptarPresupuestoPro"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/ui_brand"
-                android:padding="10dp"
-                android:gravity="center"
-                android:layout_marginEnd="6dp">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="$25.00"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="#FFFFFF"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Sugerido"
-                  android:textSize="12sp"
-                  android:textColor="#93C5FD"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-            </LinearLayout>
-            <!-- Opción 2: $28.00 (Con repuestos) -->
-            <LinearLayout
-                android:layout_width="0dp"
+                android:text="Aceptar presupuesto del cliente"
+                android:textSize="14sp"
+                android:textColor="@color/ui_text"
+                android:buttonTint="@color/ui_primary"/>
+
+            <RadioButton
+                android:id="@+id/rbNuevoPrecioPro"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/ui_surface_variant"
-                android:padding="10dp"
-                android:gravity="center"
-                android:layout_marginHorizontal="3dp">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="$28.00"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_text"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Con repuestos"
-                  android:textSize="12sp"
-                  android:textColor="@color/ui_text_secondary"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-            </LinearLayout>
-            <!-- Opción 3: Otro -->
-            <LinearLayout
-                android:layout_width="0dp"
+                android:text="Proponer otro precio"
+                android:textSize="14sp"
+                android:textColor="@color/ui_text"
+                android:buttonTint="@color/ui_primary"/>
+
+          </RadioGroup>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Precio exacto (USD)"
+              android:layout_marginBottom="8dp"
+              style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPrecioPropuestaPro"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:background="@color/ui_surface_variant"
-                android:padding="10dp"
-                android:gravity="center"
-                android:layout_marginStart="6dp">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Otro"
-                  android:textSize="14sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_text"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="Personalizado"
-                  android:textSize="12sp"
-                  android:textColor="@color/ui_text_secondary"
-                  android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                  android:fontFamily="sans-serif"/>
-            </LinearLayout>
-          </LinearLayout>
+                android:inputType="numberDecimal"
+                android:singleLine="true"
+                android:textColor="@color/ui_text"/>
+
+          </com.google.android.material.textfield.TextInputLayout>
+
+          <TextView
+              android:id="@+id/tvAyudaPrecioPro"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Selecciona una opción e ingresa el precio que cobrarías."
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:layout_marginBottom="18dp"/>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -536,112 +485,81 @@
               android:textSize="14sp"
               android:textStyle="bold"
               android:textColor="@color/ui_text"
-              android:layout_marginBottom="8dp"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
-          <!-- Opciones de Tiempo de Llegada -->
-          <LinearLayout
+              android:layout_marginBottom="8dp"/>
+
+          <RadioGroup
+              android:id="@+id/rgTiempoLlegadaPro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
-              android:layout_marginBottom="16dp">
-            <!-- 15 min (Seleccionado) -->
-            <TextView
+              android:layout_marginBottom="18dp">
+
+            <RadioButton
+                android:id="@+id/rbLlegada15Pro"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="15 min"
-                android:textSize="14sp"
-                android:textStyle="bold"
+                android:textSize="13sp"
                 android:textColor="@color/ui_text"
-                android:background="@drawable/bg_m3_info"
-                android:gravity="center"
-                android:layout_marginEnd="6dp"
-                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                android:fontFamily="sans-serif-medium"/>
-            <!-- 30 min -->
-            <TextView
+                android:buttonTint="@color/ui_primary"/>
+
+            <RadioButton
+                android:id="@+id/rbLlegada30Pro"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="30 min"
-                android:textSize="12sp"
-                android:textColor="@color/ui_text_secondary"
-                android:background="@color/ui_surface_variant"
-                android:gravity="center"
-                android:layout_marginHorizontal="3dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:fontFamily="sans-serif"/>
-            <!-- A convenir -->
-            <TextView
+                android:textSize="13sp"
+                android:textColor="@color/ui_text"
+                android:buttonTint="@color/ui_primary"/>
+
+            <RadioButton
+                android:id="@+id/rbLlegadaConvenioPro"
                 android:layout_width="0dp"
-                android:layout_height="38dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="A convenir"
-                android:textSize="12sp"
-                android:textColor="@color/ui_text_secondary"
-                android:background="@color/ui_surface_variant"
-                android:gravity="center"
-                android:layout_marginStart="6dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-                android:fontFamily="sans-serif"/>
-          </LinearLayout>
-          <!-- Botón Enviar Propuesta -->
+                android:textSize="13sp"
+                android:textColor="@color/ui_text"
+                android:buttonTint="@color/ui_primary"/>
+
+          </RadioGroup>
+
+          <com.google.android.material.textfield.TextInputLayout
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:hint="Mensaje para el cliente (opcional)"
+              android:layout_marginBottom="18dp"
+              app:counterEnabled="true"
+              app:counterMaxLength="300"
+              style="@style/Widget.Material3.TextInputLayout.OutlinedBox">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etMensajePropuestaPro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine|textCapSentences"
+                android:gravity="top|start"
+                android:minLines="3"
+                android:maxLines="5"
+                android:maxLength="300"
+                android:textColor="@color/ui_text"/>
+
+          </com.google.android.material.textfield.TextInputLayout>
+
           <com.google.android.material.button.MaterialButton
               android:id="@+id/btnEnviarPropuestaPro"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
-              android:text="Enviar Propuesta ($25.00 USD)"
-              style="@style/Widget.Chivo.Button"
-              android:minHeight="48dp"/>
+              android:text="Enviar propuesta"
+              android:minHeight="48dp"
+              style="@style/Widget.Chivo.Button"/>
+
         </LinearLayout>
+
       </com.google.android.material.card.MaterialCardView>
-      <!-- 6. TARJETA SNACKBAR DE ÉXITO -->
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:gravity="center_vertical"
-          android:background="#1E293B"
-          android:padding="16dp"
-          android:layout_marginBottom="16dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="✓"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#34D399"
-            android:background="#065F46"
-            android:paddingHorizontal="8dp"
-            android:paddingVertical="4dp"
-            android:layout_marginEnd="12dp"
-            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
-            android:fontFamily="sans-serif-medium"/>
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="¡Propuesta enviada con éxito!"
-              android:textSize="14sp"
-              android:textStyle="bold"
-              android:textColor="#FFFFFF"
-              android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-              android:fontFamily="sans-serif-medium"/>
-          <TextView
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:text="Carlos recibirá tu oferta al instante."
-              android:textSize="12sp"
-              android:textColor="@color/ui_text_secondary"
-              android:textAppearance="@style/TextAppearance.Material3.BodySmall"
-              android:fontFamily="sans-serif"/>
-        </LinearLayout>
-      </LinearLayout>
+
     </LinearLayout>
   </ScrollView>
 </LinearLayout>

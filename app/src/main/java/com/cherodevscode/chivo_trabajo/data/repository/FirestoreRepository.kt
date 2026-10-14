@@ -7,6 +7,7 @@ import kotlinx.coroutines.tasks.await
 import com.cherodevscode.chivo_trabajo.data.model.Profesional
 import com.cherodevscode.chivo_trabajo.data.model.Portafolio
 import com.cherodevscode.chivo_trabajo.data.model.Solicitud
+import com.cherodevscode.chivo_trabajo.data.model.Propuesta
 
 class FirestoreRepository {
     private val db = FirebaseFirestore.getInstance()
@@ -314,4 +315,98 @@ class FirestoreRepository {
             Result.failure(e)
         }
     }
+
+
+    // Guarda una propuesta y evita duplicados por profesional y solicitud.
+    suspend fun enviarPropuesta(propuesta: Propuesta): Result<String> {
+        return try {
+            require(propuesta.solicitudId.isNotBlank()) {
+                "La solicitud no es válida"
+            }
+            require(propuesta.profesionalId.isNotBlank()) {
+                "El profesional no es válido"
+            }
+            require(propuesta.clienteId.isNotBlank()) {
+                "El cliente no es válido"
+            }
+            require(propuesta.precioPropuesto.isFinite() &&
+                    propuesta.precioPropuesto > 0.0) {
+                "Ingresa un precio válido"
+            }
+
+            require(
+                propuesta.tipoPropuesta == "ACEPTAR_PRESUPUESTO" ||
+                        propuesta.tipoPropuesta == "NUEVO_PRECIO"
+            ) {
+                "Selecciona un tipo de propuesta válido"
+            }
+
+            // ID estable: un profesional tiene una propuesta por solicitud.
+            val id = "${propuesta.solicitudId}_${propuesta.profesionalId}"
+
+            val solicitudRef = db.collection("Solicitudes")
+                .document(propuesta.solicitudId)
+
+            val propuestaRef = db.collection("Propuestas")
+                .document(id)
+
+            db.runTransaction { transaccion ->
+                val solicitudDoc = transaccion.get(solicitudRef)
+                val propuestaDoc = transaccion.get(propuestaRef)
+
+                if (!solicitudDoc.exists()) {
+                    throw IllegalStateException("La solicitud no existe")
+                }
+
+                if (solicitudDoc.getString("estado") != "PENDIENTE" ||
+                    !solicitudDoc.getString("profesionalId").isNullOrBlank()
+                ) {
+                    throw IllegalStateException(
+                        "La solicitud ya no recibe propuestas"
+                    )
+                }
+
+                if (solicitudDoc.getString("clientId") != propuesta.clienteId) {
+                    throw IllegalStateException(
+                        "Los datos del cliente no coinciden"
+                    )
+                }
+
+                if (propuesta.clienteId == propuesta.profesionalId) {
+                    throw IllegalStateException(
+                        "No puedes enviar propuestas a tu propia solicitud"
+                    )
+                }
+
+                if (propuestaDoc.exists()) {
+                    throw IllegalStateException(
+                        "Ya enviaste una propuesta a esta solicitud"
+                    )
+                }
+
+                val datos = hashMapOf<String, Any>(
+                    "idPropuesta" to id,
+                    "solicitudId" to propuesta.solicitudId,
+                    "profesionalId" to propuesta.profesionalId,
+                    "clienteId" to propuesta.clienteId,
+                    "tipoPropuesta" to propuesta.tipoPropuesta,
+                    "precioPropuesto" to propuesta.precioPropuesto,
+                    "mensaje" to propuesta.mensaje,
+                    "disponibilidad" to propuesta.disponibilidad,
+                    "estado" to "PENDIENTE",
+                    "fechaCreacion" to
+                            com.google.firebase.firestore.FieldValue.serverTimestamp()
+                )
+
+                transaccion.set(propuestaRef, datos)
+                null
+            }.await()
+
+            Result.success(id)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 }

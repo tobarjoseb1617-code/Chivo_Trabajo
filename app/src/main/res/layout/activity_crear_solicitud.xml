@@ -124,16 +124,18 @@
                   android:textColor="@color/ui_text_secondary"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
+
               <TextView
                   android:id="@+id/tvCategoriaServicio"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
                   android:text="Selecciona una categoría"
                   android:textSize="14sp"
-                  android:textColor="@color/ui_text_secondary"
+                  android:textColor="@color/ui_text"
                   android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
                   android:fontFamily="sans-serif"
                   android:lineSpacingExtra="2sp"/>
+
             </LinearLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCambiarCategoria"
