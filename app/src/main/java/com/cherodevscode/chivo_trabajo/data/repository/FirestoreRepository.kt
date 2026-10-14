@@ -203,6 +203,97 @@ class FirestoreRepository {
         }
     }
 
+
+    // Actualiza una solicitud existente en Firebase Firestore.
+    suspend fun actualizarSolicitud(
+        solicitud: Solicitud,
+        uidCliente: String
+    ): Result<Unit> {
+
+        return try {
+
+            // Verifica que se haya recibido un ID válido.
+            require(solicitud.idSolicitud.isNotBlank()) {
+                "El ID de la solicitud no puede estar vacío"
+            }
+
+            // Obtiene la referencia del documento existente.
+            val referencia = db.collection("Solicitudes")
+                .document(solicitud.idSolicitud)
+
+            // Ejecuta una transacción para comprobar los datos
+            // antes de guardar las modificaciones.
+            db.runTransaction { transaccion ->
+
+                // Consulta la información actual de la solicitud.
+                val documento = transaccion.get(referencia)
+
+                // Comprueba que el documento exista.
+                if (!documento.exists()) {
+                    throw IllegalStateException(
+                        "La solicitud no existe"
+                    )
+                }
+
+                // Obtiene el propietario de la solicitud.
+                val propietarioId = documento.getString("clientId")
+
+                // Verifica que el usuario sea el propietario.
+                if (propietarioId != uidCliente) {
+                    throw IllegalStateException(
+                        "No tienes permiso para editar esta solicitud"
+                    )
+                }
+
+                // Obtiene el estado actual.
+                val estadoActual = documento.getString("estado")
+
+                // Obtiene el profesional asignado.
+                val profesionalId = documento.getString("profesionalId")
+
+                // Solo permite editar solicitudes pendientes.
+                if (
+                    estadoActual != "PENDIENTE" ||
+                    !profesionalId.isNullOrBlank()
+                ) {
+                    throw IllegalStateException(
+                        "Esta solicitud ya no se puede editar"
+                    )
+                }
+
+                // Prepara únicamente los campos editables.
+                val cambios = mapOf(
+                    "categoryId" to solicitud.categoryId,
+                    "descripcion" to solicitud.descripcion,
+                    "fotoProblema" to solicitud.fotoProblema,
+                    "fotosProblema" to solicitud.fotosProblema,
+                    "direccion" to solicitud.direccion,
+                    "ciudad" to solicitud.ciudad,
+                    "latitud" to solicitud.latitud,
+                    "longitud" to solicitud.longitud,
+                    "fechaServicio" to solicitud.fechaServicio,
+                    "horaServicio" to solicitud.horaServicio,
+                    "presupuesto" to solicitud.presupuesto,
+                    "fechaActualizacion" to
+                            com.google.firebase.firestore.FieldValue.serverTimestamp()
+                )
+
+                // Actualiza el mismo documento de Firestore.
+                transaccion.update(referencia, cambios)
+
+                null
+            }.await()
+
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+
+            // Devuelve el error si ocurre algún problema.
+            Result.failure(e)
+        }
+    }
+
+
     // Obtener datos del perfil profesional (incluyendo descripción)
     suspend fun obtenerProfesional(uid: String): Result<Profesional?> {
         return try {

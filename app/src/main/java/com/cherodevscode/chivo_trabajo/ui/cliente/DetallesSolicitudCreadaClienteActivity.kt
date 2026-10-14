@@ -5,11 +5,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.cherodevscode.chivo_trabajo.databinding.ActivityDetallesSolicitudCreadaClienteBinding
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -21,7 +24,17 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
     private val firestore = FirebaseFirestore.getInstance()
     private val auth = FirebaseAuth.getInstance()
 
-    private var idSolicitud: String = ""
+    private var idSolicitud = ""
+    private var operacionEnCurso = false
+
+    // Actualiza los detalles cuando se guarda una edición.
+    private val editarSolicitudLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { resultado ->
+        if (resultado.resultCode == RESULT_OK) {
+            cargarDetalleSolicitud()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,21 +42,14 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
         binding = ActivityDetallesSolicitudCreadaClienteBinding.inflate(
             layoutInflater
         )
-
         setContentView(binding.root)
 
-        // Recibir el ID de la solicitud seleccionada
         idSolicitud = intent.getStringExtra("idSolicitud").orEmpty()
 
         configurarBotones()
 
         if (idSolicitud.isBlank()) {
-            Toast.makeText(
-                this,
-                "No se recibió el ID de la solicitud",
-                Toast.LENGTH_LONG
-            ).show()
-
+            mostrarMensaje("No se recibió el ID de la solicitud")
             finish()
             return
         }
@@ -51,42 +57,44 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
         cargarDetalleSolicitud()
     }
 
+    // Configura la navegación y las acciones de la solicitud.
     private fun configurarBotones() {
 
-        // Regresar al historial
         binding.btnRegresarSeguimientoCliente.setOnClickListener {
             finish()
         }
 
-        // Abrir configuración del perfil
         binding.btnPerfilDetallesTop.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    ConfiguracionPerfilActivity::class.java
-                )
+                Intent(this, ConfiguracionPerfilActivity::class.java)
             )
         }
 
-        // Editar solicitud (pendiente de implementar)
         binding.btnEditarSolicitud.setOnClickListener {
-            Toast.makeText(
+
+            if (operacionEnCurso) return@setOnClickListener
+
+            if (idSolicitud.isBlank()) {
+                mostrarMensaje("No se encontró la solicitud")
+                return@setOnClickListener
+            }
+
+            val intent = Intent(
                 this,
-                "Próximamente podrás editar tu solicitud",
-                Toast.LENGTH_SHORT
-            ).show()
+                CrearSolicitudActivity::class.java
+            ).apply {
+                putExtra("idSolicitud", idSolicitud)
+            }
+
+            editarSolicitudLauncher.launch(intent)
         }
 
-        // Cancelar solicitud (pendiente de implementar)
         binding.btnCancelarSolicitud.setOnClickListener {
-            Toast.makeText(
-                this,
-                "La cancelación estará disponible próximamente",
-                Toast.LENGTH_SHORT
-            ).show()
+            confirmarCancelacion()
         }
     }
 
+    // Consulta la solicitud y muestra su información actualizada.
     private fun cargarDetalleSolicitud() {
 
         firestore.collection("Solicitudes")
@@ -95,34 +103,26 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
             .addOnSuccessListener { documento ->
 
                 if (!documento.exists()) {
-
-                    Toast.makeText(
-                        this,
-                        "No se encontró la solicitud",
-                        Toast.LENGTH_LONG
-                    ).show()
-
+                    mostrarMensaje("No se encontró la solicitud")
                     finish()
                     return@addOnSuccessListener
                 }
 
-                // Comprobar que la solicitud pertenece al cliente
                 val uid = auth.currentUser?.uid
                 val clienteId = documento.getString("clientId")
 
+                // Solo el propietario puede consultar esta solicitud.
                 if (uid == null || clienteId != uid) {
-
-                    Toast.makeText(
-                        this,
-                        "No tienes permiso para ver esta solicitud",
-                        Toast.LENGTH_LONG
-                    ).show()
-
+                    mostrarMensaje("No tienes permiso para ver esta solicitud")
                     finish()
                     return@addOnSuccessListener
                 }
 
-                // Obtener información de Firestore
+                val estado = documento.getString("estado") ?: "PENDIENTE"
+                val profesionalId = documento.getString("profesionalId")
+
+                actualizarBotonCancelar(estado, profesionalId)
+                actualizarBotonEditar(estado, profesionalId)
 
                 val categoria = documento.getString("categoryId")
                     ?: "Sin categoría"
@@ -130,14 +130,8 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
                 val descripcion = documento.getString("descripcion")
                     ?: "Sin descripción"
 
-                val estado = documento.getString("estado")
-                    ?: "PENDIENTE"
-
-                val direccion = documento.getString("direccion")
-                    .orEmpty()
-
-                val ciudad = documento.getString("ciudad")
-                    .orEmpty()
+                val direccion = documento.getString("direccion").orEmpty()
+                val ciudad = documento.getString("ciudad").orEmpty()
 
                 val fechaServicio = documento.getString("fechaServicio")
                     ?: "Sin fecha"
@@ -153,19 +147,13 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
                 val fechaCreacion = documento.getTimestamp("fechaCreacion")
 
-                // ID de la solicitud
                 binding.tvIdSolicitudDetalle.text =
                     "#SOL-${idSolicitud.take(8)}"
 
-                // Título y categoría
                 binding.tvTituloSolicitudDetalle.text = categoria
-
                 binding.tvCategoriaSolicitudDetalle.text = categoria
-
-                // Descripción
                 binding.tvDescripcionSolicitudDetalle.text = descripcion
 
-                // Estado
                 val estadoFormateado = when (
                     estado.uppercase(Locale.ROOT)
                 ) {
@@ -180,7 +168,6 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
                 binding.tvEstadoSolicitudDetalle.text = estadoFormateado
 
-                // Ubicación
                 val ubicacion = listOf(direccion, ciudad)
                     .filter { it.isNotBlank() }
                     .distinct()
@@ -189,14 +176,11 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
                 binding.tvUbicacionSolicitudDetalle.text = ubicacion
 
-                // Fecha y hora del servicio
                 binding.tvFechaServicioDetalle.text =
                     "Fecha: $fechaServicio\nHora: $horaServicio"
 
-                // Presupuesto
                 binding.tvPresupuestoSolicitudDetalle.text = presupuesto
 
-                // Fecha de creación
                 if (fechaCreacion != null) {
 
                     val formato = SimpleDateFormat(
@@ -208,12 +192,10 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
                         "Publicada: ${formato.format(fechaCreacion.toDate())}"
 
                 } else {
-
                     binding.tvFechaCreacionDetalle.text =
                         "Fecha de publicación no disponible"
                 }
 
-                // Mostrar fotografía del problema
                 if (fotoProblema.isNotBlank()) {
 
                     binding.ivFotoProblemaDetalle.visibility = View.VISIBLE
@@ -228,22 +210,142 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
                     binding.ivFotoProblemaDetalle.visibility = View.GONE
                     binding.tvSinFotoDetalle.visibility = View.VISIBLE
-
                     binding.tvSinFotoDetalle.text =
                         "No se agregó ninguna fotografía"
                 }
 
-                // Mensaje de propuestas
                 binding.tvEstadoPropuestasDetalle.text =
                     "Las propuestas de profesionales aparecerán aquí cuando estén disponibles."
             }
             .addOnFailureListener { error ->
-
-                Toast.makeText(
-                    this,
-                    "Error al cargar la solicitud: ${error.localizedMessage}",
-                    Toast.LENGTH_LONG
-                ).show()
+                mostrarMensaje(
+                    "Error al cargar la solicitud: ${error.localizedMessage}"
+                )
             }
+    }
+
+    // Permite cancelar únicamente solicitudes pendientes y sin profesional.
+    private fun actualizarBotonCancelar(
+        estado: String,
+        profesionalId: String?
+    ) {
+
+        val puedeCancelar =
+            estado.uppercase(Locale.ROOT) == "PENDIENTE" &&
+                    profesionalId.isNullOrBlank()
+
+        binding.btnCancelarSolicitud.visibility =
+            if (puedeCancelar) View.VISIBLE else View.GONE
+    }
+
+    // Permite editar únicamente solicitudes pendientes y sin profesional.
+    private fun actualizarBotonEditar(
+        estado: String,
+        profesionalId: String?
+    ) {
+
+        val puedeEditar =
+            estado.uppercase(Locale.ROOT) == "PENDIENTE" &&
+                    profesionalId.isNullOrBlank()
+
+        binding.btnEditarSolicitud.visibility =
+            if (puedeEditar) View.VISIBLE else View.GONE
+    }
+
+    // Solicita confirmación antes de cancelar la solicitud.
+    private fun confirmarCancelacion() {
+
+        if (operacionEnCurso) return
+
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Cancelar solicitud")
+            .setMessage(
+                "¿Estás seguro de que deseas cancelar esta solicitud? " +
+                        "Dejará de estar disponible para los profesionales, " +
+                        "pero permanecerá en tu historial."
+            )
+            .setNegativeButton("Volver", null)
+            .setPositiveButton("Sí, cancelar") { _, _ ->
+                cancelarSolicitud()
+            }
+            .show()
+    }
+
+    // Utiliza una transacción para evitar cancelar solicitudes ya asignadas.
+    private fun cancelarSolicitud() {
+
+        val uid = auth.currentUser?.uid ?: run {
+            mostrarMensaje("Debes iniciar sesión")
+            return
+        }
+
+        if (operacionEnCurso) return
+
+        operacionEnCurso = true
+
+        val referencia = firestore.collection("Solicitudes")
+            .document(idSolicitud)
+
+        firestore.runTransaction { transaccion ->
+
+            val documento = transaccion.get(referencia)
+
+            if (!documento.exists() ||
+                documento.getString("clientId") != uid
+            ) {
+                throw IllegalStateException(
+                    "No tienes permiso para cancelar esta solicitud"
+                )
+            }
+
+            val estadoActual = documento.getString("estado")
+                ?.uppercase(Locale.ROOT)
+
+            val profesionalId = documento.getString("profesionalId")
+
+            if (estadoActual != "PENDIENTE" ||
+                !profesionalId.isNullOrBlank()
+            ) {
+                throw IllegalStateException(
+                    "Esta solicitud ya no se puede cancelar"
+                )
+            }
+
+            transaccion.update(
+                referencia,
+                mapOf(
+                    "estado" to "CANCELADA",
+                    "fechaActualizacion" to FieldValue.serverTimestamp()
+                )
+            )
+
+            null
+        }
+            .addOnSuccessListener {
+
+                operacionEnCurso = false
+
+                mostrarMensaje("Solicitud cancelada correctamente")
+                cargarDetalleSolicitud()
+            }
+            .addOnFailureListener { error ->
+
+                operacionEnCurso = false
+
+                mostrarMensaje(
+                    error.localizedMessage
+                        ?: "No se pudo cancelar la solicitud"
+                )
+
+                cargarDetalleSolicitud()
+            }
+    }
+
+    private fun mostrarMensaje(mensaje: String) {
+        Toast.makeText(
+            this,
+            mensaje,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

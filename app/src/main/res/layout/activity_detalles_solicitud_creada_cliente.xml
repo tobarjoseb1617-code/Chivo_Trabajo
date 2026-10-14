@@ -396,14 +396,19 @@
         app:icon="@drawable/ic_m3_edit"
         app:iconSize="20dp"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCancelarSolicitud"
-        style="@style/Widget.Chivo.Button.Secondary"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Cancelar"
-        android:minHeight="48dp"/>
+      <!-- Botón para cancelar una solicitud pendiente -->
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnCancelarSolicitud"
+          style="@style/Widget.Chivo.Button.Secondary"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:layout_marginEnd="8dp"
+          android:text="Cancelar solicitud"
+          android:visibility="gone"
+          android:minHeight="48dp" />
+
+
 
   </LinearLayout>
 

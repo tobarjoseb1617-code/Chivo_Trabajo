@@ -27,6 +27,18 @@ class CrearSolicitudViewModel : ViewModel() {
     private val _resultadoCreacion = MutableLiveData<Result<String>>()
     val resultadoCreacion: LiveData<Result<String>> get() = _resultadoCreacion
 
+
+    // Almacena el resultado de la consulta de una solicitud.
+    private val _solicitudParaEditar = MutableLiveData<Result<Solicitud?>>()
+    val solicitudParaEditar: LiveData<Result<Solicitud?>>
+        get() = _solicitudParaEditar
+
+    // Almacena el resultado de la actualización.
+    private val _resultadoEdicion = MutableLiveData<Result<Unit>>()
+    val resultadoEdicion: LiveData<Result<Unit>>
+        get() = _resultadoEdicion
+
+
     private val _cargando = MutableLiveData<Boolean>()
     val cargando: LiveData<Boolean> get() = _cargando
 
@@ -67,6 +79,100 @@ class CrearSolicitudViewModel : ViewModel() {
             }
         }
     }
+
+
+    // Busca una solicitud existente para mostrar sus datos.
+    fun cargarSolicitudParaEditar(idSolicitud: String) {
+
+        _cargando.value = true
+
+        // Ejecuta la consulta sin bloquear la pantalla.
+        viewModelScope.launch {
+
+            val resultado = withContext(Dispatchers.IO) {
+                firestoreRepository.obtenerSolicitudPorId(idSolicitud)
+            }
+
+            _cargando.value = false
+
+            // Envía el resultado a la Activity.
+            _solicitudParaEditar.value = resultado
+        }
+    }
+
+    // Guarda los cambios realizados por el cliente.
+    fun editarSolicitud(
+        contentResolver: ContentResolver,
+        solicitud: Solicitud,
+        fotosNuevas: List<Uri>,
+        uidCliente: String
+    ) {
+
+        // Evita ejecutar varias operaciones al mismo tiempo.
+        if (_cargando.value == true) return
+
+        _cargando.value = true
+
+        viewModelScope.launch(Dispatchers.IO) {
+
+            try {
+
+                // Conserva las fotografías existentes.
+                val fotosActualizadas = solicitud.fotosProblema.toMutableList()
+
+                // Sube las nuevas fotografías a Cloudinary.
+                for (uri in fotosNuevas) {
+
+                    // Utiliza la función que ya existe en el ViewModel.
+                    val url = subirFotoACloudinary(contentResolver, uri)
+
+                    // Comprueba que la fotografía se haya subido.
+                    if (url.isNullOrBlank()) {
+                        throw IllegalStateException(
+                            "No se pudo subir una de las fotografías"
+                        )
+                    }
+
+                    // Agrega la fotografía nueva.
+                    fotosActualizadas.add(url)
+                }
+
+                if (fotosActualizadas.size > 5) {
+                    throw IllegalStateException(
+                        "Solo se permiten cinco fotografías por solicitud"
+                    )
+                }
+
+                // Establece la fotografía principal.
+                val fotoPrincipal = fotosActualizadas.firstOrNull().orEmpty()
+
+                // Prepara la solicitud con sus fotografías actualizadas.
+                val solicitudActualizada = solicitud.copy(
+                    fotoProblema = fotoPrincipal,
+                    fotosProblema = fotosActualizadas
+                )
+
+                // Actualiza el documento existente en Firestore.
+                val resultado = firestoreRepository.actualizarSolicitud(
+                    solicitudActualizada,
+                    uidCliente
+                )
+
+                withContext(Dispatchers.Main) {
+                    _cargando.value = false
+                    _resultadoEdicion.value = resultado
+                }
+
+            } catch (e: Exception) {
+
+                withContext(Dispatchers.Main) {
+                    _cargando.value = false
+                    _resultadoEdicion.value = Result.failure(e)
+                }
+            }
+        }
+    }
+
 
     // Subir imagen individual a Cloudinary
     private fun subirFotoACloudinary(contentResolver: ContentResolver, imageUri: Uri): String? {
