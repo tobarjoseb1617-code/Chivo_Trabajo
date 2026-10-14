@@ -62,7 +62,7 @@ class HistorialSolicitudesClienteActivity : AppCompatActivity() {
         binding.rvSolicitudesCliente.apply {
             layoutManager = LinearLayoutManager(this@HistorialSolicitudesClienteActivity)
             adapter = this@HistorialSolicitudesClienteActivity.adapter
-            isNestedScrollingEnabled = false
+            isNestedScrollingEnabled = true
         }
     }
 
