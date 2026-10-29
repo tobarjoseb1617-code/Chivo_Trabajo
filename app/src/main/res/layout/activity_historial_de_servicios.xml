@@ -180,6 +180,44 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+
+          <!-- Asignados -->
+          <LinearLayout
+              android:id="@+id/tabAsignados"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:gravity="center_vertical"
+              android:background="@color/ui_brand"
+              android:paddingHorizontal="16dp"
+              android:paddingVertical="8dp"
+              android:layout_marginEnd="8dp"
+              android:clickable="true"
+              android:focusable="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Asignados"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:layout_marginEnd="6dp"/>
+
+            <TextView
+                android:id="@+id/txtCantidadAsignados"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:background="#0284C7"
+                android:text="0"
+                android:textColor="#FFFFFF"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:gravity="center"/>
+
+          </LinearLayout>
+
           <!-- En curso (Seleccionado) -->
           <LinearLayout
               android:layout_width="wrap_content"
@@ -277,6 +315,34 @@
           </LinearLayout>
         </LinearLayout>
       </HorizontalScrollView>
+
+
+      <!-- CONTENEDOR DE SERVICIOS ASIGNADOS -->
+      <LinearLayout
+          android:id="@+id/contenedorServiciosAsignados"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="vertical"
+          android:visibility="gone"
+          android:layout_marginBottom="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Trabajos asignados"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="12dp"/>
+
+        <LinearLayout
+            android:id="@+id/listaServiciosAsignados"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
+
+      </LinearLayout>
+
       <!-- 5. SECCIÓN: SERVICIO ACTIVO (TIEMPO REAL) -->
       <LinearLayout
           android:layout_width="match_parent"
