@@ -1,4 +1,3 @@
-
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
 import android.content.Intent
@@ -34,6 +33,9 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
         binding = ActivityHistorialDeServiciosBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // Cargar las solicitudes automáticamente al abrir Servicios
+        cargarServiciosAsignados()
+
         binding.tabAsignados.setOnClickListener {
             binding.contenedorServiciosAsignados.visibility = View.VISIBLE
             cargarServiciosAsignados()
@@ -43,7 +45,6 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
             R.id.navServiciosServicios
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-
             when (item.itemId) {
 
                 R.id.navInicioServicios -> {
@@ -157,7 +158,6 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
     }
 
     private fun cargarServiciosAsignados() {
-
         val uidProfesional = auth.currentUser?.uid
 
         if (uidProfesional == null) {
@@ -189,8 +189,15 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
                         text = "No tienes trabajos asignados por ahora."
                         textSize = 14f
                         gravity = Gravity.CENTER
-                        setTextColor(getColor(R.color.ui_text_secondary))
-                        setPadding(dp(16), dp(28), dp(16), dp(28))
+                        setTextColor(
+                            getColor(R.color.ui_text_secondary)
+                        )
+                        setPadding(
+                            dp(16),
+                            dp(28),
+                            dp(16),
+                            dp(28)
+                        )
                     }
 
                     contenedor.addView(mensaje)
@@ -198,7 +205,6 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
                 }
 
                 documentos.forEach { documento ->
-
                     val categoria =
                         documento.getString("categoryId")
                             ?: "Servicio solicitado"
