@@ -1,18 +1,13 @@
-# Walkthrough - Detalle de Solicitud Profesional con MVVM y Visualización de Imagen
+# Walkthrough - Uso Exclusivo de Colección "credenciales" sin Firebase Auth
 
-Se ha implementado con éxito la visualización de los detalles exactos de cada solicitud para los profesionales, incluyendo la carga de fotografías mediante Glide y separando la lógica en un `ViewModel` (MVVM).
+Se ha configurado el repositorio de autenticación (`AuthRepository.kt`) para trabajar 100% con la colección **`credenciales`** en Cloud Firestore y sesión local mediante `SharedPreferences`, eliminando Firebase Authentication.
 
 ## Changes Made
 
-### 1. Repositorio y ViewModel (`FirestoreRepository.kt`, `DetallesSolicitudProfesionalViewModel.kt`)
-- Se añadió `obtenerSolicitudPorId` para consultar solicitudes específicas en la colección `"Solicitudes"`.
-- Se creó `DetallesSolicitudProfesionalViewModel` para manejar la lógica de obtención de datos mediante Corrutinas.
-
-### 2. Vista de Detalles (`DetallesSolicitudTrabajoProfesionalActivity.kt`, `activity_detalle_solicitud_trabajo_profesional.xml`)
-- La Activity actúa como Vista pura observando el `LiveData` del ViewModel.
-- Muestra el código exacto de la solicitud, categoría, título y descripción detallada.
-- **Carga de Fotografía**: Utiliza **Glide** para mostrar la imagen de evidencia/problema publicada por el cliente.
-- Todo el código está documentado con comentarios claros y breves.
+### 1. Repositorio de Autenticación (`AuthRepository.kt`)
+- Operaciones de registro e inicio de sesión consultando y guardando directamente en la colección `"credenciales"` de Firestore.
+- Sesión persistente mediante `SharedPreferences` con el modelo `LocalUser`.
+- Soporte para inicio de sesión con Google sincronizado con la colección `"credenciales"`.
 
 ---
 
