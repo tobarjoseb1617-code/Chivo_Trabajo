@@ -2,18 +2,19 @@ package com.cherodevscode.chivo_trabajo.ui.admin
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.cherodevscode.chivo_trabajo.R
-import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityPanelAdminBinding
 import com.cherodevscode.chivo_trabajo.ui.autenticacion.IniciarSesionActivity
-import com.google.firebase.firestore.FirebaseFirestore
 
 class PanelAdminActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityPanelAdminBinding
-    private val db = FirebaseFirestore.getInstance()
+
+    private val viewModel: PanelAdminViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,59 +22,84 @@ class PanelAdminActivity : AppCompatActivity() {
         binding = ActivityPanelAdminBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        configurarLogo()
+        configurarBotones()
+        observarViewModel()
+    }
+
+    private fun configurarLogo() {
         Glide.with(this)
             .load("https://res.cloudinary.com/djwvfjt7k/image/upload/v1790744838/o8ipleapa27fyd72nsll.png")
             .placeholder(R.mipmap.ic_launcher)
             .error(R.mipmap.ic_launcher)
             .into(binding.ivLogoAdmin)
+    }
 
-        cargarEstadisticas()
-
+    private fun configurarBotones() {
         binding.btnCerrarSesionAdmin.setOnClickListener {
-            AuthRepository(this).cerrarSesion()
+            viewModel.cerrarSesion()
+        }
 
-            val intent = Intent(this, IniciarSesionActivity::class.java)
-            intent.flags =
-                Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-
+        binding.btnVerSolicitudesAdmin.setOnClickListener {
+            val intent = Intent(
+                this,
+                SolicitudesAdminActivity::class.java
+            )
             startActivity(intent)
-            finish()
         }
     }
 
-    private fun cargarEstadisticas() {
-        db.collection("Solicitudes")
-            .addSnapshotListener { snapshot, error ->
+    private fun observarViewModel() {
+        viewModel.estadisticas.observe(this) { estadisticas ->
 
-                if (error != null) {
-                    return@addSnapshotListener
-                }
+            binding.tvTotalSolicitudesAdmin.text =
+                estadisticas.total.toString()
 
-                if (snapshot != null) {
-                    val solicitudes = snapshot.documents
+            binding.tvPendientesAdmin.text =
+                estadisticas.pendientes.toString()
 
-                    val total = solicitudes.size
+            binding.tvAsignadasAdmin.text =
+                estadisticas.asignadas.toString()
 
-                    val pendientes = solicitudes.count {
-                        it.getString("estado") == "PENDIENTE"
-                    }
+            binding.tvEnCursoAdmin.text =
+                estadisticas.enCurso.toString()
 
-                    val asignadas = solicitudes.count {
-                        it.getString("estado") == "ASIGNADA"
-                    }
+            binding.tvCompletadasAdmin.text =
+                estadisticas.completadas.toString()
 
-                    val canceladas = solicitudes.count {
-                        it.getString("estado").equals("CANCELADA", ignoreCase = true)
-                    }
+            binding.tvCanceladasAdmin.text =
+                estadisticas.canceladas.toString()
+        }
 
-                    val completadas = 0
-
-                    binding.tvTotalSolicitudesAdmin.text = total.toString()
-                    binding.tvPendientesAdmin.text = pendientes.toString()
-                    binding.tvAsignadasAdmin.text = asignadas.toString()
-                    binding.tvCompletadasAdmin.text = completadas.toString()
-                    binding.tvCanceladasAdmin.text = canceladas.toString()
-                }
+        viewModel.error.observe(this) { mensaje ->
+            if (!mensaje.isNullOrBlank()) {
+                Toast.makeText(
+                    this,
+                    mensaje,
+                    Toast.LENGTH_LONG
+                ).show()
             }
+        }
+
+        viewModel.sesionCerrada.observe(this) { cerrada ->
+            if (cerrada == true) {
+                val intent = Intent(
+                    this,
+                    IniciarSesionActivity::class.java
+                )
+
+                intent.flags =
+                    Intent.FLAG_ACTIVITY_NEW_TASK or
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                startActivity(intent)
+                finish()
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.cargarEstadisticas()
     }
 }

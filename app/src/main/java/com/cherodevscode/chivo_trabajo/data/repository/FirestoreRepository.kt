@@ -409,4 +409,26 @@ class FirestoreRepository {
         }
     }
 
+    // Obtener todas las solicitudes registradas
+    suspend fun obtenerTodasLasSolicitudes(): Result<List<Solicitud>> {
+        return try {
+            val documentos = db.collection("Solicitudes")
+                .get()
+                .await()
+
+            val solicitudes = documentos.documents.mapNotNull { documento ->
+                documento.toObject(Solicitud::class.java)?.copy(
+                    idSolicitud = documento.id
+                )
+            }
+
+            Result.success(solicitudes)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+
+
 }

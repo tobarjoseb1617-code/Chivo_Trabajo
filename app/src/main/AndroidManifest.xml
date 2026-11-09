@@ -8,7 +8,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-
     <!-- Apariencia: Application recupera el modo elegido antes de crear las actividades. -->
     <application
         android:name=".ChivoTrabajoApplication"
@@ -195,6 +194,14 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.admin.PanelAdminActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.admin.SolicitudesAdminActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.admin.DetallesSolicitudAdminActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
     </application>

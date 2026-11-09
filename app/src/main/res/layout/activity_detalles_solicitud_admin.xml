@@ -1,0 +1,407 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/ui_background"
+    android:fitsSystemWindows="true">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- BARRA SUPERIOR -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="16dp">
+
+                <ImageView
+                    android:id="@+id/btnVolverDetallesAdmin"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:src="@drawable/ic_m3_back"
+                    android:padding="12dp"
+                    android:contentDescription="Regresar"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    app:tint="@color/ui_text"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Detalles de la solicitud"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/ui_text"
+                    android:layout_marginStart="8dp"/>
+
+            </LinearLayout>
+
+            <!-- INFORMACIÓN PRINCIPAL -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="12dp">
+
+                        <TextView
+                            android:id="@+id/tvIdSolicitudAdminDetalle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="#SOL-0000"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ui_primary"/>
+
+                        <TextView
+                            android:id="@+id/tvEstadoSolicitudAdminDetalle"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pendiente"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/ui_text"
+                            android:background="@drawable/bg_m3_warning"
+                            android:paddingHorizontal="10dp"
+                            android:paddingVertical="6dp"/>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvTituloSolicitudAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Título de la solicitud"
+                        android:textSize="19sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvFechaCreacionAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha de publicación"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:drawableStart="@drawable/ic_m3_clock"
+                        android:drawableTint="@color/ui_primary"
+                        android:drawablePadding="8dp"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- INFORMACIÓN DEL CLIENTE -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Información del cliente"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="14dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Nombre completo"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:id="@+id/tvNombreClienteAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Cargando cliente..."
+                        android:textSize="15sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- DETALLE DEL PROBLEMA -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Detalle del problema"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="12dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Categoría"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="5dp"/>
+
+                    <TextView
+                        android:id="@+id/tvCategoriaAdminDetalle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Categoría del servicio"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_primary"
+                        android:background="@drawable/bg_m3_info"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="6dp"
+                        android:layout_marginBottom="14dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvDescripcionAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción del problema"
+                        android:textSize="14sp"
+                        android:textColor="@color/ui_text"
+                        android:lineSpacingExtra="4dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fotografía del problema"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="8dp"/>
+
+                    <ImageView
+                        android:id="@+id/ivFotoProblemaAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="190dp"
+                        android:scaleType="centerCrop"
+                        android:background="@color/ui_background"
+                        android:contentDescription="Fotografía del problema"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/tvSinFotoAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No se agregó ninguna fotografía"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- UBICACIÓN Y HORARIO -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ubicación y horario"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="14dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dirección del servicio"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvUbicacionAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ubicación no disponible"
+                        android:textSize="14sp"
+                        android:textColor="@color/ui_text"
+                        android:drawableStart="@drawable/ic_m3_location"
+                        android:drawableTint="@color/ui_primary"
+                        android:drawablePadding="8dp"
+                        android:layout_marginBottom="16dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha y hora solicitada"
+                        android:textSize="12sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvFechaServicioAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha y hora no disponibles"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_primary"
+                        android:drawableStart="@drawable/ic_m3_clock"
+                        android:drawableTint="@color/ui_primary"
+                        android:drawablePadding="8dp"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- PRESUPUESTO -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Presupuesto estimado"
+                        android:textSize="13sp"
+                        android:textColor="@color/ui_text_secondary"
+                        android:layout_marginBottom="8dp"/>
+
+                    <TextView
+                        android:id="@+id/tvPresupuestoAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="No especificado"
+                        android:textSize="22sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_primary"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- PROFESIONAL ASIGNADO -->
+
+            <com.google.android.material.card.MaterialCardView
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Profesional asignado"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/ui_text"
+                        android:layout_marginBottom="12dp"/>
+
+                    <TextView
+                        android:id="@+id/tvProfesionalAdminDetalle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Esta solicitud aún no tiene un profesional asignado."
+                        android:textSize="14sp"
+                        android:textColor="@color/ui_text_secondary"/>
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>
