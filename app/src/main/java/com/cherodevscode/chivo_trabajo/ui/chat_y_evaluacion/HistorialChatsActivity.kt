@@ -7,6 +7,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityHistorialChatsBinding
 import com.cherodevscode.chivo_trabajo.ui.cliente.HistorialSolicitudesClienteActivity
+import com.cherodevscode.chivo_trabajo.ui.cliente.HistorialServiciosClienteActivity
 import com.cherodevscode.chivo_trabajo.ui.cliente.InicioActivity
 import com.cherodevscode.chivo_trabajo.ui.cliente.RadarProfesionalesActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
@@ -47,7 +48,12 @@ class HistorialChatsActivity : AppCompatActivity() {
                     finish()
                 }
                 R.id.navServiciosChat -> {
-                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
+                    val targetIntent = if (isPro) {
+                        Intent(this, HistorialDeServiciosActivity::class.java).putExtra("EXTRA_IS_PRO", true)
+                    } else {
+                        Intent(this, HistorialServiciosClienteActivity::class.java)
+                    }
+                    startActivity(targetIntent)
                     finish()
                 }
                 R.id.navMensajesChat -> {
@@ -84,7 +90,7 @@ class HistorialChatsActivity : AppCompatActivity() {
 
         // Chat con Roberto Méndez (Activo)
         binding.cardChatRoberto.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
+            startActivity(Intent(this, ChatActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
         }
 
         // Buscar nuevo profesional en Radar

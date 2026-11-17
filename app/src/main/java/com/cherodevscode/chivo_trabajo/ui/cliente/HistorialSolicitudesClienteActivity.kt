@@ -158,7 +158,7 @@ class HistorialSolicitudesClienteActivity : AppCompatActivity() {
                 }
                 R.id.navSolicitudesSolCliente -> true
                 R.id.navServiciosSolCliente -> {
-                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    startActivity(Intent(this, HistorialServiciosClienteActivity::class.java))
                     finish()
                     true
                 }

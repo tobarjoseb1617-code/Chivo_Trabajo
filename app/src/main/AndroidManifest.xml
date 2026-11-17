@@ -139,6 +139,18 @@
             android:name=".ui.cliente.SeguimientoActivity"
             android:exported="false" />
 
+        <!-- SeguimientoClienteActivity para el panel de seguimiento en vivo del cliente -->
+        <activity
+            android:name=".ui.cliente.SeguimientoClienteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
+        <!-- HistorialServiciosClienteActivity para el historial de servicios del cliente -->
+        <activity
+            android:name=".ui.cliente.HistorialServiciosClienteActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+
         <!-- EjecucionActivity para validación de PIN por el profesional -->
         <activity
             android:name=".ui.profesional.EjecucionActivity"

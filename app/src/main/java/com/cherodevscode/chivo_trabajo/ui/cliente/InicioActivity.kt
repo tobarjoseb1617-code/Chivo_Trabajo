@@ -10,7 +10,6 @@ import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ChatActivity
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.HistorialChatsActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.PerfilProfesionalActivity
-import com.cherodevscode.chivo_trabajo.ui.profesional.GestionarServicioEnCursoActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.HistorialDeServiciosActivity
 
 import androidx.lifecycle.lifecycleScope
@@ -35,7 +34,7 @@ class InicioActivity : AppCompatActivity() {
                     startActivity(Intent(this, HistorialSolicitudesClienteActivity::class.java))
                 }
                 R.id.navServicios -> {
-                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    startActivity(Intent(this, HistorialServiciosClienteActivity::class.java))
                 }
                 R.id.navMensajes -> {
                     startActivity(Intent(this, HistorialChatsActivity::class.java))
@@ -50,14 +49,14 @@ class InicioActivity : AppCompatActivity() {
 
         cargarNombreUsuario()
 
-        // 1. Ir a Seguimiento en Vivo al tocar la tarjeta de servicio en curso
+        // 1. Ir a Seguimiento en Vivo del Cliente al tocar la tarjeta de servicio en curso
         binding.cardServicioEnCurso.setOnClickListener {
-            startActivity(Intent(this, SeguimientoActivity::class.java).putExtra("EXTRA_PIN", "3821"))
+            startActivity(Intent(this, SeguimientoClienteActivity::class.java).putExtra("EXTRA_PIN", "3821"))
         }
 
-        // 2. Ir a Gestionar Servicio en Curso al tocar el botón de "Ver mapa"
+        // 2. Ir a Seguimiento en Vivo del Cliente al tocar el botón de "Ver mapa"
         binding.btnVerSeguimiento.setOnClickListener {
-            startActivity(Intent(this, GestionarServicioEnCursoActivity::class.java))
+            startActivity(Intent(this, SeguimientoClienteActivity::class.java).putExtra("EXTRA_PIN", "3821"))
         }
 
         // 3. Profesionales cercanos: Ver perfil 1 y 2 -> PerfilProfesionalActivity

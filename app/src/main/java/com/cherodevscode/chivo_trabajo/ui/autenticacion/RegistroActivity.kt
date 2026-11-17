@@ -105,6 +105,17 @@ class RegistroActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            if (!autenticacionViewModel.esCorreoValido(correo)) {
+                Toast.makeText(this, "Ingrese un correo electrónico válido", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val errorContrasena = autenticacionViewModel.validarFormatoContrasena(contrasena)
+            if (errorContrasena != null) {
+                Toast.makeText(this, errorContrasena, Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
             autenticacionViewModel.registrarse(nombre, apellido, correo, contrasena, telefono, rolSeleccionado)
         }
 

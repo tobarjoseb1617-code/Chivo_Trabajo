@@ -830,14 +830,24 @@
           </LinearLayout>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
-      <!-- 9. BOTÓN PRINCIPAL: ¡HE LLEGADO A LA UBICACIÓN DEL CLIENTE! -->
+      <!-- 9. BOTONES DE ACCIÓN: LLEGADA Y VALIDACIÓN DE PIN -->
+      <com.google.android.material.button.MaterialButton
+          android:id="@+id/btnValidarPin"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Validar PIN / Iniciar Ejecución"
+          android:layout_marginBottom="8dp"
+          style="@style/Widget.Chivo.Button"
+          android:minHeight="48dp"
+          app:icon="@drawable/ic_m3_shield"
+          app:iconSize="20dp"/>
       <com.google.android.material.button.MaterialButton
           android:id="@+id/btnLlegueUbicacion"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="¡He llegado a la ubicación del cliente!"
           android:layout_marginBottom="8dp"
-          style="@style/Widget.Chivo.Button"
+          style="@style/Widget.Chivo.Button.Secondary"
           android:minHeight="48dp"
           app:icon="@drawable/ic_m3_location"
           app:iconSize="20dp"/>

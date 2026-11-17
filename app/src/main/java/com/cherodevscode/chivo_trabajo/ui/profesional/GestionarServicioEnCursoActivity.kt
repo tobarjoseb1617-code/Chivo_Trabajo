@@ -38,7 +38,7 @@ class GestionarServicioEnCursoActivity : AppCompatActivity() {
 
         // Chat con Carlos
         binding.btnChatConCarlos.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
+            startActivity(Intent(this, ChatActivity::class.java).putExtra("EXTRA_IS_PRO", true))
         }
 
         // Registrar repuestos
@@ -49,6 +49,11 @@ class GestionarServicioEnCursoActivity : AppCompatActivity() {
         // Tomar foto Después
         binding.btnTomarFotoDespues.setOnClickListener {
             Toast.makeText(this, "Abriendo cámara para evidencia de garantía 'Después'...", Toast.LENGTH_SHORT).show()
+        }
+
+        // Validar PIN / Iniciar Ejecución
+        binding.btnValidarPin.setOnClickListener {
+            startActivity(Intent(this, EjecucionActivity::class.java))
         }
 
         // ¡He llegado a la ubicación del cliente!

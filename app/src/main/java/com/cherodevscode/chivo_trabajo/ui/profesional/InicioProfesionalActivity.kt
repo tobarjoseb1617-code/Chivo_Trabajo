@@ -88,7 +88,7 @@ class InicioProfesionalActivity : AppCompatActivity() {
                 Intent(
                     this,
                     DetallesSolicitudTrabajoProfesionalActivity::class.java
-                )
+                ).putExtra("idSolicitud", "SRV-3821")
             )
         }
 
@@ -98,7 +98,7 @@ class InicioProfesionalActivity : AppCompatActivity() {
                 Intent(
                     this,
                     ChatActivity::class.java
-                )
+                ).putExtra("EXTRA_IS_PRO", true)
             )
         }
 
@@ -108,7 +108,7 @@ class InicioProfesionalActivity : AppCompatActivity() {
                 Intent(
                     this,
                     DetallesSolicitudTrabajoProfesionalActivity::class.java
-                )
+                ).putExtra("idSolicitud", "OP-001")
             )
         }
 
@@ -118,7 +118,7 @@ class InicioProfesionalActivity : AppCompatActivity() {
                 Intent(
                     this,
                     DetallesSolicitudTrabajoProfesionalActivity::class.java
-                )
+                ).putExtra("idSolicitud", "OP-002")
             )
         }
 

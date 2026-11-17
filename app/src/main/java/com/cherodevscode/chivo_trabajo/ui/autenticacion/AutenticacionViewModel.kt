@@ -2,6 +2,7 @@ package com.cherodevscode.chivo_trabajo.ui.autenticacion
 
 import android.app.Activity
 import android.content.Context
+import android.util.Patterns
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,7 +22,50 @@ class AutenticacionViewModel(context: Context) : ViewModel() {
     private val _tipoUsuarioDestino = MutableLiveData<String?>()
     val tipoUsuarioDestino: LiveData<String?> = _tipoUsuarioDestino
 
+    /**
+     * Valida si un correo electrónico tiene formato correcto o es la cuenta admin autorizada.
+     */
+    fun esCorreoValido(correo: String): Boolean {
+        if (correo.equals("admin@gamil.com", ignoreCase = true) ||
+            correo.equals("admin@gmail.com", ignoreCase = true)
+        ) {
+            return true
+        }
+        return Patterns.EMAIL_ADDRESS.matcher(correo).matches()
+    }
+
+    /**
+     * Valida que la contraseña tenga mínimo 8 caracteres, al menos una mayúscula y un carácter especial.
+     */
+    fun validarFormatoContrasena(contrasena: String): String? {
+        if (contrasena.length < 8) {
+            return "La contraseña debe tener al menos 8 caracteres"
+        }
+        if (!contrasena.contains(Regex("[A-Z]"))) {
+            return "La contraseña debe incluir al menos una letra mayúscula (ej. A-Z)"
+        }
+        if (!contrasena.contains(Regex("[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>/?]"))) {
+            return "La contraseña debe incluir al menos un carácter especial (ej. !@#$%^&*)"
+        }
+        return null
+    }
+
+    /**
+     * Verifica si la sesión local del usuario ya se encuentra activa para auto-login.
+     */
+    fun verificarSesionExistente() {
+        val usuarioLocal = authRepository.usuarioActual()
+        if (usuarioLocal != null) {
+            verificarRolYEstado(usuarioLocal.uid)
+        }
+    }
+
     fun iniciarSesion(correo: String, contrasena: String) {
+        if (!esCorreoValido(correo)) {
+            _mensaje.value = "Ingrese un correo electrónico válido"
+            return
+        }
+
         viewModelScope.launch {
             val res = authRepository.iniciarSesionConCorreoYContrasena(correo, contrasena)
             res.onSuccess { uid ->
@@ -34,6 +78,17 @@ class AutenticacionViewModel(context: Context) : ViewModel() {
     }
 
     fun registrarse(nombre: String, apellido: String, correo: String, contrasena: String, telefono: String, tipoUsuario: String) {
+        if (!esCorreoValido(correo)) {
+            _mensaje.value = "Ingrese un correo electrónico válido"
+            return
+        }
+
+        val errorContrasena = validarFormatoContrasena(contrasena)
+        if (errorContrasena != null) {
+            _mensaje.value = errorContrasena
+            return
+        }
+
         viewModelScope.launch {
             val res = authRepository.registrarConCorreoYContrasena(correo, contrasena)
             res.onSuccess { uid ->
@@ -87,6 +142,10 @@ class AutenticacionViewModel(context: Context) : ViewModel() {
     }
 
     fun recuperarPassword(correo: String) {
+        if (!esCorreoValido(correo)) {
+            _mensaje.value = "Ingrese un correo electrónico válido"
+            return
+        }
         viewModelScope.launch {
             val res = authRepository.enviarCorreoRecuperacionPassword(correo)
             res.onSuccess {

@@ -1,0 +1,361 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/ui_background"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <!-- 1. BARRA SUPERIOR -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/ui_surface"
+            android:elevation="2dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/btnRegresarServiciosCliente"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:contentDescription="Regresar"
+                android:focusable="true"
+                android:layout_marginEnd="8dp"
+                android:minHeight="48dp"
+                android:padding="12dp"
+                android:src="@drawable/ic_m3_back"
+                app:tint="@color/ui_text" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawablePadding="8dp"
+                android:drawableStart="@drawable/ic_m3_build"
+                app:drawableTint="@color/ui_primary"
+                android:fontFamily="sans-serif-medium"
+                android:text="Mis Servicios"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="@color/ui_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/btnPerfilServiciosClienteTop"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@color/ui_brand"
+                android:contentDescription="Perfil"
+                android:minHeight="48dp"
+                android:padding="8dp"
+                android:src="@mipmap/ic_launcher" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingTop="12dp">
+
+            <!-- 2. BANNER DE GARANTÍA CHIVOSEGURO ACTIVA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_m3_success"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="10dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_m3_shield"
+                    app:tint="@color/ui_primary" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Garantía ChivoSeguro Activa"
+                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:textColor="@color/ui_success"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="30 días de cobertura y pago protegido en USD."
+                        android:textColor="@color/ui_success"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 3. BARRA DE BÚSQUEDA -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_input_rounded"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="14dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@drawable/ic_m3_search"
+                    app:tint="@color/ui_primary" />
+
+                <EditText
+                    android:id="@+id/etBuscarServicioCliente"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="Buscar por oficio, descripción o código..."
+                    android:inputType="text"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/ui_text"
+                    android:textColorHint="@color/ui_text_secondary"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- 4. PESTAÑAS / FILTROS RÁPIDOS -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="14dp"
+                android:scrollbars="none">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!-- En Curso -->
+                    <LinearLayout
+                        android:id="@+id/btnFiltroEnCursoCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/ui_brand"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/tvLabelEnCursoCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="En curso"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCountEnCursoCliente"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="#0284C7"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="#FFFFFF"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Pendientes / No aceptados -->
+                    <LinearLayout
+                        android:id="@+id/btnFiltroPendientesCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="8dp"
+                        android:background="@color/ui_surface"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/tvLabelPendientesCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Pendientes / No aceptados"
+                            android:textColor="@color/ui_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCountPendientesCliente"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@color/ui_outline"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/ui_text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Realizados -->
+                    <LinearLayout
+                        android:id="@+id/btnFiltroRealizadosCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/ui_surface"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="14dp"
+                        android:paddingVertical="8dp">
+
+                        <TextView
+                            android:id="@+id/tvLabelRealizadosCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="Realizados"
+                            android:textColor="@color/ui_text"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCountRealizadosCliente"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@color/ui_outline"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/ui_text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <!-- 5. LISTADO DE SERVICIOS Y ESTADO VACÍO -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+                <ProgressBar
+                    android:id="@+id/progressServiciosCliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+
+                <LinearLayout
+                    android:id="@+id/layoutSinServiciosCliente"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="24dp"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:layout_marginBottom="12dp"
+                        android:importantForAccessibility="no"
+                        android:src="@drawable/ic_m3_build"
+                        app:tint="@color/ui_outline" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="No tienes servicios en esta categoría"
+                        android:textColor="@color/ui_text"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:gravity="center"
+                        android:text="Aquí aparecerán tus servicios en curso, solicitudes pendientes y trabajos completados."
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvServiciosCliente"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingBottom="16dp" />
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- 6. BARRA DE NAVEGACIÓN INFERIOR (CLIENTE) -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        style="@style/Widget.Chivo.Navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/menu_activity_inicio" />
+
+</LinearLayout>

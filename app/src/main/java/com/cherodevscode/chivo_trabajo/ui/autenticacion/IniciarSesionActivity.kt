@@ -57,6 +57,9 @@ class IniciarSesionActivity : AppCompatActivity() {
 
         autenticacionViewModel = AutenticacionViewModel(this)
 
+        // Verificación de sesión activa (Auto-Login si el usuario no cerró sesión)
+        autenticacionViewModel.verificarSesionExistente()
+
         Glide.with(this)
             .load("https://res.cloudinary.com/djwvfjt7k/image/upload/v1790744838/o8ipleapa27fyd72nsll.png")
             .placeholder(R.mipmap.ic_launcher)
@@ -106,6 +109,15 @@ class IniciarSesionActivity : AppCompatActivity() {
                 Toast.makeText(
                     this,
                     "Ingrese correo y contraseña",
+                    Toast.LENGTH_SHORT
+                ).show()
+                return@setOnClickListener
+            }
+
+            if (!autenticacionViewModel.esCorreoValido(correo)) {
+                Toast.makeText(
+                    this,
+                    "Ingrese un correo electrónico válido",
                     Toast.LENGTH_SHORT
                 ).show()
                 return@setOnClickListener

@@ -148,7 +148,7 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
                 }
 
                 R.id.navMensajesPro -> {
-                    startActivity(Intent(this, HistorialChatsActivity::class.java))
+                    startActivity(Intent(this, HistorialChatsActivity::class.java).putExtra("EXTRA_IS_PRO", true))
                     finish()
                     true
                 }
@@ -229,7 +229,7 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
                     Intent(
                         this@SolicitudesTrabajosCercanosActivity,
                         HistorialChatsActivity::class.java
-                    )
+                    ).putExtra("EXTRA_IS_PRO", true)
                 )
             }
 
