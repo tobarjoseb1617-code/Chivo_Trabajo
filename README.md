@@ -43,6 +43,31 @@ Clona el repositorio, abre su carpeta raíz en Android Studio e instala Android 
 3. Descarga el archivo `google-services.json` de tu proyecto después de configurar Google y guárdalo como `app/google-services.json`.
 4. Configura Cloud Firestore y Firebase Storage con las reglas de acceso de tu entorno. Los flujos de la app dependen del acceso autorizado a esos datos.
 
+### Crear y verificar documentos en Cloud Firestore
+
+1. En la consola de Firebase, abre **Firestore Database**. Si aún no existe una base de datos, créala con el ID `(default)` y selecciona su ubicación.
+2. Ejecuta la app con tu proyecto de desarrollo. Registra un cliente y un profesional de prueba, completa sus perfiles, publica una solicitud como cliente y envía una propuesta como profesional. Para generar un documento de portafolio, agrega una foto desde el perfil profesional.
+3. Abre la pestaña **Datos** en Firestore y comprueba las rutas de la tabla. Firestore crea cada colección con la primera escritura de la app. [Guía de inicio de Firestore](https://firebase.google.com/docs/firestore/quickstart)
+
+| Ruta en Firestore | Cuándo se crea y qué revisar |
+| --- | --- |
+| `credenciales/{uid}` | Al registrar una cuenta mediante el flujo de autenticación de la app. El ID coincide con el `uid` que usa el perfil. |
+| `Usuario/{uid}` | Al guardar el perfil. Revisa `uid` y `tipoUsuario` (`CLIENTE` o `PROFESIONAL`). |
+| `profesionales/{uid}` | Al completar el registro profesional. Usa el mismo ID que `Usuario/{uid}`. |
+| `profesionales/{uid}/Portafolio/{idFoto}` | Al agregar una foto al portafolio. `idFoto` coincide con el ID generado por Firestore. |
+| `Solicitudes/{idSolicitud}` | Al publicar una solicitud. `clientId` contiene el UID del cliente y el estado inicial es `PENDIENTE`. |
+| `Propuestas/{idPropuesta}` | Al enviar una propuesta. `solicitudId`, `clienteId` y `profesionalId` enlazan la solicitud y los perfiles. |
+
+#### Crear un documento manualmente para pruebas
+
+1. En **Datos**, elige **Agregar colección** si la colección aún no existe, o abre la colección y elige **Agregar documento**. Para `Portafolio`, abre primero el documento del profesional y agrega la subcolección desde allí.
+2. Escribe el nombre de la colección tal como aparece en la tabla, respetando mayúsculas y minúsculas. En los perfiles usa el UID generado por la app como ID de documento. Para una solicitud o foto de prueba puedes usar **ID automático** y copiarlo en el campo `idSolicitud` o `idFoto`, respectivamente. Para las propuestas, usa el flujo de la app para conservar las referencias y la lógica de creación.
+3. Agrega los campos con sus tipos y pulsa **Guardar**. Como ejemplo, para una solicitud de prueba usa `clientId` (cadena con el UID del cliente), `estado` (cadena con valor `PENDIENTE`), `descripcion` (cadena), `latitud` y `longitud` (números), y `fechaCreacion` y `fechaActualizacion` (marcas de tiempo). Para que aparezca en todos los flujos, usa como referencia una solicitud creada por la app con su categoría, presupuesto y ubicación. [Guía de la consola de Firestore](https://firebase.google.com/docs/firestore/using-console)
+
+Para probar el panel de administración en un proyecto de desarrollo, registra una cuenta de prueba mediante la app. En Firestore, abre su documento `Usuario/{uid}`, edita `tipoUsuario` (cadena) a `ADMIN`, guarda y vuelve a iniciar sesión con esa cuenta. Ese campo determina la pantalla de destino. Configura el acceso a los datos mediante las reglas de Firestore.
+
+El flujo actual de correo y contraseña guarda la contraseña directamente en `credenciales`. Usa únicamente cuentas ficticias con contraseñas desechables en desarrollo. Antes de usar cuentas reales, migra ese flujo a Firebase Authentication.
+
 ### Android SDK y Cloudinary
 
 Conserva el valor de `sdk.dir` que Android Studio genera en `local.properties`. Agrega las dos propiedades de Cloudinary con los valores de tu entorno. El preset debe admitir cargas sin firma, que es el mecanismo que usa la app.
