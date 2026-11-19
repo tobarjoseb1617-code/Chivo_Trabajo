@@ -1,4 +1,3 @@
-
 package com.cherodevscode.chivo_trabajo.ui.cliente
 
 import android.content.Intent
@@ -18,11 +17,11 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.cherodevscode.chivo_trabajo.R
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityDetallesSolicitudCreadaClienteBinding
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -34,7 +33,10 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetallesSolicitudCreadaClienteBinding
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+
+    private val authRepository by lazy {
+        AuthRepository(this)
+    }
 
     private var idSolicitud = ""
     private var operacionEnCurso = false
@@ -141,7 +143,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
                     return@addSnapshotListener
                 }
 
-                val uid = auth.currentUser?.uid
+                val uid = authRepository.usuarioActual()?.uid
                 val clienteId = documento.getString("clientId")
 
                 if (uid == null || clienteId != uid) {
@@ -300,7 +302,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
     private fun cancelarSolicitud() {
 
-        val uid = auth.currentUser?.uid ?: run {
+        val uid = authRepository.usuarioActual()?.uid ?: run {
             mostrarMensaje("Debes iniciar sesión")
             return
         }
@@ -367,7 +369,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
     private fun escucharPropuestasRecibidas() {
 
-        val uid = auth.currentUser?.uid ?: return
+        val uid = authRepository.usuarioActual()?.uid ?: return
 
         listenerPropuestas?.remove()
         listenerPropuestas = null
@@ -774,7 +776,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
     private fun aceptarPropuesta(profesionalId: String) {
 
-        val uid = auth.currentUser?.uid ?: run {
+        val uid = authRepository.usuarioActual()?.uid ?: run {
             mostrarMensaje("Debes iniciar sesión")
             return
         }
@@ -895,7 +897,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
 
     private fun rechazarPropuesta(profesionalId: String) {
 
-        val uid = auth.currentUser?.uid ?: run {
+        val uid = authRepository.usuarioActual()?.uid ?: run {
             mostrarMensaje("Debes iniciar sesión")
             return
         }

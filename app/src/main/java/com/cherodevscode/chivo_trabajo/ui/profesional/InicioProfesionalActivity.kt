@@ -1,3 +1,4 @@
+
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
 import android.content.Intent
@@ -7,20 +8,24 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.cherodevscode.chivo_trabajo.R
+import com.cherodevscode.chivo_trabajo.data.model.Profesional
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityInicioProfesionalBinding
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ChatActivity
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.HistorialChatsActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
-import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.launch
 
 class InicioProfesionalActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityInicioProfesionalBinding
-
-    private val auth = FirebaseAuth.getInstance()
+    private lateinit var authRepository: AuthRepository
     private val firestoreRepository = FirestoreRepository()
+
+    private var profesionalActual: Profesional? = null
+    private var uidProfesional: String? = null
+    private var actualizandoDisponibilidad = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,112 +33,89 @@ class InicioProfesionalActivity : AppCompatActivity() {
         binding = ActivityInicioProfesionalBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Material 3: los IDs del menú conservan los destinos de los botones anteriores.
+        authRepository = AuthRepository(this)
+
         binding.bottomNavigation.selectedItemId = R.id.navInicioPro
+
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navSolicitudesPro -> {
                     startActivity(
-                        Intent(
-                            this,
-                            SolicitudesTrabajosCercanosActivity::class.java
-                        )
+                        Intent(this, SolicitudesTrabajosCercanosActivity::class.java)
                     )
                 }
+
                 R.id.navServiciosPro -> {
                     startActivity(
-                        Intent(
-                            this,
-                            HistorialDeServiciosActivity::class.java
-                        )
+                        Intent(this, HistorialDeServiciosActivity::class.java)
                     )
                 }
+
                 R.id.navMensajesPro -> {
                     startActivity(
-                        Intent(
-                            this,
-                            HistorialChatsActivity::class.java
-                        ).putExtra("EXTRA_IS_PRO", true)
+                        Intent(this, HistorialChatsActivity::class.java)
+                            .putExtra("EXTRA_IS_PRO", true)
                     )
                 }
+
                 R.id.navPerfilPro -> {
                     startActivity(
-                        Intent(
-                            this,
-                            ConfiguracionPerfilActivity::class.java
-                        )
+                        Intent(this, ConfiguracionPerfilActivity::class.java)
                     )
                 }
             }
-            // Cada destino abre su Activity; el indicador identifica esta pantalla al regresar.
+
             item.itemId == R.id.navInicioPro
         }
 
-        // Cargar nombre y foto del profesional
         cargarDatosProfesional()
 
-        // 1. Servicio en curso ahora mismo
+        binding.switchDisponibilidadPro.setOnCheckedChangeListener { _, disponible ->
+            if (!actualizandoDisponibilidad) {
+                actualizarDisponibilidad(disponible)
+            }
+        }
+
         binding.cardServicioEnCursoPro.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    GestionarServicioEnCursoActivity::class.java
-                )
+                Intent(this, GestionarServicioEnCursoActivity::class.java)
             )
         }
 
-        // 2. Ver ruta GPS
         binding.btnVerRutaGps.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    DetallesSolicitudTrabajoProfesionalActivity::class.java
-                ).putExtra("idSolicitud", "SRV-3821")
+                Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java)
+                    .putExtra("idSolicitud", "SRV-3821")
             )
         }
 
-        // 3. Abrir chat
         binding.btnAbrirChatPro.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    ChatActivity::class.java
-                ).putExtra("EXTRA_IS_PRO", true)
+                Intent(this, ChatActivity::class.java)
+                    .putExtra("EXTRA_IS_PRO", true)
             )
         }
 
-        // 4. Ver detalles de oportunidad 1
         binding.btnDetallesOp1.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    DetallesSolicitudTrabajoProfesionalActivity::class.java
-                ).putExtra("idSolicitud", "OP-001")
+                Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java)
+                    .putExtra("idSolicitud", "OP-001")
             )
         }
 
-        // 5. Ver detalles de oportunidad 2
         binding.btnDetallesOp2.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    DetallesSolicitudTrabajoProfesionalActivity::class.java
-                ).putExtra("idSolicitud", "OP-002")
+                Intent(this, DetallesSolicitudTrabajoProfesionalActivity::class.java)
+                    .putExtra("idSolicitud", "OP-002")
             )
         }
-
-        // 9. Perfil
 
         binding.btnPerfilProTop.setOnClickListener {
             startActivity(
-                Intent(
-                    this,
-                    ConfiguracionPerfilActivity::class.java
-                )
+                Intent(this, ConfiguracionPerfilActivity::class.java)
             )
         }
 
-        // Propuesta rápida 1
         binding.btnPropuestaRapida1.setOnClickListener {
             Toast.makeText(
                 this,
@@ -142,7 +124,6 @@ class InicioProfesionalActivity : AppCompatActivity() {
             ).show()
         }
 
-        // Propuesta rápida 2
         binding.btnPropuestaRapida2.setOnClickListener {
             Toast.makeText(
                 this,
@@ -152,63 +133,65 @@ class InicioProfesionalActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Obtiene los datos del profesional que inició sesión
-     * y muestra su nombre y foto.
-     */
     private fun cargarDatosProfesional() {
 
-        val usuarioActual = auth.currentUser
+        val usuarioActual = authRepository.usuarioActual()
 
         if (usuarioActual == null) {
             Toast.makeText(
                 this,
-                "No se encontró el usuario autenticado",
+                "No se encontró una sesión activa",
                 Toast.LENGTH_SHORT
             ).show()
             return
         }
 
+        uidProfesional = usuarioActual.uid
+
         lifecycleScope.launch {
 
-            val resultado =
+            val resultadoUsuario =
                 firestoreRepository.obtenerPerfilUsuario(usuarioActual.uid)
 
-            resultado.onSuccess { usuario ->
+            resultadoUsuario.onSuccess { usuario ->
 
                 if (usuario != null) {
 
-                    // Mostrar nombre y apellido
                     val nombreCompleto =
                         "${usuario.nombre} ${usuario.apellido}".trim()
 
                     binding.tvNombreProfesionalInicio.text =
-                        if (nombreCompleto.isNotEmpty()) {
-                            nombreCompleto
-                        } else {
-                            "Profesional"
-                        }
+                        nombreCompleto.ifEmpty { "Profesional" }
 
-                    // Mostrar foto de perfil
-                    if (usuario.fotoPerfil.isNotEmpty()) {
+                    if (usuario.fotoPerfil.isNotBlank()) {
 
                         Glide.with(this@InicioProfesionalActivity)
                             .load(usuario.fotoPerfil)
                             .placeholder(R.mipmap.ic_launcher)
                             .error(R.mipmap.ic_launcher)
-                            .centerCrop()
+                            .circleCrop()
                             .into(binding.ivFotoProfesionalInicio)
+
+                        Glide.with(this@InicioProfesionalActivity)
+                            .load(usuario.fotoPerfil)
+                            .placeholder(R.mipmap.ic_launcher)
+                            .error(R.mipmap.ic_launcher)
+                            .circleCrop()
+                            .into(binding.btnPerfilProTop)
 
                     } else {
 
                         binding.ivFotoProfesionalInicio.setImageResource(
                             R.mipmap.ic_launcher
                         )
+
+                        binding.btnPerfilProTop.setImageResource(
+                            R.mipmap.ic_launcher
+                        )
                     }
                 }
-            }
 
-            resultado.onFailure { error ->
+            }.onFailure { error ->
 
                 Toast.makeText(
                     this@InicioProfesionalActivity,
@@ -216,6 +199,146 @@ class InicioProfesionalActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }
+
+            val resultadoProfesional =
+                firestoreRepository.obtenerProfesional(usuarioActual.uid)
+
+            resultadoProfesional.onSuccess { profesional ->
+
+                if (profesional != null) {
+
+                    profesionalActual = profesional
+
+                    val categoria = profesional.especialidades
+                        .filter { it.isNotBlank() }
+                        .joinToString(", ")
+                        .ifEmpty {
+                            profesional.especialidad.ifBlank {
+                                "Sin categoría"
+                            }
+                        }
+
+                    binding.tvCategoriaProfesionalInicio.text = categoria
+
+                    mostrarEstadoDisponibilidad(profesional.disponible)
+
+                } else {
+
+                    Toast.makeText(
+                        this@InicioProfesionalActivity,
+                        "No se encontró el perfil profesional",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+
+            }.onFailure { error ->
+
+                Toast.makeText(
+                    this@InicioProfesionalActivity,
+                    "Error al cargar datos profesionales: ${error.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
+
+    private fun actualizarDisponibilidad(disponible: Boolean) {
+
+        val profesional = profesionalActual
+        val uid = uidProfesional
+
+        if (profesional == null || uid == null) {
+
+            Toast.makeText(
+                this,
+                "Espera a que cargue tu perfil profesional",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            actualizandoDisponibilidad = true
+            binding.switchDisponibilidadPro.isChecked =
+                profesional?.disponible ?: false
+            actualizandoDisponibilidad = false
+
+            return
+        }
+
+        lifecycleScope.launch {
+
+            binding.switchDisponibilidadPro.isEnabled = false
+
+            val profesionalActualizado = profesional.copy(
+                disponible = disponible
+            )
+
+            val resultado =
+                firestoreRepository.guardarProfesional(profesionalActualizado)
+
+            resultado.onSuccess {
+
+                profesionalActual = profesionalActualizado
+
+                mostrarEstadoDisponibilidad(disponible)
+
+                Toast.makeText(
+                    this@InicioProfesionalActivity,
+                    if (disponible) {
+                        "Ahora estás disponible para recibir solicitudes"
+                    } else {
+                        "Ahora estás fuera de servicio"
+                    },
+                    Toast.LENGTH_SHORT
+                ).show()
+
+            }.onFailure { error ->
+
+                actualizandoDisponibilidad = true
+                binding.switchDisponibilidadPro.isChecked =
+                    profesional.disponible
+                actualizandoDisponibilidad = false
+
+                mostrarEstadoDisponibilidad(profesional.disponible)
+
+                Toast.makeText(
+                    this@InicioProfesionalActivity,
+                    "No se pudo actualizar la disponibilidad: ${error.message}",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+
+            binding.switchDisponibilidadPro.isEnabled = true
+        }
+    }
+
+    private fun mostrarEstadoDisponibilidad(disponible: Boolean) {
+
+        actualizandoDisponibilidad = true
+        binding.switchDisponibilidadPro.isChecked = disponible
+        actualizandoDisponibilidad = false
+
+        if (disponible) {
+
+            binding.tvEstadoDisponibilidadPro.text = "Estás disponible"
+
+            binding.tvDescripcionDisponibilidadPro.text =
+                "Puedes recibir nuevas solicitudes de trabajo."
+
+            binding.viewIndicadorDisponibilidadPro.backgroundTintList =
+                android.content.res.ColorStateList.valueOf(
+                    android.graphics.Color.parseColor("#22C55E")
+                )
+
+        } else {
+
+            binding.tvEstadoDisponibilidadPro.text = "No estás disponible"
+
+            binding.tvDescripcionDisponibilidadPro.text =
+                "Activa tu disponibilidad para recibir solicitudes."
+
+            binding.viewIndicadorDisponibilidadPro.backgroundTintList =
+                android.content.res.ColorStateList.valueOf(
+                    android.graphics.Color.parseColor("#9CA3AF")
+                )
         }
     }
 }

@@ -17,7 +17,7 @@ import com.cherodevscode.chivo_trabajo.ui.cliente.CrearSolicitudActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
-import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.google.firebase.firestore.FirebaseFirestore
 
 class HistorialDeServiciosActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistorialDeServiciosBinding
 
     private val db = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private val authRepository by lazy { AuthRepository(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +73,7 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
                 R.id.navMensajesServicios -> {
                     startActivity(
                         Intent(this, HistorialChatsActivity::class.java)
+                            .putExtra("EXTRA_IS_PRO", true)
                     )
                     finish()
                 }
@@ -158,7 +159,7 @@ class HistorialDeServiciosActivity : AppCompatActivity() {
     }
 
     private fun cargarServiciosAsignados() {
-        val uidProfesional = auth.currentUser?.uid
+        val uidProfesional = authRepository.usuarioActual()?.uid
 
         if (uidProfesional == null) {
             Toast.makeText(

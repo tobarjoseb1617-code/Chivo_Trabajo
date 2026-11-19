@@ -8,27 +8,27 @@
     android:orientation="vertical"
     android:background="@color/ui_background"
     android:fitsSystemWindows="true">
-  <!-- Ajuste trabajador: encabezados compactos y títulos de 20sp; se mantienen los IDs y las funciones. -->
-  <!-- Material 3: tipografía por roles, superficies sobrias y controles accesibles; se conservan los IDs de los formularios. -->
-  <!-- CONTENEDOR PRINCIPAL SCROLLABLE -->
+
   <ScrollView
       android:layout_width="match_parent"
       android:layout_height="0dp"
       android:layout_weight="1"
       android:fillViewport="true">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp">
-      <!-- 1. BARRA SUPERIOR -->
+
+      <!-- BARRA SUPERIOR -->
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:gravity="center_vertical"
           android:layout_marginBottom="16dp">
-        <!-- Badge ChivoTrabajo PRO -->
+
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -39,6 +39,7 @@
             android:paddingVertical="6dp"
             android:layout_marginEnd="8dp"
             android:layout_weight="1">
+
           <ImageView
               android:layout_width="24dp"
               android:layout_height="24dp"
@@ -46,26 +47,22 @@
               android:src="@drawable/ic_m3_shield"
               app:tint="@color/ui_primary"
               android:importantForAccessibility="no"/>
+
           <LinearLayout
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:orientation="vertical">
-            <LinearLayout
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
-              <TextView
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:text="ChivoTrabajo"
-                  android:textSize="13sp"
-                  android:textStyle="bold"
-                  android:textColor="@color/ui_text"
-                  android:layout_marginEnd="4dp"
-                  android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                  android:fontFamily="sans-serif-medium"/>
-            </LinearLayout>
+                android:text="ChivoTrabajo"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="@color/ui_text"
+                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                android:fontFamily="sans-serif-medium"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,8 +73,7 @@
                 android:fontFamily="sans-serif"/>
           </LinearLayout>
         </LinearLayout>
-        <!-- Estado Disponible -->
-        <!-- Campana -->
+
         <ImageView
             android:layout_width="36dp"
             android:layout_height="36dp"
@@ -87,72 +83,77 @@
             android:layout_marginEnd="10dp"
             android:contentDescription="Notificaciones"
             app:tint="@color/ui_text_secondary"/>
-        <!-- Avatar -->
+
         <ImageView
             android:id="@+id/btnPerfilProTop"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="@color/ui_brand"
-            android:padding="8dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/ic_launcher"
+            android:background="@android:color/transparent"
             android:clickable="true"
             android:focusable="true"
-            android:contentDescription="Perfil"
-            android:minHeight="48dp"/>
+            android:contentDescription="Perfil"/>
       </LinearLayout>
-      <!-- 2. TARJETA DE PERFIL DEL PROFESIONAL -->
+
+      <!-- TARJETA DE PERFIL DEL PROFESIONAL -->
       <com.google.android.material.card.MaterialCardView
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          app:cardBackgroundColor="@color/ui_surface"
           android:layout_marginBottom="16dp"
+          app:cardBackgroundColor="@color/ui_surface"
           style="@style/Widget.Chivo.Card">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-          <!-- INFORMACIÓN DEL PROFESIONAL -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal"
               android:gravity="center_vertical"
               android:layout_marginBottom="14dp">
-            <!-- FOTO DEL PROFESIONAL -->
+
             <RelativeLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginEnd="12dp">
+
               <ImageView
                   android:id="@+id/ivFotoProfesionalInicio"
                   android:layout_width="60dp"
                   android:layout_height="60dp"
                   android:src="@mipmap/ic_launcher"
-                  android:background="@color/ui_outline"
+                  android:background="@android:color/transparent"
+                  android:padding="0dp"
                   android:scaleType="centerCrop"
                   android:contentDescription="Foto del profesional"/>
-              <!-- INDICADOR DISPONIBLE -->
               <View
+                  android:id="@+id/viewIndicadorDisponibilidadPro"
                   android:layout_width="15dp"
                   android:layout_height="15dp"
                   android:layout_alignParentEnd="true"
                   android:layout_alignParentBottom="true"
-                  android:background="#16A34A"/>
+                  android:background="@drawable/bg_indicador_disponibilidad"/>
             </RelativeLayout>
-            <!-- DATOS -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
-              <!-- NOMBRE + ESTADO -->
+
               <LinearLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
                   android:orientation="horizontal"
                   android:gravity="center_vertical"
                   android:layout_marginBottom="3dp">
+
                 <TextView
                     android:id="@+id/tvNombreProfesionalInicio"
                     android:layout_width="0dp"
@@ -166,6 +167,7 @@
                     android:ellipsize="end"
                     android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                     android:fontFamily="sans-serif-medium"/>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -180,17 +182,18 @@
                     android:fontFamily="sans-serif-medium"
                     android:maxLines="1"/>
               </LinearLayout>
-              <!-- ESPECIALIDAD -->
+
               <TextView
+                  android:id="@+id/tvCategoriaProfesionalInicio"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
-                  android:text="Fontanería y gasfitería"
+                  android:text=""
                   android:textSize="12sp"
                   android:textColor="@color/ui_text_secondary"
                   android:layout_marginBottom="6dp"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
-              <!-- VERIFICACIÓN -->
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -206,6 +209,7 @@
                   android:maxLines="1"/>
             </LinearLayout>
           </LinearLayout>
+
           <!-- DISPONIBILIDAD -->
           <LinearLayout
               android:layout_width="match_parent"
@@ -214,43 +218,45 @@
               android:gravity="center_vertical"
               android:background="@drawable/bg_m3_success"
               android:padding="10dp">
-            <View
-                android:layout_width="9dp"
-                android:layout_height="9dp"
-                android:background="#16A34A"
-                android:layout_marginEnd="8dp"/>
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
               <TextView
+                  android:id="@+id/tvEstadoDisponibilidadPro"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Disponible para trabajar"
+                  android:text="No disponible para trabajar"
                   android:textSize="13sp"
                   android:textStyle="bold"
                   android:textColor="@color/ui_success"
                   android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                   android:fontFamily="sans-serif-medium"/>
+
               <TextView
+                  android:id="@+id/tvDescripcionDisponibilidadPro"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
-                  android:text="Recibiendo nuevas solicitudes"
+                  android:text="No estás recibiendo nuevas solicitudes"
                   android:textSize="12sp"
                   android:textColor="@color/ui_success"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
             </LinearLayout>
+
             <Switch
                 android:id="@+id/switchDisponibilidadPro"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"/>
+                android:checked="false"/>
           </LinearLayout>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
-      <!-- 3. TARJETA: SERVICIO EN CURSO AHORA MISMO -->
+
+      <!-- SERVICIO EN CURSO -->
       <com.google.android.material.card.MaterialCardView
           android:id="@+id/cardServicioEnCursoPro"
           android:layout_width="match_parent"
@@ -260,18 +266,20 @@
           android:focusable="true"
           app:cardBackgroundColor="@color/ui_brand"
           style="@style/Widget.Chivo.Card">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-          <!-- ENCABEZADO -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:layout_marginBottom="12dp"
               android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -281,10 +289,12 @@
                 android:textStyle="bold"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -298,19 +308,20 @@
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"/>
           </LinearLayout>
-          <!-- SERVICIO, CLIENTE Y PRECIO -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:layout_marginBottom="12dp">
-            <!-- Información del servicio -->
+
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
+
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -320,6 +331,7 @@
                   android:textStyle="bold"
                   android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                   android:fontFamily="sans-serif-medium"/>
+
               <TextView
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"
@@ -333,7 +345,7 @@
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
             </LinearLayout>
-            <!-- Precio -->
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -345,7 +357,7 @@
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 android:fontFamily="sans-serif-medium"/>
           </LinearLayout>
-          <!-- UBICACIÓN Y ESTADO -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -353,7 +365,7 @@
               android:background="@color/ui_brand"
               android:orientation="vertical"
               android:padding="11dp">
-            <!-- Dirección -->
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -366,6 +378,7 @@
                 android:drawablePadding="8dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"/>
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -375,13 +388,14 @@
                 android:textSize="12sp"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:fontFamily="sans-serif"/>
-            <!-- Estado del recorrido -->
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="9dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
+
               <TextView
                   android:layout_width="0dp"
                   android:layout_height="wrap_content"
@@ -394,6 +408,7 @@
                   android:drawablePadding="8dp"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -405,11 +420,12 @@
                   android:fontFamily="sans-serif-medium"/>
             </LinearLayout>
           </LinearLayout>
-          <!-- BOTONES -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerRutaGps"
                 android:layout_width="0dp"
@@ -422,6 +438,7 @@
                 app:icon="@drawable/ic_m3_map"
                 app:iconSize="20dp"
                 android:textSize="14sp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAbrirChatPro"
                 android:layout_width="0dp"
@@ -437,13 +454,15 @@
           </LinearLayout>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
-      <!-- 4. OPORTUNIDADES EN VIVO -->
+
+      <!-- OPORTUNIDADES EN VIVO -->
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:gravity="center_vertical"
           android:layout_marginBottom="12dp">
+
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -454,6 +473,7 @@
             android:textColor="@color/ui_text"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             android:fontFamily="sans-serif-medium"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -467,6 +487,7 @@
             android:layout_marginEnd="8dp"
             android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
             android:fontFamily="sans-serif-medium"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -479,6 +500,7 @@
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:fontFamily="sans-serif"/>
       </LinearLayout>
+
       <!-- TARJETA OPORTUNIDAD 1 -->
       <com.google.android.material.card.MaterialCardView
           android:layout_width="match_parent"
@@ -486,18 +508,20 @@
           android:layout_marginBottom="12dp"
           app:cardBackgroundColor="@color/ui_surface"
           style="@style/Widget.Chivo.Card">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-          <!-- ESTADO Y TIEMPO -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:layout_marginBottom="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -515,6 +539,7 @@
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"
                 android:maxLines="1"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -523,10 +548,12 @@
                 android:textColor="@color/ui_text_secondary"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:fontFamily="sans-serif"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -535,6 +562,7 @@
                 android:background="@color/ui_background"
                 android:paddingHorizontal="9dp"
                 android:paddingVertical="5dp">
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -543,6 +571,7 @@
                   android:textColor="@color/ui_text_secondary"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -554,7 +583,7 @@
                   android:fontFamily="sans-serif-medium"/>
             </LinearLayout>
           </LinearLayout>
-          <!-- SERVICIO -->
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -565,6 +594,7 @@
               android:layout_marginBottom="5dp"
               android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
               android:fontFamily="sans-serif-medium"/>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -577,7 +607,7 @@
               android:drawablePadding="8dp"
               android:textAppearance="@style/TextAppearance.Material3.BodySmall"
               android:fontFamily="sans-serif"/>
-          <!-- DESCRIPCIÓN -->
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -588,11 +618,12 @@
               android:layout_marginBottom="14dp"
               android:textAppearance="@style/TextAppearance.Material3.BodySmall"
               android:fontFamily="sans-serif"/>
-          <!-- BOTONES -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPropuestaRapida1"
                 android:layout_width="0dp"
@@ -605,6 +636,7 @@
                 app:icon="@drawable/ic_m3_bolt"
                 app:iconSize="20dp"
                 android:textSize="14sp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDetallesOp1"
                 android:layout_width="wrap_content"
@@ -617,6 +649,7 @@
           </LinearLayout>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
+
       <!-- TARJETA OPORTUNIDAD 2 -->
       <com.google.android.material.card.MaterialCardView
           android:layout_width="match_parent"
@@ -624,18 +657,20 @@
           android:layout_marginBottom="20dp"
           app:cardBackgroundColor="@color/ui_surface"
           style="@style/Widget.Chivo.Card">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="16dp">
-          <!-- ESTADO Y TIEMPO -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:gravity="center_vertical"
               android:orientation="horizontal"
               android:layout_marginBottom="10dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -649,6 +684,7 @@
                 android:layout_marginEnd="8dp"
                 android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                 android:fontFamily="sans-serif-medium"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -657,10 +693,12 @@
                 android:textColor="@color/ui_text_secondary"
                 android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                 android:fontFamily="sans-serif"/>
+
             <View
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_weight="1"/>
+
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -669,6 +707,7 @@
                 android:background="@color/ui_background"
                 android:paddingHorizontal="9dp"
                 android:paddingVertical="5dp">
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -677,6 +716,7 @@
                   android:textColor="@color/ui_text_secondary"
                   android:textAppearance="@style/TextAppearance.Material3.BodySmall"
                   android:fontFamily="sans-serif"/>
+
               <TextView
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
@@ -688,7 +728,7 @@
                   android:fontFamily="sans-serif-medium"/>
             </LinearLayout>
           </LinearLayout>
-          <!-- SERVICIO -->
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -699,6 +739,7 @@
               android:layout_marginBottom="5dp"
               android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
               android:fontFamily="sans-serif-medium"/>
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -711,7 +752,7 @@
               android:drawablePadding="8dp"
               android:textAppearance="@style/TextAppearance.Material3.BodySmall"
               android:fontFamily="sans-serif"/>
-          <!-- DESCRIPCIÓN -->
+
           <TextView
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -722,11 +763,12 @@
               android:layout_marginBottom="14dp"
               android:textAppearance="@style/TextAppearance.Material3.BodySmall"
               android:fontFamily="sans-serif"/>
-          <!-- BOTONES -->
+
           <LinearLayout
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:orientation="horizontal">
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnPropuestaRapida2"
                 android:layout_width="0dp"
@@ -739,6 +781,7 @@
                 app:icon="@drawable/ic_m3_bolt"
                 app:iconSize="20dp"
                 android:textSize="14sp"/>
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDetallesOp2"
                 android:layout_width="wrap_content"
@@ -751,14 +794,16 @@
           </LinearLayout>
         </LinearLayout>
       </com.google.android.material.card.MaterialCardView>
+
     </LinearLayout>
   </ScrollView>
-  <!-- 5. BARRA DE NAVEGACIÓN INFERIOR (PROFESIONAL) -->
-  <!-- Material 3: barra de navegación con indicador, iconos y cinco destinos. -->
+
+  <!-- NAVEGACIÓN INFERIOR -->
   <com.google.android.material.bottomnavigation.BottomNavigationView
       android:id="@+id/bottomNavigation"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       style="@style/Widget.Chivo.Navigation"
       app:menu="@menu/menu_activity_inicio_profesional"/>
+
 </LinearLayout>

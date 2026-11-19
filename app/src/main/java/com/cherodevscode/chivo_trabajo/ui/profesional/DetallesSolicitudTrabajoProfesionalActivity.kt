@@ -14,7 +14,7 @@ import com.cherodevscode.chivo_trabajo.data.model.Propuesta
 import com.cherodevscode.chivo_trabajo.data.model.Solicitud
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import com.cherodevscode.chivo_trabajo.databinding.ActivityDetalleSolicitudTrabajoProfesionalBinding
-import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import kotlinx.coroutines.launch
 import java.util.Locale
 
@@ -294,7 +294,7 @@ class DetallesSolicitudTrabajoProfesionalActivity : AppCompatActivity() {
             return
         }
 
-        val profesionalId = FirebaseAuth.getInstance().currentUser?.uid
+        val profesionalId = AuthRepository(this).usuarioActual()?.uid
 
         if (profesionalId.isNullOrBlank()) {
             mostrarMensaje("Debes iniciar sesión para enviar una propuesta")
