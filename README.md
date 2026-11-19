@@ -1,262 +1,83 @@
 # ChivoTrabajo
 
-Aplicación Android nativa desarrollada en Kotlin para conectar clientes con profesionales de oficios en El Salvador. La app está orientada a facilitar la búsqueda, publicación y gestión de servicios de mantenimiento y trabajos especializados, con un flujo de autenticación, geolocalización, contratación, seguimiento y calificación.
+## Propósito
 
-## Descripción general
+ChivoTrabajo es una aplicación Android que conecta a clientes con profesionales de oficios en El Salvador. Cubre el proceso desde la publicación de una solicitud de servicio hasta su seguimiento y calificación.
 
-ChivoTrabajo es una plataforma móvil tipo marketplace de servicios domésticos y técnicos. Permite que:
+## Funciones principales
 
-- Un cliente publique una solicitud de servicio con ubicación, presupuesto y fotos.
-- Los profesionales cercanos visualicen oportunidades disponibles.
-- Los profesionales envíen propuestas o cotizaciones.
-- El cliente acepte una oferta y coordine la ejecución del servicio.
-- Se valide la identidad del profesional y la entrega con un sistema de PIN de seguridad.
-- Se mantenga un historial de servicios, chats y calificaciones.
+- **Clientes:** publican solicitudes con descripción, presupuesto, fotos y ubicación en el mapa. Pueden revisar propuestas, aceptar una y consultar el historial de sus servicios.
+- **Profesionales:** consultan solicitudes cercanas, envían cotizaciones y muestran trabajos previos en su perfil y portafolio.
+- **Gestión del servicio:** cliente y profesional pueden comunicarse por chat, consultar el estado del trabajo y validar el inicio con un PIN. El cliente puede calificar el servicio al finalizar.
+- **Cuentas e identidad:** registro por rol, inicio de sesión con correo y contraseña o Google, y captura del DUI con reconocimiento de texto.
+- **Administración:** panel para consultar estadísticas y detalles de las solicitudes.
 
-El proyecto está construido con una estructura modular basada en Android nativo, Firebase y componentes modernos de Jetpack.
+## Tecnologías usadas
 
-## Stack tecnológico
+| Área | Tecnologías |
+| --- | --- |
+| Aplicación Android | Kotlin 2.0.21, AndroidX, interfaces XML, View Binding y Material Components |
+| Arquitectura | ViewModels, LiveData, corrutinas y repositorios de datos |
+| Autenticación y datos | Firebase Authentication, Cloud Firestore, Firebase Storage y AndroidX Credential Manager para Google |
+| Imágenes | Cloudinary para cargas y Glide para visualización |
+| Mapas | Leaflet y OpenStreetMap dentro de un WebView |
+| Cámara y OCR | CameraX y ML Kit Text Recognition |
+| Compilación | Gradle Wrapper 8.9 y Android Gradle Plugin 8.7.3 |
 
-- Lenguaje: Kotlin
-- IDE principal: Android Studio
-- SDK Android: minSdk 24, targetSdk 35, compileSdk 35
-- Arquitectura: MVVM + Repository Pattern
-- UI: Activities, ViewBinding, XML layouts, Material Components
-- Persistencia y backend: Firebase Auth, Firestore, Firebase Storage
-- Autenticación social: Google Sign-In
-- Imágenes y contenido visual: Glide, Cloudinary
-- Geolocalización: Leaflet.js + OpenStreetMap embebidos en WebView
-- Cámara y visión: CameraX, ML Kit Text Recognition
-- Async: Kotlin Coroutines
-- Navegación: Intents y flujo de actividades por rol
+## Requisitos e instalación
 
-## Arquitectura
+- Android Studio compatible con Android Gradle Plugin 8.7.3.
+- JDK 21 para ejecutar el daemon de Gradle, según la configuración del repositorio. El código de la app se compila con destino JVM 11.
+- Android SDK Platform 35. La aplicación requiere Android 7.0 (API 24) o posterior.
+- Un dispositivo físico o emulador. Para probar el acceso con Google en un emulador, usa una imagen con Google Play. Para probar la captura del DUI, usa un dispositivo con cámara.
+- Conexión a Internet y acceso a proyectos propios o de desarrollo en Firebase y Cloudinary.
 
-El repositorio sigue una separación clara en capas:
-
-- Capa de UI: actividades y pantallas para autenticación, cliente, profesional, chat, perfil, etc.
-- Capa de lógica: ViewModels y lógica de estado de la aplicación.
-- Capa de datos: modelos y repositorios para autenticación y persistencia en Firestore.
-- Servicios externos: Firebase, Cloudinary y mapas.
-
-Esta estructura es coherente con la documentación incluida en los archivos:
-
-- `ARCHITECTURE.md`
-- `DOCUMENTACION_PRESENTACION.md`
-- `FUNCIONALIDADES_Y_NAVEGACION.md`
-
-## Funcionalidades principales
-
-### 1. Autenticación y registro
-
-- Inicio de sesión con correo y contraseña.
-- Registro de usuarios con roles Cliente o Profesional.
-- Inicio de sesión con Google.
-- Manejo de sesión con Firebase Authentication.
-- Ruteo dinámico según el tipo de usuario.
-
-### 2. Registro geolocalizado
-
-- El cliente puede registrar su ubicación exacta usando un mapa interactivo.
-- Se integra Leaflet.js + OpenStreetMap dentro de un WebView.
-- Se guardan coordenadas (latitud/longitud) para ubicar servicios y profesionales.
-
-### 3. Gestión de servicios
-
-- Los clientes publican solicitudes de trabajo con descripción, fotos, presupuesto y ubicación.
-- Los profesionales reciben solicitudes cercanas.
-- Los profesionales cotizan o envían propuestas.
-- El cliente acepta la mejor propuesta.
-
-### 4. Seguridad y validación
-
-- Generación de PIN de 4 dígitos para la ejecución del servicio.
-- Validación por parte del profesional al llegar a la ubicación.
-- Control de identidad y verificación de DUI.
-- Aseguramiento del flujo de servicio en la etapa de ejecución.
-
-### 5. Perfil, portafolio y reputación
-
-- Perfiles personales con foto y datos básicos.
-- Portafolio profesional con fotos y descripciones.
-- Subida de imágenes a Cloudinary.
-- Historial de trabajos, calificación y reseñas.
-
-### 6. Chat y cierre del servicio
-
-- Mensajería entre cliente y profesional.
-- Seguimiento del servicio.
-- Finalización del trabajo y calificación final con estrellas.
-
-## Estructura del repositorio
-
-```text
-Chivo_Trabajo/
-├── .artifacts/
-├── .idea/
-├── app/
-│   ├── .gitignore
-│   ├── build.gradle.kts
-│   └── src/
-│       ├── androidTest/
-│       ├── main/
-│       │   ├── AndroidManifest.xml
-│       │   ├── assets/
-│       │   ├── java/com/cherodevscode/chivo_trabajo/
-│       │   │   ├── ChivoTrabajoApplication.kt
-│       │   │   ├── data/
-│       │   │   │   ├── model/
-│       │   │   │   └── repository/
-│       │   │   ├── ui/
-│       │   │   │   ├── autenticacion/
-│       │   │   │   ├── cliente/
-│       │   │   │   ├── profesional/
-│       │   │   │   ├── chat_y_evaluacion/
-│       │   │   │   └── perfil/
-│       │   │   └── utils/
-│       │   ├── keepRules/
-│       │   └── res/
-│       └── test/
-├── .gitignore
-├── ARCHITECTURE.md
-├── build.gradle.kts
-├── CORRECCIONES_COMPILACION.md
-├── DISENO_MATERIAL3.md
-├── DOCUMENTACION_PRESENTACION.md
-├── FUNCIONALIDADES_Y_NAVEGACION.md
-├── gradle.properties
-├── gradlew
-├── gradlew.bat
-├── settings.gradle.kts
-└── README.md
-```
-
-## Paquetes principales
-
-La aplicación se organiza bajo el nombre de paquete:
-
-```text
-com.cherodevscode.chivo_trabajo
-```
-
-Dentro de este paquete se encuentran módulos clave como:
-
-- `data/model`: modelos de negocio y entidades Firestore.
-- `data/repository`: lógica de acceso a datos.
-- `ui/autenticacion`: login y registro.
-- `ui/cliente`: pantallas del cliente.
-- `ui/profesional`: pantallas del profesional.
-- `ui/chat_y_evaluacion`: comunicación y cierre de servicios.
-- `ui/perfil`: ajustes y perfil.
-- `utils`: utilidades auxiliares.
-
-## Modelos de datos relevantes
-
-El proyecto define modelos como:
-
-- `Usuario.kt`
-- `Profesional.kt`
-- `Solicitud.kt`
-- `Servicio.kt`
-- `Registro.kt`
-- `Chat.kt`
-- `Pago.kt`
-- `Portafolio.kt`
-- `Categoria.kt`
-- `Calificacion.kt`
-
-Estos modelos reflejan la estructura de datos en Cloud Firestore y permiten manejar perfiles, solicitudes, propuestas, servicios y portafolio de trabajos.
-
-## Requisitos de instalación
-
-### Software necesario
-
-- Android Studio
-- JDK 11
-- Android SDK con API 35 o compatible
-- Dispositivo físico o emulador Android con API 24+
-
-### Firebase
-
-El proyecto usa Firebase. En un entorno real, se requiere:
-
-- `google-services.json` configurado para el proyecto Android.
-- Firebase Authentication habilitado.
-- Cloud Firestore configurado.
-- Firebase Storage habilitado.
-
-### Cloudinary
-
-La app configura valores de Cloudinary desde `local.properties` o usa valores por defecto:
-
-```properties
-CLOUDINARY_CLOUD_NAME=djwvfjt7k
-CLOUDINARY_UPLOAD_PRESET=chivo_trabajo
-```
-
-Esto se refleja en `app/build.gradle.kts`, donde se generan campos `BuildConfig` para la app.
+Clona el repositorio, abre su carpeta raíz en Android Studio e instala Android SDK Platform 35 desde **SDK Manager**. Selecciona JDK 21 en la configuración de Gradle de Android Studio. El Wrapper descarga la versión de Gradle que usa el proyecto.
 
 ## Configuración local
 
-1. Clona el repositorio.
-2. Abre el proyecto en Android Studio.
-3. Crea o actualiza `local.properties` en la raíz del proyecto.
-4. Verifica la presencia de `google-services.json` en la carpeta `app/`.
-5. Sincroniza Gradle.
+### Firebase
 
-Ejemplo de `local.properties`:
+1. Registra una app Android en Firebase con el identificador `com.cherodevscode.chivo_trabajo`.
+2. Habilita los proveedores **Correo electrónico/contraseña** y **Google** en Firebase Authentication. Para Google, registra las huellas del certificado con el que firmas la app. Puedes consultarlas con `gradlew.bat :app:signingReport` en Windows o `./gradlew :app:signingReport` en macOS y Linux.
+3. Descarga el archivo `google-services.json` de tu proyecto después de configurar Google y guárdalo como `app/google-services.json`.
+4. Configura Cloud Firestore y Firebase Storage con las reglas de acceso de tu entorno. Los flujos de la app dependen del acceso autorizado a esos datos.
+
+### Android SDK y Cloudinary
+
+Conserva el valor de `sdk.dir` que Android Studio genera en `local.properties`. Agrega las dos propiedades de Cloudinary con los valores de tu entorno. El preset debe admitir cargas sin firma, que es el mecanismo que usa la app.
 
 ```properties
-sdk.dir=/ruta/a/Android/Sdk
-CLOUDINARY_CLOUD_NAME=tu_cloud_name
-CLOUDINARY_UPLOAD_PRESET=tu_upload_preset
+CLOUDINARY_CLOUD_NAME=tu_nombre_de_nube
+CLOUDINARY_UPLOAD_PRESET=tu_preset_de_desarrollo
 ```
 
-## Cómo ejecutar
+`local.properties` y `app/google-services.json` están excluidos por Git. Mantén las claves privadas y contraseñas fuera del repositorio y de la app. Los dos valores de Cloudinary del ejemplo se incorporan al APK mediante `BuildConfig`.
+
+## Ejecución
+
+En Android Studio, sincroniza Gradle, selecciona la configuración **app**, elige un dispositivo y pulsa **Run**.
+
+También puedes compilar e instalar la variante de depuración desde la raíz. Para instalarla, conecta un dispositivo con depuración USB habilitada o inicia un emulador.
+
+**Windows (PowerShell)**
+
+```powershell
+.\gradlew.bat :app:assembleDebug
+.\gradlew.bat :app:installDebug
+```
+
+**macOS o Linux**
 
 ```bash
-./gradlew assembleDebug
+./gradlew :app:assembleDebug
+./gradlew :app:installDebug
 ```
 
-o desde Android Studio:
+El APK generado queda en `app/build/outputs/apk/debug/app-debug.apk`.
 
-1. Abre el proyecto.
-2. Selecciona un dispositivo/emulador.
-3. Ejecuta la configuración de la app.
+## Documentación adicional
 
-## Flujo típico de uso
-
-1. El usuario inicia sesión o crea una cuenta.
-2. Selecciona el rol: Cliente o Profesional.
-3. Completa registro con ubicación y datos requeridos.
-4. Cliente publica una solicitud.
-5. Profesional cercano revisa y responde con propuesta.
-6. Cliente acepta y se inicia el servicio.
-7. Se valida acceso mediante PIN.
-8. Se finaliza con chat y calificación.
-
-## Documentación del proyecto
-
-El repositorio incluye documentación técnica que complementa este README:
-
-- `ARCHITECTURE.md`: arquitectura del sistema y flujo de ejecución.
-- `FUNCIONALIDADES_Y_NAVEGACION.md`: funcionalidades y conexión entre clases.
-- `DOCUMENTACION_PRESENTACION.md`: guía para presentación del proyecto.
-- `CORRECCIONES_COMPILACION.md`: detalles de ajustes de compilación.
-- `DISENO_MATERIAL3.md`: diseño y Material 3.
-
-## Observaciones del código
-
-El proyecto está en una etapa funcional con enfoque de aplicación de servicios a nivel local. Los archivos de documentación indican que el sistema está pensado para un entorno real con Firebase y servicios externos, y que cuenta con una estructura sólida para escalar funcionalidades adicionales.
-
-## Licencia
-
-No se especifica licencia explícita en el repositorio dentro de la estructura principal. Si este proyecto se va a reutilizar o distribuir, conviene confirmar la licencia antes de hacerlo.
-
-## Conclusión
-
-ChivoTrabajo es una app Android de tipo marketplace para servicios de oficios, con un diseño orientado a clientes y profesionales, y una base tecnológica sólida en Kotlin, Firebase y servicios cloud. Su organización modular y la documentación incluida facilitan tanto su mantenimiento como su evolución.
-
----
-
-Este README fue generado a partir del código y la documentación presente en el repositorio para describir de forma precisa la estructura y funcionalidad del proyecto.
+- [Arquitectura del proyecto](ARCHITECTURE.md)
+- [Funcionalidades y navegación](FUNCIONALIDADES_Y_NAVEGACION.md)
+- [Diseño de la interfaz](DISENO_MATERIAL3.md)
