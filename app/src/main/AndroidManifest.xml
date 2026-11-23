@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
@@ -216,6 +219,7 @@
             android:name=".ui.admin.DetallesSolicitudAdminActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
+    <activity android:name=".ui.chat_y_evaluacion.VisorMultimediaActivity" android:exported="false" />
     </application>
 
 </manifest>

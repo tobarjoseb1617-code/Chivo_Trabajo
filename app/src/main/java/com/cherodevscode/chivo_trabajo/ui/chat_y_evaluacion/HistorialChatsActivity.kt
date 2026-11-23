@@ -3,7 +3,11 @@ package com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion
 import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cherodevscode.chivo_trabajo.data.repository.ChatRepository
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.ListenerRegistration
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityHistorialChatsBinding
 import com.cherodevscode.chivo_trabajo.ui.cliente.HistorialSolicitudesClienteActivity
@@ -17,6 +21,10 @@ import com.cherodevscode.chivo_trabajo.ui.profesional.SolicitudesTrabajosCercano
 
 class HistorialChatsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistorialChatsBinding
+
+    private var listener: ListenerRegistration? = null
+    private val repository = ChatRepository()
+    private lateinit var adapter: ContactosChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,10 +96,11 @@ class HistorialChatsActivity : AppCompatActivity() {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
         }
 
-        // Chat con Roberto Méndez (Activo)
-        binding.cardChatRoberto.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java).putExtra("EXTRA_IS_PRO", isPro))
+        adapter = ContactosChatAdapter { contacto ->
+            startActivity(Intent(this, ChatActivity::class.java).putExtra("EXTRA_CHAT_ID", contacto.id))
         }
+        binding.listaChats.layoutManager = LinearLayoutManager(this)
+        binding.listaChats.adapter = adapter
 
         // Buscar nuevo profesional en Radar
         binding.btnBuscarRadarChats.setOnClickListener {
@@ -99,4 +108,23 @@ class HistorialChatsActivity : AppCompatActivity() {
         }
 
     }
+    override fun onStart() {
+        super.onStart()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        if (uid == null) { binding.tvEstadoChats.text = "Inicia sesión para ver tus mensajes"; return }
+        listener = repository.escucharConversaciones { chats, error ->
+            binding.tvEstadoChats.text = when {
+                error != null -> "No se pudieron cargar las conversaciones"
+                chats.isNullOrEmpty() -> "Todavía no tienes conversaciones"
+                else -> ""
+            }
+            binding.tvEstadoChats.visibility = if (error == null && !chats.isNullOrEmpty()) View.GONE else View.VISIBLE
+            if (chats != null) adapter.mostrar(chats.map { chat ->
+                val contacto = chat.participantes.firstOrNull { it != uid }.orEmpty()
+                ContactoChat(chat.id, chat.nombres[contacto] ?: "Contacto", chat.ultimoMensaje.ifBlank { "Inicia la conversación" })
+            })
+        }
+    }
+    override fun onStop() { listener?.remove(); listener = null; super.onStop() }
+
 }

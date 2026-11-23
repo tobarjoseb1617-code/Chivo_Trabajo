@@ -1,5 +1,12 @@
 package com.cherodevscode.chivo_trabajo.ui.cliente
 
+import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.cherodevscode.chivo_trabajo.data.repository.ProfesionalesInicioRepository
+import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ContactoChat
+import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.ContactosChatAdapter
+import kotlinx.coroutines.CancellationException
+
 import com.cherodevscode.chivo_trabajo.R
 import android.content.Intent
 import android.os.Bundle
@@ -59,21 +66,7 @@ class InicioActivity : AppCompatActivity() {
             startActivity(Intent(this, SeguimientoClienteActivity::class.java).putExtra("EXTRA_PIN", "3821"))
         }
 
-        // 3. Profesionales cercanos: Ver perfil 1 y 2 -> PerfilProfesionalActivity
-        binding.btnVerPerfilPro1.setOnClickListener {
-            startActivity(Intent(this, PerfilProfesionalActivity::class.java))
-        }
-        binding.btnVerPerfilPro2.setOnClickListener {
-            startActivity(Intent(this, PerfilProfesionalActivity::class.java))
-        }
-
-        // 4. Profesionales cercanos: Solicitar 1 y 2 -> ChatActivity (Abrir chat)
-        binding.btnSolicitarPro1.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
-        }
-        binding.btnSolicitarPro2.setOnClickListener {
-            startActivity(Intent(this, ChatActivity::class.java))
-        }
+        cargarProfesionales()
 
         // 5. Categorías populares (Fontanería, Electricidad, Limpieza, Pintura) -> RadarProfesionalesActivity
         binding.cardCatFontaneria.setOnClickListener {
@@ -94,6 +87,32 @@ class InicioActivity : AppCompatActivity() {
 
         binding.btnPerfilTop.setOnClickListener {
             startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+        }
+    }
+
+    private fun cargarProfesionales() {
+        val adapter = ContactosChatAdapter { contacto ->
+            startActivity(Intent(this, ChatActivity::class.java).putExtra("EXTRA_CONTACTO_UID", contacto.id))
+        }
+        binding.listaProfesionalesInicio.layoutManager = LinearLayoutManager(this)
+        binding.listaProfesionalesInicio.adapter = adapter
+        lifecycleScope.launch {
+            try {
+                val profesionales = ProfesionalesInicioRepository().obtener()
+                adapter.mostrar(profesionales.map { dato ->
+                    val distancia = dato.distanciaKm?.let { " • %.1f km".format(it) }.orEmpty()
+                    ContactoChat(
+                        dato.usuario.uid, "${dato.usuario.nombre} ${dato.usuario.apellido}".trim(),
+                        "${dato.profesional.especialidad} • ★ ${dato.profesional.calificacionPromedio}$distancia • Disponible", dato.usuario.fotoPerfil
+                    )
+                })
+                binding.tvEstadoProfesionales.text = if (profesionales.isEmpty()) "No hay profesionales disponibles" else ""
+                binding.tvEstadoProfesionales.visibility = if (profesionales.isEmpty()) View.VISIBLE else View.GONE
+            } catch (e: Exception) {
+                if (e is CancellationException) throw e
+                binding.tvEstadoProfesionales.text = "No se pudieron cargar los profesionales. Toca para reintentar."
+                binding.tvEstadoProfesionales.setOnClickListener { cargarProfesionales() }
+            }
         }
     }
 

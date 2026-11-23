@@ -1,0 +1,8 @@
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginBottom="12dp" app:cardBackgroundColor="@color/ui_surface" style="@style/Widget.Chivo.Card">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+  <ImageView android:id="@+id/fotoContacto" android:layout_width="52dp" android:layout_height="52dp" android:layout_marginBottom="10dp" android:scaleType="centerCrop" android:contentDescription="Foto del contacto" android:src="@mipmap/ic_launcher"/>
+  <TextView android:id="@+id/tvNombre" android:layout_width="match_parent" android:layout_height="wrap_content" android:textColor="@color/ui_text" android:textAppearance="@style/TextAppearance.Material3.TitleMedium"/>
+  <TextView android:id="@+id/tvDetalle" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:textColor="@color/ui_text_secondary" android:textAppearance="@style/TextAppearance.Material3.BodyMedium"/>
+  <com.google.android.material.button.MaterialButton android:id="@+id/btnChat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_gravity="end" android:text="Abrir chat" style="@style/Widget.Chivo.Button"/>
+ </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
