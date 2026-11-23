@@ -1,41 +1,33 @@
 // Integrar este bloque dentro de match /databases/{database}/documents
 // de las reglas existentes. No reemplazar las reglas de Usuario/profesionales.
+// Sin Firebase Auth: lectura pública y escrituras sin identidad verificable.
+// Los UID solo se validan como datos; cualquier cliente puede suplantarlos.
 match /conversaciones/{chatId} {
-  function autenticado() { return request.auth != null; }
-  function miembro() { return autenticado() && request.auth.uid in resource.data.participantes; }
-  allow get: if autenticado() &&
-    (!exists(/databases/$(database)/documents/conversaciones/$(chatId)) || miembro());
-  allow list: if miembro();
-  allow create: if autenticado()
-    && request.resource.data.keys().hasOnly(['participantes', 'nombres', 'ultimoMensaje', 'actualizadoEn'])
+  allow get, list: if true;
+  allow create: if request.resource.data.keys().hasOnly(['participantes', 'nombres', 'ultimoMensaje', 'actualizadoEn'])
     && request.resource.data.participantes is list
     && request.resource.data.participantes.size() == 2
     && request.resource.data.participantes[0] is string
     && request.resource.data.participantes[1] is string
     && request.resource.data.participantes[0] != request.resource.data.participantes[1]
-    && request.auth.uid in request.resource.data.participantes
     && exists(/databases/$(database)/documents/Usuario/$(request.resource.data.participantes[0]))
     && exists(/databases/$(database)/documents/Usuario/$(request.resource.data.participantes[1]))
     && request.resource.data.nombres is map
     && request.resource.data.nombres.keys().hasOnly(request.resource.data.participantes)
     && request.resource.data.ultimoMensaje == ''
     && request.resource.data.actualizadoEn == request.time;
-  allow update: if miembro()
-    && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ultimoMensaje', 'actualizadoEn'])
+  allow update: if request.resource.data.diff(resource.data).affectedKeys().hasOnly(['ultimoMensaje', 'actualizadoEn'])
     && request.resource.data.ultimoMensaje is string
     && request.resource.data.ultimoMensaje.size() <= 4000
     && request.resource.data.actualizadoEn == request.time;
   allow delete: if false;
 
   match /mensajes/{mensajeId} {
-    function participante() {
-      return request.auth != null && request.auth.uid in
-        get(/databases/$(database)/documents/conversaciones/$(chatId)).data.participantes;
-    }
-    allow read: if participante();
-    allow create: if participante()
-      && request.resource.data.keys().hasOnly(['remitenteUid', 'tipo', 'texto', 'archivoUrl', 'mimeType', 'creadoEn'])
-      && request.resource.data.remitenteUid == request.auth.uid
+    allow read: if true;
+    allow create: if request.resource.data.keys().hasOnly(['remitenteUid', 'tipo', 'texto', 'archivoUrl', 'mimeType', 'creadoEn'])
+      && request.resource.data.remitenteUid is string
+      && request.resource.data.remitenteUid in
+        get(/databases/$(database)/documents/conversaciones/$(chatId)).data.participantes
       && request.resource.data.creadoEn == request.time
       && request.resource.data.texto is string
       && request.resource.data.archivoUrl is string

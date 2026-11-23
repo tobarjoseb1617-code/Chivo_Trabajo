@@ -9,13 +9,13 @@ Inicio muestra todos los documentos de `profesionales`, sin filtrar por ciudad, 
 
 ## Reglas Firebase
 
-El archivo `firestore.chat.rules` presupone usuarios autenticados mediante **Firebase Auth** y `request.auth.uid`. La autenticación local actual no genera esa identidad: este fragmento no se puede aplicar tal cual a la sesión local. Para imponer permisos por participante en el servidor se debe integrar autenticación verificable (Firebase Auth con UID coincidente, o un backend que emita custom tokens). No abrir reglas generales para resolver un error de permisos.
+El archivo `firestore.chat.rules` funciona con la sesión local actual y no exige **Firebase Auth** ni consulta `request.auth`. Las conversaciones y los mensajes tienen lectura pública; cualquier cliente que acceda al proyecto puede crear conversaciones, actualizar sus resúmenes y enviar mensajes que cumplan las validaciones. El UID enviado es un dato declarado por el cliente y puede suplantarse. El filtro por participante de la app organiza el historial, pero no protege los datos en el servidor. Para recuperar privacidad por participante se necesita autenticación verificable o un backend que autorice las operaciones.
 
-Para una instalación con Firebase Auth y UID coincidente, integrar el bloque de `firestore.chat.rules` **dentro de** `match /databases/{database}/documents` en las reglas actuales de Firestore y publicarlas en Firebase Console. Este archivo es un fragmento, no un reemplazo completo de las reglas de las otras colecciones. Conservar los permisos que usa la aplicación para consultar perfiles `Usuario` y `profesionales`.
+Integrar el bloque de `firestore.chat.rules` **dentro de** `match /databases/{database}/documents` en las reglas actuales de Firestore y publicarlas en Firebase Console. Si ya existe un bloque de `conversaciones`, reemplazarlo por este fragmento. Este archivo no es un reemplazo completo de las reglas de las otras colecciones. Conservar los permisos que usa la aplicación para consultar perfiles `Usuario` y `profesionales`: abrir un chat también requiere leer los dos perfiles `Usuario/{uid}`.
 
-Las reglas permiten leer conversaciones solo a sus participantes y crear mensajes únicamente como el usuario autenticado. Los participantes no pueden cambiarse. El envío del mensaje y el resumen de la conversación se guardan en un lote atómico. La consulta del historial usa `whereArrayContains` sin un índice compuesto adicional.
+Se conservan las validaciones de dos participantes distintos con perfiles existentes, nombres, contenido, tipo de archivo y hora del servidor. El remitente declarado debe figurar en los participantes, aunque esto no verifica su identidad. Los participantes no pueden cambiarse y no se permite borrar conversaciones ni editar o borrar mensajes. El envío del mensaje y el resumen de la conversación se guardan en un lote atómico. La consulta del historial usa `whereArrayContains` sin un índice compuesto adicional.
 
-Revisar si existen reglas generales como `match /{document=**} { allow read, write: if true; }`: los permisos de las reglas coincidentes se suman y una regla general permisiva anularía la privacidad de estas restricciones. No desplegar un archivo nuevo que borre las reglas actuales.
+Revisar si existen reglas generales como `match /{document=**} { allow read, write: if true; }`: los permisos de las reglas coincidentes se suman y una regla general permisiva anularía las validaciones de estructura y contenido de este fragmento. No desplegar un archivo nuevo que borre las reglas actuales.
 
 Este repositorio no tenía reglas ni una sesión administrativa de Firebase disponible para publicarlas; el fragmento queda preparado para su integración. Las colecciones se crean cuando la aplicación guarda la primera conversación/mensaje con permisos publicados.
 
@@ -25,7 +25,7 @@ El módulo lee `CLOUDINARY_CLOUD_NAME` y `CLOUDINARY_UPLOAD_PRESET` desde `local
 
 Los archivos se transmiten directamente a Cloudinary y en Firestore solo se guarda la URL HTTPS y su tipo. Los audios usan el recurso `video` de Cloudinary. Máximo por archivo: 50 MB. Las notas de voz duran hasta dos minutos; el permiso de micrófono se solicita al grabar. Al salir del chat se descarta una grabación sin enviar. Si falla el envío de un archivo se muestra un botón para reintentarlo. Las fotos y videos se eligen con el selector de documentos de Android, sin permiso general de almacenamiento.
 
-La reproducción abre un visor dentro de la aplicación. Cloudinary entrega estas URLs como recursos públicos: las reglas de Firestore protegen el acceso a los mensajes, pero no bloquean una URL multimedia ya compartida. Para entrega autenticada se necesita un backend que firme el acceso.
+La reproducción abre un visor dentro de la aplicación. Cloudinary entrega estas URLs como recursos públicos. Con las reglas actuales sin Firebase Auth, los mensajes de Firestore también tienen lectura pública. Para entrega autenticada se necesita un backend que firme el acceso y autorice la consulta de mensajes.
 
 ## Verificación con dos cuentas
 
@@ -35,4 +35,4 @@ La reproducción abre un visor dentro de la aplicación. Cloudinary entrega esta
 4. Enviar texto en ambos sentidos y comprobar que llega en vivo, sin duplicarse al volver a abrir el contacto.
 5. Adjuntar una foto, video y audio; reproducirlos desde ambos dispositivos. Grabar y enviar una nota de voz.
 6. Denegar el micrófono, intentar un archivo mayor a 50 MB, interrumpir la red y probar reenvío. Comprobar el mensaje de error y que el texto no se borra si el envío falla.
-7. Con una tercera cuenta verificar que las reglas publicadas rechazan leer o escribir en la conversación ajena y que rechazan suplantar al remitente.
+7. En el simulador de reglas comprobar que, sin autenticación, se permite leer conversaciones y mensajes y crear una conversación válida. Comprobar que se rechaza modificar participantes, borrar conversaciones, editar o borrar mensajes y enviar un mensaje con un remitente que no figure en los participantes. Un mensaje con un UID participante declarado por otra persona no se puede distinguir con esta configuración.
