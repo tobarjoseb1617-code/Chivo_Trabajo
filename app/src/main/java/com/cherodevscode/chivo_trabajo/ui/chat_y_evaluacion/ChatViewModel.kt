@@ -8,13 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.cherodevscode.chivo_trabajo.data.model.Mensaje
 import com.cherodevscode.chivo_trabajo.data.repository.ChatRepository
 import com.cherodevscode.chivo_trabajo.data.repository.CloudinaryRepository
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ListenerRegistration
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.launch
 
 class ChatViewModel(app: Application) : AndroidViewModel(app) {
-    private val repository = ChatRepository()
+    private val repository = ChatRepository(app)
     private val archivos = CloudinaryRepository(app)
     val mensajes = MutableLiveData<List<Mensaje>>(emptyList())
     val nombre = MutableLiveData("Conversación")
@@ -37,7 +36,7 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                 val destino = id?.takeIf { it.isNotBlank() } ?: repository.abrirConversacion(contacto.orEmpty())
                 val chat = repository.obtenerConversacion(destino)
                 chatId = destino
-                nombre.value = chat.nombres[chat.participantes.first { it != FirebaseAuth.getInstance().currentUser?.uid }] ?: "Contacto"
+                nombre.value = chat.nombres[chat.participantes.first { it != repository.usuarioActualUid() }] ?: "Contacto"
                 listener = repository.escucharMensajes(destino) { datos, fallo ->
                     if (fallo != null) error.value = "No se pudieron cargar los mensajes: ${fallo.localizedMessage}"
                     else mensajes.value = datos.orEmpty()
@@ -46,7 +45,8 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
             } catch (e: Exception) {
                 if (e is CancellationException) throw e
                 iniciado = false
-                error.value = e.localizedMessage ?: "No se pudo abrir el chat"
+                android.util.Log.e("Chat", "No se pudo abrir la conversación", e)
+                error.value = mensajeError(e, "No se pudo abrir el chat")
             }
         }
     }
@@ -79,13 +79,23 @@ class ChatViewModel(app: Application) : AndroidViewModel(app) {
                 }
             } catch (e: Exception) {
                 if (e is CancellationException) throw e
-                error.value = e.localizedMessage ?: "No se pudo enviar. Inténtalo de nuevo"
+                android.util.Log.e("Chat", "No se pudo enviar el mensaje", e)
+                error.value = mensajeError(e, "No se pudo enviar. Inténtalo de nuevo")
             } finally {
                 adjuntoPendiente.value = pendiente != null
                 enviando.value = false
             }
         }
     }
+
+    private fun mensajeError(e: Exception, defecto: String): String =
+        when ((e as? com.google.firebase.firestore.FirebaseFirestoreException)?.code) {
+            com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED ->
+                "Firebase rechazó el acceso al chat. Revisa las reglas de conversaciones."
+            com.google.firebase.firestore.FirebaseFirestoreException.Code.UNAVAILABLE ->
+                "No se pudo conectar con Firebase. Revisa la conexión e inténtalo de nuevo."
+            else -> e.localizedMessage ?: defecto
+        }
 
     fun reintentarAdjunto() { pendiente?.let { enviar(uri = it.first, mime = it.second) } }
 

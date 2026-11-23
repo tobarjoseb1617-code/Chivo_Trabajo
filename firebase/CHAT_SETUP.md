@@ -1,6 +1,6 @@
 # Chat en tiempo real
 
-El chat usa la configuración Firebase existente de `app/google-services.json` y Firebase Auth. Al abrir una tarjeta de un profesional se crea (si todavía no existe) una conversación para ambos UID; no hace falta crear colecciones vacías ni datos de ejemplo.
+El chat usa la configuración Firebase existente de `app/google-services.json` y la sesión local de `AuthRepository` (`chivo_credenciales_prefs`), igual que el inicio de sesión actual. El UID del chat, sus remitentes y el historial salen de esa misma sesión. Al abrir una tarjeta de un profesional se crea (si todavía no existe) una conversación para ambos UID; no hace falta crear colecciones vacías ni datos de ejemplo.
 
 - `conversaciones/{hashDeLosDosUid}`: `participantes` (dos UID), `nombres` (mapa UID/nombre), `ultimoMensaje`, `actualizadoEn` (hora del servidor).
 - `conversaciones/{id}/mensajes/{idAutomatico}`: `remitenteUid`, `tipo` (`texto`, `imagen`, `video`, `audio`), `texto`, `archivoUrl`, `mimeType`, `creadoEn` (hora del servidor).
@@ -9,7 +9,9 @@ Inicio muestra todos los documentos de `profesionales`, sin filtrar por ciudad, 
 
 ## Reglas Firebase
 
-Integrar el bloque de `firestore.chat.rules` **dentro de** `match /databases/{database}/documents` en las reglas actuales de Firestore y publicarlas en Firebase Console. Este archivo es un fragmento, no un reemplazo completo de las reglas de las otras colecciones. Conservar los permisos que usa la aplicación para consultar perfiles `Usuario` y `profesionales`.
+El archivo `firestore.chat.rules` presupone usuarios autenticados mediante **Firebase Auth** y `request.auth.uid`. La autenticación local actual no genera esa identidad: este fragmento no se puede aplicar tal cual a la sesión local. Para imponer permisos por participante en el servidor se debe integrar autenticación verificable (Firebase Auth con UID coincidente, o un backend que emita custom tokens). No abrir reglas generales para resolver un error de permisos.
+
+Para una instalación con Firebase Auth y UID coincidente, integrar el bloque de `firestore.chat.rules` **dentro de** `match /databases/{database}/documents` en las reglas actuales de Firestore y publicarlas en Firebase Console. Este archivo es un fragmento, no un reemplazo completo de las reglas de las otras colecciones. Conservar los permisos que usa la aplicación para consultar perfiles `Usuario` y `profesionales`.
 
 Las reglas permiten leer conversaciones solo a sus participantes y crear mensajes únicamente como el usuario autenticado. Los participantes no pueden cambiarse. El envío del mensaje y el resumen de la conversación se guardan en un lote atómico. La consulta del historial usa `whereArrayContains` sin un índice compuesto adicional.
 

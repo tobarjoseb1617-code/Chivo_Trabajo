@@ -2,7 +2,7 @@ package com.cherodevscode.chivo_trabajo.data.repository
 
 import com.cherodevscode.chivo_trabajo.data.model.Conversacion
 import com.cherodevscode.chivo_trabajo.data.model.Mensaje
-import com.google.firebase.auth.FirebaseAuth
+import android.content.Context
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -10,10 +10,12 @@ import com.google.firebase.firestore.Query
 import kotlinx.coroutines.tasks.await
 import java.security.MessageDigest
 
-class ChatRepository {
+class ChatRepository(context: Context) {
+    private val authRepository = AuthRepository(context.applicationContext)
+    fun usuarioActualUid(): String? = authRepository.usuarioActual()?.uid
     private val db = FirebaseFirestore.getInstance()
     private val chats = db.collection("conversaciones")
-    private fun uid() = requireNotNull(FirebaseAuth.getInstance().currentUser?.uid) { "Inicia sesión para conversar" }
+    private fun uid() = requireNotNull(usuarioActualUid()) { "Inicia sesión para conversar" }
 
     suspend fun abrirConversacion(receptor: String): String {
         val emisor = uid()

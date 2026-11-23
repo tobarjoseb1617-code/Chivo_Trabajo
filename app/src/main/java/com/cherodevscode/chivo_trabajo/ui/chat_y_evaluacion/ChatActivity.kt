@@ -14,7 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cherodevscode.chivo_trabajo.databinding.ActivityChatBinding
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import java.io.File
 
 class ChatActivity : AppCompatActivity() {
@@ -44,7 +44,7 @@ class ChatActivity : AppCompatActivity() {
         }
         binding = ActivityChatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val adapter = MensajesAdapter(FirebaseAuth.getInstance().currentUser?.uid.orEmpty())
+        val adapter = MensajesAdapter(AuthRepository(this).usuarioActual()?.uid.orEmpty())
         binding.listaMensajes.layoutManager = LinearLayoutManager(this).apply { stackFromEnd = true }
         binding.listaMensajes.adapter = adapter
         binding.btnRegresarChat.setOnClickListener { finish() }
@@ -80,7 +80,10 @@ class ChatActivity : AppCompatActivity() {
         viewModel.error.observe(this) {
             if (it != null) {
                 aviso(it)
-                if (viewModel.listo.value != true) binding.tvChatVacio.text = "No se pudo abrir la conversación. Toca para reintentar."
+                if (viewModel.listo.value != true) {
+                    binding.tvChatVacio.visibility = View.VISIBLE
+                    binding.tvChatVacio.text = "$it\nToca para reintentar."
+                }
                 viewModel.error.value = null
             }
         }

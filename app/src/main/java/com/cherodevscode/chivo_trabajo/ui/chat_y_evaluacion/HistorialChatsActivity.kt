@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cherodevscode.chivo_trabajo.data.repository.ChatRepository
-import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.google.firebase.firestore.ListenerRegistration
 import androidx.appcompat.app.AppCompatActivity
 import com.cherodevscode.chivo_trabajo.databinding.ActivityHistorialChatsBinding
@@ -23,7 +23,7 @@ class HistorialChatsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistorialChatsBinding
 
     private var listener: ListenerRegistration? = null
-    private val repository = ChatRepository()
+    private val repository by lazy { ChatRepository(applicationContext) }
     private lateinit var adapter: ContactosChatAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -110,7 +110,7 @@ class HistorialChatsActivity : AppCompatActivity() {
     }
     override fun onStart() {
         super.onStart()
-        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val uid = AuthRepository(this).usuarioActual()?.uid
         if (uid == null) { binding.tvEstadoChats.text = "Inicia sesión para ver tus mensajes"; return }
         listener = repository.escucharConversaciones { chats, error ->
             binding.tvEstadoChats.text = when {
