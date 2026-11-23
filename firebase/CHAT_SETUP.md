@@ -5,7 +5,7 @@ El chat usa la configuración Firebase existente de `app/google-services.json` y
 - `conversaciones/{hashDeLosDosUid}`: `participantes` (dos UID), `nombres` (mapa UID/nombre), `ultimoMensaje`, `actualizadoEn` (hora del servidor).
 - `conversaciones/{id}/mensajes/{idAutomatico}`: `remitenteUid`, `tipo` (`texto`, `imagen`, `video`, `audio`), `texto`, `archivoUrl`, `mimeType`, `creadoEn` (hora del servidor).
 
-Los nombres provienen de `Usuario/{uid}`; las tarjetas provienen de `profesionales` disponibles y sus perfiles reales. Se ordenan por distancia a la ubicación guardada del cliente cuando ambos perfiles tienen coordenadas; sin coordenadas se muestran sin distancia. No se inventan ubicaciones ni presencia en línea. Se muestran hasta diez profesionales.
+Inicio muestra todos los documentos de `profesionales`, sin filtrar por ciudad, distancia, disponibilidad, estado de cuenta ni usuario actual. Se respeta el campo `uid` del profesional (o el ID del documento si está vacío). Nombre y foto se leen del propio documento si existen y se completan opcionalmente desde `Usuario/{uid}`; si ese perfil falta o su lectura falla, la tarjeta sigue visible. Un documento sin nombre muestra «Profesional sin nombre registrado». La disponibilidad y las reseñas se muestran según sus datos reales. La lista escucha cambios de `profesionales` mientras Inicio está visible. Si Firestore rechaza la lectura de esa colección, se muestra un mensaje específico de permisos.
 
 ## Reglas Firebase
 

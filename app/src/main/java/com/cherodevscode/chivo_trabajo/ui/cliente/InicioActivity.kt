@@ -19,7 +19,10 @@ import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.PerfilProfesionalActivity
 import com.cherodevscode.chivo_trabajo.ui.profesional.HistorialDeServiciosActivity
 
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import kotlinx.coroutines.Job
 import com.google.firebase.auth.FirebaseAuth
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ import kotlinx.coroutines.launch
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
     private val firestoreRepository = FirestoreRepository()
+    private var cargaProfesionales: Job? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,22 +100,46 @@ class InicioActivity : AppCompatActivity() {
         }
         binding.listaProfesionalesInicio.layoutManager = LinearLayoutManager(this)
         binding.listaProfesionalesInicio.adapter = adapter
-        lifecycleScope.launch {
-            try {
-                val profesionales = ProfesionalesInicioRepository().obtener()
-                adapter.mostrar(profesionales.map { dato ->
-                    val distancia = dato.distanciaKm?.let { " • %.1f km".format(it) }.orEmpty()
-                    ContactoChat(
-                        dato.usuario.uid, "${dato.usuario.nombre} ${dato.usuario.apellido}".trim(),
-                        "${dato.profesional.especialidad} • ★ ${dato.profesional.calificacionPromedio}$distancia • Disponible", dato.usuario.fotoPerfil
-                    )
-                })
-                binding.tvEstadoProfesionales.text = if (profesionales.isEmpty()) "No hay profesionales disponibles" else ""
-                binding.tvEstadoProfesionales.visibility = if (profesionales.isEmpty()) View.VISIBLE else View.GONE
-            } catch (e: Exception) {
-                if (e is CancellationException) throw e
-                binding.tvEstadoProfesionales.text = "No se pudieron cargar los profesionales. Toca para reintentar."
-                binding.tvEstadoProfesionales.setOnClickListener { cargarProfesionales() }
+        cargaProfesionales?.cancel()
+        cargaProfesionales = lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                binding.tvEstadoProfesionales.text = "Cargando profesionales…"
+                binding.tvEstadoProfesionales.visibility = View.VISIBLE
+                binding.tvEstadoProfesionales.setOnClickListener(null)
+                try {
+                    ProfesionalesInicioRepository().observar().collect { profesionales ->
+                        adapter.mostrar(profesionales.map { dato ->
+                            val pro = dato.profesional
+                            val especialidad = pro.especialidades.filter { it.isNotBlank() }.joinToString(", ")
+                                .ifBlank { pro.especialidad }.ifBlank { pro.descripcion }
+                            val calificacion = if (pro.cantidadCalificaciones > 0) {
+                                "★ %.1f (%d reseñas)".format(pro.calificacionPromedio, pro.cantidadCalificaciones)
+                            } else "Sin reseñas"
+                            val disponibilidad = if (pro.disponible) "Disponible" else "No disponible ahora"
+                            ContactoChat(
+                                dato.usuario.uid,
+                                "${dato.usuario.nombre} ${dato.usuario.apellido}".trim().ifBlank { "Profesional sin nombre registrado" },
+                                listOfNotNull(especialidad.takeIf { it.isNotBlank() }, calificacion, disponibilidad).joinToString(" • "),
+                                dato.usuario.fotoPerfil
+                            )
+                        })
+                        binding.tvEstadoProfesionales.text = if (profesionales.isEmpty()) "No hay profesionales registrados para mostrar" else ""
+                        binding.tvEstadoProfesionales.visibility = if (profesionales.isEmpty()) View.VISIBLE else View.GONE
+                    }
+                } catch (e: Exception) {
+                    if (e is CancellationException) throw e
+                    adapter.mostrar(emptyList())
+                    binding.tvEstadoProfesionales.visibility = View.VISIBLE
+                    android.util.Log.e("ProfesionalesInicio", "Error al consultar la colección profesionales", e)
+                    binding.tvEstadoProfesionales.text = when ((e as? com.google.firebase.firestore.FirebaseFirestoreException)?.code) {
+                        com.google.firebase.firestore.FirebaseFirestoreException.Code.PERMISSION_DENIED ->
+                            "Firebase no permite leer la colección profesionales. Revisa sus reglas de acceso. Toca para reintentar."
+                        com.google.firebase.firestore.FirebaseFirestoreException.Code.UNAVAILABLE ->
+                            "No se pudo conectar con Firebase. Revisa tu conexión y toca para reintentar."
+                        else -> "No se pudieron cargar los profesionales. Toca para reintentar."
+                    }
+                    binding.tvEstadoProfesionales.setOnClickListener { cargarProfesionales() }
+                }
             }
         }
     }
