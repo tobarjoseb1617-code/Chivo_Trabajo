@@ -21,6 +21,22 @@ class RegistroActivity : AppCompatActivity() {
 
         autenticacionViewModel = AutenticacionViewModel(this)
 
+        val correoGoogle = intent.getStringExtra("EXTRA_CORREO_GOOGLE")
+        val nombreGoogle = intent.getStringExtra("EXTRA_NOMBRE_GOOGLE")
+
+        if (!correoGoogle.isNullOrBlank()) {
+            binding.etRegCorreo.setText(correoGoogle)
+            binding.etRegCorreo.isEnabled = false
+            if (!nombreGoogle.isNullOrBlank()) {
+                binding.etRegNombre.setText(nombreGoogle)
+            }
+            Toast.makeText(
+                this,
+                "Completa tu perfil y crea tu contraseña para el correo de Google",
+                Toast.LENGTH_LONG
+            ).show()
+        }
+
         var contrasenaVisible = false
 
         binding.btnMostrarContrasena.setOnClickListener {

@@ -1,4 +1,3 @@
-
 package com.cherodevscode.chivo_trabajo.ui.autenticacion
 
 import com.cherodevscode.chivo_trabajo.ui.admin.PanelAdminActivity
@@ -28,8 +27,6 @@ class IniciarSesionActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityIniciarSesionBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
 
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -161,6 +158,26 @@ class IniciarSesionActivity : AppCompatActivity() {
             }
         }
 
+        autenticacionViewModel.googleRequiereRegistro.observe(this) { datos ->
+            if (datos != null) {
+                setLoading(false)
+                val intent = Intent(this, RegistroActivity::class.java).apply {
+                    putExtra("EXTRA_CORREO_GOOGLE", datos.first)
+                    putExtra("EXTRA_NOMBRE_GOOGLE", datos.second)
+                }
+                autenticacionViewModel.limpiarGoogleRequiereRegistro()
+                startActivity(intent)
+            }
+        }
+
+        autenticacionViewModel.solicitarCorreoGoogleManual.observe(this) { solicitar ->
+            if (solicitar == true) {
+                setLoading(false)
+                autenticacionViewModel.limpiarSolicitarCorreoGoogleManual()
+                mostrarDialogoCorreoGoogleManual()
+            }
+        }
+
         autenticacionViewModel.tipoUsuarioDestino.observe(this) { tipo ->
 
             if (tipo != null) {
@@ -184,6 +201,55 @@ class IniciarSesionActivity : AppCompatActivity() {
                 finish()
             }
         }
+    }
+
+    private fun mostrarDialogoCorreoGoogleManual() {
+        val cuentas = autenticacionViewModel.obtenerCuentasGoogleDispositivo()
+
+        if (cuentas.isNotEmpty()) {
+            val opciones = cuentas.toMutableList()
+            opciones.add("Ingresar otro correo de Google...")
+
+            com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                .setTitle("Seleccionar cuenta de Google")
+                .setItems(opciones.toTypedArray()) { _, which ->
+                    if (which == opciones.lastIndex) {
+                        mostrarInputTextoCorreoGoogle()
+                    } else {
+                        val correoSeleccionado = cuentas[which]
+                        setLoading(true)
+                        autenticacionViewModel.procesarCorreoGoogleManual(correoSeleccionado)
+                    }
+                }
+                .setNegativeButton("Cancelar", null)
+                .show()
+        } else {
+            mostrarInputTextoCorreoGoogle()
+        }
+    }
+
+    private fun mostrarInputTextoCorreoGoogle() {
+        val input = android.widget.EditText(this).apply {
+            hint = "correo@gmail.com"
+            inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            setPadding(40, 30, 40, 30)
+        }
+
+        com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            .setTitle("Continuar con Google")
+            .setMessage("Por favor confirma tu correo electrónico de Google para ingresar o registrarte:")
+            .setView(input)
+            .setPositiveButton("Continuar") { _, _ ->
+                val correo = input.text.toString().trim()
+                if (correo.isNotEmpty()) {
+                    setLoading(true)
+                    autenticacionViewModel.procesarCorreoGoogleManual(correo)
+                } else {
+                    Toast.makeText(this, "Ingrese un correo electrónico", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun setLoading(loading: Boolean) {

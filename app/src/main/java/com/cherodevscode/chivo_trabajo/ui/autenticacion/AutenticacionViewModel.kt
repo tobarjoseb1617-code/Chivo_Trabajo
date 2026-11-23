@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import com.cherodevscode.chivo_trabajo.data.model.Usuario
 import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
+import com.cherodevscode.chivo_trabajo.data.repository.ResultadoGoogleAuth
 import kotlinx.coroutines.launch
 
 class AutenticacionViewModel(context: Context) : ViewModel() {
@@ -21,6 +22,12 @@ class AutenticacionViewModel(context: Context) : ViewModel() {
 
     private val _tipoUsuarioDestino = MutableLiveData<String?>()
     val tipoUsuarioDestino: LiveData<String?> = _tipoUsuarioDestino
+
+    private val _googleRequiereRegistro = MutableLiveData<Pair<String, String?>?>()
+    val googleRequiereRegistro: LiveData<Pair<String, String?>?> = _googleRequiereRegistro
+
+    private val _solicitarCorreoGoogleManual = MutableLiveData<Boolean>()
+    val solicitarCorreoGoogleManual: LiveData<Boolean> = _solicitarCorreoGoogleManual
 
     /**
      * Valida si un correo electrónico tiene formato correcto o es la cuenta admin autorizada.
@@ -116,14 +123,63 @@ class AutenticacionViewModel(context: Context) : ViewModel() {
 
     fun iniciarSesionGoogle(activity: Activity) {
         viewModelScope.launch {
-            val res = authRepository.iniciarSesionConGoogle(activity)
-            res.onSuccess { uid ->
-                _mensaje.value = "¡Google Login exitoso!"
-                verificarRolYEstado(uid)
+            val res = authRepository.procesarGoogleAuth(activity)
+            res.onSuccess { resultado ->
+                when (resultado) {
+                    is ResultadoGoogleAuth.YaRegistrado -> {
+                        _mensaje.value = "¡Inicio de sesión con Google exitoso!"
+                        verificarRolYEstado(resultado.uid)
+                    }
+                    is ResultadoGoogleAuth.RequiereRegistro -> {
+                        _mensaje.value = "Correo de Google no registrado. Por favor completa tu perfil."
+                        _googleRequiereRegistro.value = Pair(resultado.email, resultado.displayName)
+                    }
+                    is ResultadoGoogleAuth.SolicitarCorreoManual -> {
+                        _solicitarCorreoGoogleManual.value = true
+                    }
+                }
             }.onFailure { e ->
                 _mensaje.value = "Error Google: ${e.message}"
             }
         }
+    }
+
+    fun procesarCorreoGoogleManual(emailGoogle: String) {
+        if (!esCorreoValido(emailGoogle)) {
+            _mensaje.value = "Ingrese un correo electrónico válido"
+            return
+        }
+
+        viewModelScope.launch {
+            val res = authRepository.verificarOIngresarCorreoGoogle(emailGoogle)
+            res.onSuccess { resultado ->
+                when (resultado) {
+                    is ResultadoGoogleAuth.YaRegistrado -> {
+                        _mensaje.value = "¡Inicio de sesión con Google exitoso!"
+                        verificarRolYEstado(resultado.uid)
+                    }
+                    is ResultadoGoogleAuth.RequiereRegistro -> {
+                        _mensaje.value = "Correo de Google no registrado. Por favor completa tu perfil."
+                        _googleRequiereRegistro.value = Pair(resultado.email, resultado.displayName)
+                    }
+                    else -> {}
+                }
+            }.onFailure { e ->
+                _mensaje.value = "Error: ${e.message}"
+            }
+        }
+    }
+
+    fun obtenerCuentasGoogleDispositivo(): List<String> {
+        return authRepository.obtenerCuentasGoogleDispositivo()
+    }
+
+    fun limpiarGoogleRequiereRegistro() {
+        _googleRequiereRegistro.value = null
+    }
+
+    fun limpiarSolicitarCorreoGoogleManual() {
+        _solicitarCorreoGoogleManual.value = false
     }
 
     private fun verificarRolYEstado(uid: String) {
