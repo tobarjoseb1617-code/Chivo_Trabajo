@@ -54,6 +54,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
     private var fechaServicioSeleccionada = "Lo antes posible"
     private var horaServicioSeleccionada = "Inmediato"
     private var presupuestoSeleccionado = "$15 – $30"
+    private var pinSeguridadCreado = ""
 
     // Fotografías nuevas y guardadas anteriormente.
     private val listaFotosUris = mutableListOf<Uri>()
@@ -204,8 +205,6 @@ class CrearSolicitudActivity : AppCompatActivity() {
 
                 resultado.onSuccess { idSolicitud ->
 
-                    val pinSeguridad = PinGenerator.generarPin()
-
                     mostrarMensaje("¡Solicitud publicada con éxito!")
 
                     val intent = Intent(
@@ -213,7 +212,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
                         SeguimientoActivity::class.java
                     ).apply {
 
-                        putExtra("EXTRA_PIN", pinSeguridad)
+                        putExtra("EXTRA_PIN", pinSeguridadCreado)
                         putExtra("EXTRA_SOLICITUD_ID", idSolicitud)
                     }
 
@@ -797,6 +796,7 @@ class CrearSolicitudActivity : AppCompatActivity() {
 
                 val solicitudNueva = Solicitud(
                     clientId = usuarioActual.uid,
+                    pinSeguridad = PinGenerator.generarPin(),
                     categoryId = categoriaSeleccionada,
                     descripcion = descripcion,
                     direccion = direccionServicio,
@@ -809,6 +809,8 @@ class CrearSolicitudActivity : AppCompatActivity() {
                     estado = "PENDIENTE",
                     profesionalId = null
                 )
+
+                pinSeguridadCreado = solicitudNueva.pinSeguridad
 
                 viewModel.publicarSolicitud(
                     contentResolver,

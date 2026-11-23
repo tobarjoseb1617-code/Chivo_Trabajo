@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
@@ -158,6 +159,19 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
                     ?: "PENDIENTE"
 
                 val profesionalId = documento.getString("profesionalId")
+
+                // ==========================================
+                // PIN DE SEGURIDAD
+                // ==========================================
+
+                val pinSeguridad =
+                    documento.getString("pinSeguridad").orEmpty()
+
+                binding.layoutPinSolicitudDetalle.isVisible =
+                    pinSeguridad.isNotBlank()
+
+                binding.tvPinSolicitudDetalle.text =
+                    pinSeguridad
 
                 val permisoAnterior = solicitudPermiteAceptar
 
@@ -837,6 +851,7 @@ class DetallesSolicitudCreadaClienteActivity : AppCompatActivity() {
             )
 
             // Asignar el profesional a la solicitud.
+            // El PIN existente se conserva sin modificaciones.
             transaccion.update(
                 referenciaSolicitud,
                 mapOf(

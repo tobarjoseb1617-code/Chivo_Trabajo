@@ -429,6 +429,28 @@ class FirestoreRepository {
         }
     }
 
+    suspend fun obtenerPropuestaPorSolicitudYProfesional(
+        solicitudId: String,
+        profesionalId: String
+    ): Result<Propuesta?> {
+        return try {
+            val idPropuesta = "${solicitudId}_${profesionalId}"
+
+            val documento = db.collection("Propuestas")
+                .document(idPropuesta)
+                .get()
+                .await()
+
+            val propuesta = documento.toObject(Propuesta::class.java)
+                ?.copy(idPropuesta = documento.id)
+
+            Result.success(propuesta)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
 
 }

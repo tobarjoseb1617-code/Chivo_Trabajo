@@ -132,6 +132,61 @@
 
       </com.google.android.material.card.MaterialCardView>
 
+      <!-- CÓDIGO PARA AUTORIZAR EL INICIO DEL SERVICIO -->
+
+      <com.google.android.material.card.MaterialCardView
+          android:id="@+id/layoutPinSolicitudDetalle"
+          style="@style/Widget.Chivo.Card"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginBottom="14dp"
+          app:cardBackgroundColor="@color/ui_surface"
+          app:strokeColor="@color/ui_primary"
+          app:strokeWidth="1dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="18dp">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Código de seguridad"
+              android:textSize="16sp"
+              android:textStyle="bold"
+              android:textColor="@color/ui_text"
+              android:gravity="center"
+              android:layout_marginBottom="8dp"/>
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="Comparte este código con el profesional cuando llegue para iniciar el servicio."
+              android:textSize="12sp"
+              android:textColor="@color/ui_text_secondary"
+              android:gravity="center"
+              android:layout_marginBottom="12dp"/>
+
+          <TextView
+              android:id="@+id/tvPinSolicitudDetalle"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="----"
+              android:textSize="30sp"
+              android:textStyle="bold"
+              android:letterSpacing="0.2"
+              android:textColor="@color/ui_primary"
+              android:gravity="center"/>
+
+        </LinearLayout>
+
+      </com.google.android.material.card.MaterialCardView>
+
+
+
       <!-- DETALLE DEL PROBLEMA -->
 
       <com.google.android.material.card.MaterialCardView

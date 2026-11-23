@@ -20,8 +20,8 @@
             android:orientation="vertical"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
-            android:paddingBottom="16dp"
-            android:paddingTop="16dp">
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
             <!-- 1. BARRA SUPERIOR -->
             <LinearLayout
@@ -44,7 +44,6 @@
                     android:src="@drawable/ic_m3_back"
                     app:tint="@color/ui_text" />
 
-                <!-- Badge Título -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -67,7 +66,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Seguimiento en Vivo"
+                        android:text="Seguimiento del Servicio"
                         android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
                         android:textColor="@color/ui_text"
                         android:textSize="14sp"
@@ -80,7 +79,6 @@
                     android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <!-- Avatar Perfil -->
                 <ImageView
                     android:id="@+id/btnPerfilTop"
                     android:layout_width="48dp"
@@ -93,12 +91,14 @@
 
             </LinearLayout>
 
-            <!-- 2. PIN DE SEGURIDAD Y NOTIFICACIONES DE LLEGADA / PIN -->
+            <!-- 2. PIN DE SEGURIDAD -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutPinSeguimientoCliente"
                 style="@style/Widget.Chivo.Card"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:visibility="gone"
                 app:cardBackgroundColor="@color/ui_brand">
 
                 <LinearLayout
@@ -133,7 +133,7 @@
                             android:fontFamily="sans-serif-medium"
                             android:paddingHorizontal="14dp"
                             android:paddingVertical="6dp"
-                            android:text="#3821"
+                            android:text=""
                             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                             android:textColor="#FFFFFF"
                             android:textSize="20sp"
@@ -145,11 +145,10 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif"
-                        android:text="Muestra o entrega este PIN al técnico al llegar para autorizar el inicio del servicio."
+                        android:text="Muestra este PIN al profesional cuando llegue para autorizar el inicio del servicio."
                         android:textColor="#CBD5E1"
                         android:textSize="12sp" />
 
-                    <!-- NOTIFICACIÓN 1: El técnico ha llegado -->
                     <LinearLayout
                         android:id="@+id/layoutAlertaLlegada"
                         android:layout_width="match_parent"
@@ -158,7 +157,8 @@
                         android:background="@drawable/bg_m3_success"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -168,35 +168,18 @@
                             android:src="@drawable/ic_m3_location"
                             app:tint="@color/ui_primary" />
 
-                        <LinearLayout
+                        <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="¡El técnico ha llegado!"
-                                android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                                android:textColor="@color/ui_success"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif"
-                                android:text="Mario Estrada se encuentra en la ubicación indicada."
-                                android:textColor="@color/ui_success"
-                                android:textSize="12sp" />
-
-                        </LinearLayout>
+                            android:fontFamily="sans-serif-medium"
+                            android:text="El profesional ha llegado."
+                            android:textColor="@color/ui_success"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <!-- NOTIFICACIÓN 2: PIN verificado correctamente -->
                     <LinearLayout
                         android:id="@+id/layoutAlertaPinVerificado"
                         android:layout_width="match_parent"
@@ -205,7 +188,8 @@
                         android:background="@drawable/bg_m3_info"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:padding="10dp"
+                        android:visibility="gone">
 
                         <ImageView
                             android:layout_width="24dp"
@@ -219,8 +203,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="sans-serif-medium"
-                            android:text="✓ PIN verificado con éxito. Servicio autorizado."
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:text="PIN verificado correctamente."
                             android:textColor="@color/ui_primary"
                             android:textSize="12sp"
                             android:textStyle="bold" />
@@ -231,7 +214,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 3. TARJETA DE REPARACIÓN Y TÉCNICO -->
+            <!-- 3. INFORMACIÓN DE LA SOLICITUD Y PROFESIONAL -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Chivo.Card"
                 android:layout_width="match_parent"
@@ -245,73 +228,115 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvCategoriaSolicitud"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/bg_m3_info"
+                        android:drawablePadding="8dp"
+                        android:drawableStart="@drawable/ic_m3_build"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="4dp"
+                        android:text="Categoría del servicio"
+                        android:textColor="@color/ui_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="10dp" />
+
+                    <TextView
+                        android:id="@+id/tvDescripcionSolicitud"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="8dp">
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Descripción de la solicitud"
+                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:textColor="@color/ui_text"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_m3_info"
-                            android:drawablePadding="8dp"
-                            android:drawableStart="@drawable/ic_m3_build"
-                            app:drawableTint="@color/ui_primary"
-                            android:fontFamily="sans-serif-medium"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="3dp"
-                            android:text="Fontanería Residencial"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/ui_primary"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvFechaServicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_m3_calendar"
+                        android:drawablePadding="8dp"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif"
+                        android:text="Fecha del servicio"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="6dp" />
 
-                        <View
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
+                    <TextView
+                        android:id="@+id/tvHoraServicio"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_m3_clock"
+                        android:drawablePadding="8dp"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif"
+                        android:text="Hora del servicio"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="13sp"
+                        android:layout_marginBottom="6dp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="#059669"
-                            android:fontFamily="sans-serif-medium"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="4dp"
-                            android:text="Garantía $25.00"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/tvDireccionSolicitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:drawableStart="@drawable/ic_m3_location"
+                        android:drawablePadding="8dp"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif"
+                        android:text="Dirección del servicio"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="13sp" />
 
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/tvCiudadSolicitud"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Ciudad"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="13sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginBottom="14dp"
+                        android:background="@color/ui_outline" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Reparación de fuga bajo fregadero"
-                        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                        android:text="Profesional asignado"
                         android:textColor="@color/ui_text"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:layout_marginBottom="8dp" />
+                        android:layout_marginBottom="10dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="4dp">
+                        android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="32dp"
-                            android:layout_height="32dp"
-                            android:layout_marginEnd="8dp"
+                            android:id="@+id/ivFotoProfesional"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginEnd="10dp"
                             android:background="@color/ui_outline"
                             android:contentDescription="Foto del profesional"
+                            android:scaleType="centerCrop"
                             android:src="@mipmap/ic_launcher" />
 
                         <LinearLayout
@@ -321,43 +346,34 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tvNombreProfesional"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif-medium"
-                                android:text="Téc. Mario Estrada"
+                                android:text="Nombre del profesional"
                                 android:textColor="@color/ui_text"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />
 
                             <TextView
+                                android:id="@+id/tvCalificacionProfesional"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="sans-serif"
-                                android:text="4.9 ★ • DUI Verificado"
-                                android:textColor="@color/ui_success"
+                                android:text="Información del profesional"
+                                android:textColor="@color/ui_text_secondary"
                                 android:textSize="12sp" />
 
                         </LinearLayout>
 
                     </LinearLayout>
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:drawablePadding="8dp"
-                        android:drawableStart="@drawable/ic_m3_location"
-                        app:drawableTint="@color/ui_primary"
-                        android:fontFamily="sans-serif"
-                        android:text="Res. Cumbres de Cuscatlán, Polígono D #14"
-                        android:textColor="@color/ui_text_secondary"
-                        android:textSize="12sp" />
-
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 4. STEPPER DE FASES DEL SERVICIO (AVANCE DEL CLIENTE) -->
+
+            <!-- 4. ESTADO REAL DEL SERVICIO -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Chivo.Card"
                 android:layout_width="match_parent"
@@ -371,363 +387,251 @@
                     android:orientation="vertical"
                     android:padding="16dp">
 
+                    <!-- Título y número de paso -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="14dp">
+                        android:layout_marginBottom="20dp">
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Estado del Servicio"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:text="Estado del servicio"
                             android:textColor="@color/ui_text"
-                            android:textSize="14sp"
+                            android:textSize="15sp"
                             android:textStyle="bold" />
 
                         <TextView
+                            android:id="@+id/tvPasoProgreso"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/bg_m3_info"
                             android:fontFamily="sans-serif-medium"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="3dp"
-                            android:text="Paso 3 de 5"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                            android:paddingHorizontal="12dp"
+                            android:paddingVertical="6dp"
+                            android:text="Paso 1 de 4"
                             android:textColor="@color/ui_primary"
-                            android:textSize="13sp"
+                            android:textSize="12sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
 
-                    <!-- Visual de fases -->
+                    <!-- Línea de progreso -->
                     <LinearLayout
+                        android:id="@+id/layoutProgresoServicio"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:paddingVertical="4dp">
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginBottom="4dp"
-                                android:background="#059669"
-                                android:gravity="center"
-                                android:text="✓"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="Aceptado"
-                                android:textColor="@color/ui_success"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="2dp"
-                            android:background="#059669" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginBottom="4dp"
-                                android:background="#059669"
-                                android:gravity="center"
-                                android:text="✓"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="En camino"
-                                android:textColor="@color/ui_success"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="2dp"
-                            android:background="#059669" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginBottom="4dp"
-                                android:background="@color/ui_brand"
-                                android:gravity="center"
-                                android:text="●"
-                                android:textColor="#FFFFFF"
-                                android:textSize="12sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="Llegada"
-                                android:textColor="@color/ui_text"
-                                android:textSize="11sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <View
-                            android:layout_width="20dp"
-                            android:layout_height="2dp"
-                            android:background="@color/ui_outline" />
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="24dp"
-                                android:layout_height="24dp"
-                                android:layout_marginBottom="4dp"
-                                android:background="@color/ui_outline"
-                                android:importantForAccessibility="no"
-                                android:src="@drawable/ic_m3_build"
-                                app:tint="@color/ui_text_secondary" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif"
-                                android:text="Trabajo"
-                                android:textColor="@color/ui_text_secondary"
-                                android:textSize="11sp" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 5. RASTREO GPS Y CHAT -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Chivo.Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/ui_surface">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="130dp"
-                        android:layout_marginBottom="12dp"
-                        android:background="@color/ui_outline">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:drawablePadding="8dp"
-                            android:drawableStart="@drawable/ic_m3_map"
-                            app:drawableTint="@color/ui_primary"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="[Rastreo GPS del Técnico]"
-                            android:textColor="@color/ui_text_secondary"
-                            android:textSize="14sp" />
-
-                    </RelativeLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnVerMapaCliente"
-                            style="@style/Widget.Chivo.Button.Secondary"
+                        <!-- Paso 1: Solicitud creada -->
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:minHeight="48dp"
-                            android:text="Ver mapa GPS"
-                            android:textSize="13sp"
-                            app:icon="@drawable/ic_m3_map"
-                            app:iconSize="18dp" />
+                            android:gravity="center"
+                            android:orientation="vertical">
 
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnChatConProfesional"
-                            style="@style/Widget.Chivo.Button"
+                            <TextView
+                                android:id="@+id/tvIconoPasoSolicitud"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:background="@drawable/bg_m3_info"
+                                android:gravity="center"
+                                android:text="1"
+                                android:textColor="@color/ui_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:gravity="center"
+                                android:text="Solicitud"
+                                android:textColor="@color/ui_text"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Creada"
+                                android:textColor="@color/ui_text_secondary"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/lineaPasoSolicitud"
+                            android:layout_width="0dp"
+                            android:layout_height="4dp"
+                            android:layout_weight="0.35"
+                            android:layout_marginBottom="25dp"
+                            android:background="@color/ui_outline" />
+
+                        <!-- Paso 2: Profesional asignado -->
+                        <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="6dp"
                             android:layout_weight="1"
-                            android:minHeight="48dp"
-                            android:text="Chat con técnico"
-                            android:textSize="13sp"
-                            app:icon="@drawable/ic_m3_chat"
-                            app:iconSize="18dp" />
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvIconoPasoAsignado"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:background="@drawable/bg_m3_info"
+                                android:gravity="center"
+                                android:text="2"
+                                android:textColor="@color/ui_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:gravity="center"
+                                android:text="Profesional"
+                                android:textColor="@color/ui_text"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Asignado"
+                                android:textColor="@color/ui_text_secondary"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/lineaPasoAsignado"
+                            android:layout_width="0dp"
+                            android:layout_height="4dp"
+                            android:layout_weight="0.35"
+                            android:layout_marginBottom="25dp"
+                            android:background="@color/ui_outline" />
+
+                        <!-- Paso 3: Servicio en curso -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvIconoPasoEnCurso"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:background="@drawable/bg_m3_info"
+                                android:gravity="center"
+                                android:text="3"
+                                android:textColor="@color/ui_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:gravity="center"
+                                android:text="En curso"
+                                android:textColor="@color/ui_text"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Trabajando"
+                                android:textColor="@color/ui_text_secondary"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:id="@+id/lineaPasoEnCurso"
+                            android:layout_width="0dp"
+                            android:layout_height="4dp"
+                            android:layout_weight="0.35"
+                            android:layout_marginBottom="25dp"
+                            android:background="@color/ui_outline" />
+
+                        <!-- Paso 4: Servicio finalizado -->
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tvIconoPasoFinalizado"
+                                android:layout_width="38dp"
+                                android:layout_height="38dp"
+                                android:background="@drawable/bg_m3_info"
+                                android:gravity="center"
+                                android:text="4"
+                                android:textColor="@color/ui_primary"
+                                android:textSize="17sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="7dp"
+                                android:gravity="center"
+                                android:text="Finalizado"
+                                android:textColor="@color/ui_text"
+                                android:textSize="11sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:text="Completado"
+                                android:textColor="@color/ui_text_secondary"
+                                android:textSize="10sp" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
+
+                    <!-- Estado actual -->
+                    <TextView
+                        android:id="@+id/tvEstadoServicio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/bg_m3_info"
+                        android:fontFamily="sans-serif-medium"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="6dp"
+                        android:text="Solicitud creada"
+                        android:textColor="@color/ui_primary"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
             </com.google.android.material.card.MaterialCardView>
 
-            <!-- 6. RECUADRO DE PIEZAS Y REPUESTOS REGISTRADOS POR EL TÉCNICO (SOLO LECTURA DEL CLIENTE) -->
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.Chivo.Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:cardBackgroundColor="@color/ui_surface">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="10dp">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:drawablePadding="8dp"
-                            android:drawableStart="@drawable/ic_m3_build"
-                            app:drawableTint="@color/ui_primary"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="Piezas y Repuestos Extra"
-                            android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
-                            android:textColor="@color/ui_text"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_m3_info"
-                            android:fontFamily="sans-serif"
-                            android:paddingHorizontal="6dp"
-                            android:paddingVertical="2dp"
-                            android:text="Registrado por el técnico"
-                            android:textColor="@color/ui_primary"
-                            android:textSize="11sp" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/contenedorRepuestosCliente"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:background="@color/ui_background"
-                        android:padding="12dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginBottom="6dp">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="sans-serif"
-                                android:text="• Cinta teflón industrial"
-                                android:textColor="@color/ui_text"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="$3.50 USD"
-                                android:textColor="@color/ui_text"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="1"
-                                android:fontFamily="sans-serif"
-                                android:text="• Empaque de alta presión 1/2 pulgada"
-                                android:textColor="@color/ui_text"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-medium"
-                                android:text="$4.00 USD"
-                                android:textColor="@color/ui_text"
-                                android:textSize="13sp"
-                                android:textStyle="bold" />
-
-                        </LinearLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </com.google.android.material.card.MaterialCardView>
-
-            <!-- 7. EVIDENCIAS FOTOGRÁFICAS (ANTES Y DESPUÉS) -->
+            <!-- 5. UBICACIÓN Y CHAT -->
             <com.google.android.material.card.MaterialCardView
                 style="@style/Widget.Chivo.Card"
                 android:layout_width="match_parent"
@@ -744,15 +648,173 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="8dp"
-                        android:drawableStart="@drawable/ic_m3_camera"
-                        app:drawableTint="@color/ui_primary"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Fotos de Evidencia ChivoSeguro"
-                        android:textAppearance="@style/TextAppearance.Material3.LabelLarge"
+                        android:text="Comunicación con el profesional"
                         android:textColor="@color/ui_text"
                         android:textSize="14sp"
                         android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif"
+                        android:text="Puedes comunicarte con el profesional mediante el chat para consultar detalles del servicio."
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="12sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnChatConProfesional"
+                        style="@style/Widget.Chivo.Button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="48dp"
+                        android:text="Chat con profesional"
+                        android:textSize="13sp"
+                        app:icon="@drawable/ic_m3_chat"
+                        app:iconSize="18dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVerMapaCliente"
+                        style="@style/Widget.Chivo.Button.Secondary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:minHeight="48dp"
+                        android:text="Ver ubicación del servicio"
+                        android:textSize="13sp"
+                        app:icon="@drawable/ic_m3_map"
+                        app:iconSize="18dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 6. PROPUESTA DEL PROFESIONAL -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutPropuestaCliente"
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_m3_build"
+                        android:drawablePadding="8dp"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Propuesta del profesional"
+                        android:textColor="@color/ui_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="12dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Precio propuesto"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvPrecioPropuesta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Precio de la propuesta"
+                        android:textColor="@color/ui_primary"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Disponibilidad ofrecida"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvDisponibilidadPropuesta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Disponibilidad del profesional"
+                        android:textColor="@color/ui_text"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Mensaje del profesional"
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tvMensajePropuesta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/ui_background"
+                        android:fontFamily="sans-serif"
+                        android:padding="12dp"
+                        android:text="Mensaje incluido en la propuesta"
+                        android:textColor="@color/ui_text"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- 7. FOTOGRAFÍAS DEL PROBLEMA -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/layoutFotosProblemaCliente"
+                style="@style/Widget.Chivo.Card"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardBackgroundColor="@color/ui_surface">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_m3_camera"
+                        android:drawablePadding="8dp"
+                        app:drawableTint="@color/ui_primary"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Fotografías del problema"
+                        android:textColor="@color/ui_text"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="6dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="sans-serif"
+                        android:text="Imágenes que adjuntaste al crear la solicitud."
+                        android:textColor="@color/ui_text_secondary"
+                        android:textSize="12sp"
                         android:layout_marginBottom="12dp" />
 
                     <LinearLayout
@@ -760,11 +822,10 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
-                        <!-- Foto Antes -->
                         <com.google.android.material.card.MaterialCardView
                             style="@style/Widget.Chivo.Card"
                             android:layout_width="0dp"
-                            android:layout_height="100dp"
+                            android:layout_height="110dp"
                             android:layout_marginEnd="6dp"
                             android:layout_weight="1">
 
@@ -777,7 +838,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@color/ui_outline"
-                                    android:contentDescription="Foto Antes"
+                                    android:contentDescription="Primera fotografía del problema"
                                     android:scaleType="centerCrop"
                                     android:src="@mipmap/ic_launcher" />
 
@@ -785,11 +846,11 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="6dp"
-                                    android:background="#059669"
+                                    android:background="#1E3A8A"
                                     android:fontFamily="sans-serif-medium"
                                     android:paddingHorizontal="6dp"
                                     android:paddingVertical="2dp"
-                                    android:text="Foto Antes"
+                                    android:text="Foto 1"
                                     android:textColor="#FFFFFF"
                                     android:textSize="11sp"
                                     android:textStyle="bold" />
@@ -798,11 +859,10 @@
 
                         </com.google.android.material.card.MaterialCardView>
 
-                        <!-- Foto Después -->
                         <com.google.android.material.card.MaterialCardView
                             style="@style/Widget.Chivo.Card"
                             android:layout_width="0dp"
-                            android:layout_height="100dp"
+                            android:layout_height="110dp"
                             android:layout_marginStart="6dp"
                             android:layout_weight="1"
                             app:cardBackgroundColor="@color/ui_background">
@@ -816,7 +876,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
                                     android:background="@color/ui_outline"
-                                    android:contentDescription="Foto Después"
+                                    android:contentDescription="Segunda fotografía del problema"
                                     android:scaleType="centerCrop"
                                     android:src="@mipmap/ic_launcher" />
 
@@ -828,7 +888,7 @@
                                     android:fontFamily="sans-serif-medium"
                                     android:paddingHorizontal="6dp"
                                     android:paddingVertical="2dp"
-                                    android:text="Foto Después"
+                                    android:text="Foto 2"
                                     android:textColor="#FFFFFF"
                                     android:textSize="11sp"
                                     android:textStyle="bold" />

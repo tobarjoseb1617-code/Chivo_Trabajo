@@ -3,48 +3,47 @@ package com.cherodevscode.chivo_trabajo.ui.cliente
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
 import java.util.Locale
 
-/**
- * ViewModel para la pantalla de Mis Servicios del Cliente (MVVM).
- * Consulta en Firestore las solicitudes del cliente autenticado y las clasifica
- * en tres categorías: En Curso, Pendientes/No Aceptados y Realizados.
- */
 class HistorialServiciosClienteViewModel : ViewModel() {
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
 
     private var listenerSolicitudes: ListenerRegistration? = null
 
-    private val _serviciosFiltrados = MutableLiveData<List<DocumentSnapshot>>()
-    val serviciosFiltrados: LiveData<List<DocumentSnapshot>> get() = _serviciosFiltrados
+    private val _serviciosFiltrados =
+        MutableLiveData<List<DocumentSnapshot>>()
+    val serviciosFiltrados: LiveData<List<DocumentSnapshot>>
+        get() = _serviciosFiltrados
 
     private val _cargando = MutableLiveData<Boolean>()
-    val cargando: LiveData<Boolean> get() = _cargando
+    val cargando: LiveData<Boolean>
+        get() = _cargando
 
-    private val _countEnCurso = MutableLiveData<Int>(0)
-    val countEnCurso: LiveData<Int> get() = _countEnCurso
+    private val _countEnCurso = MutableLiveData(0)
+    val countEnCurso: LiveData<Int>
+        get() = _countEnCurso
 
-    private val _countPendientes = MutableLiveData<Int>(0)
-    val countPendientes: LiveData<Int> get() = _countPendientes
+    private val _countPendientes = MutableLiveData(0)
+    val countPendientes: LiveData<Int>
+        get() = _countPendientes
 
-    private val _countRealizados = MutableLiveData<Int>(0)
-    val countRealizados: LiveData<Int> get() = _countRealizados
+    private val _countRealizados = MutableLiveData(0)
+    val countRealizados: LiveData<Int>
+        get() = _countRealizados
 
     private var todasLasSolicitudes = listOf<DocumentSnapshot>()
     private var filtroActual = "EN_CURSO"
     private var busquedaActual = ""
 
-    fun escucharServiciosCliente() {
+    fun escucharServiciosCliente(uid: String?) {
+
         listenerSolicitudes?.remove()
         listenerSolicitudes = null
 
-        val uid = auth.currentUser?.uid
         if (uid.isNullOrBlank()) {
             todasLasSolicitudes = emptyList()
             _cargando.value = false
@@ -57,9 +56,11 @@ class HistorialServiciosClienteViewModel : ViewModel() {
 
         _cargando.value = true
 
-        listenerSolicitudes = firestore.collection("Solicitudes")
+        listenerSolicitudes = firestore
+            .collection("Solicitudes")
             .whereEqualTo("clientId", uid)
             .addSnapshotListener { snapshot, error ->
+
                 _cargando.value = false
 
                 if (error != null) {
@@ -68,7 +69,9 @@ class HistorialServiciosClienteViewModel : ViewModel() {
                 }
 
                 todasLasSolicitudes = snapshot?.documents
-                    ?.sortedByDescending { it.getTimestamp("fechaCreacion")?.seconds ?: 0L }
+                    ?.sortedByDescending {
+                        it.getTimestamp("fechaCreacion")?.seconds ?: 0L
+                    }
                     ?: emptyList()
 
                 actualizarContadoresYFiltrar()
@@ -86,31 +89,60 @@ class HistorialServiciosClienteViewModel : ViewModel() {
     }
 
     private fun actualizarContadoresYFiltrar() {
+
         var countEnCurso = 0
-        var countPendientes = 0
+        var countAsignadas = 0
         var countRealizados = 0
 
         todasLasSolicitudes.forEach { doc ->
-            val estado = doc.getString("estado")?.uppercase(Locale.ROOT).orEmpty()
+
+            val estado = doc.getString("estado")
+                ?.trim()
+                ?.uppercase(Locale.ROOT)
+                .orEmpty()
+
             when (estado) {
-                "EN_PROCESO", "EN PROCESO", "ACEPTADA", "ASIGNADA" -> countEnCurso++
-                "PENDIENTE", "ABIERTA", "PUBLICADA" -> countPendientes++
-                "FINALIZADA", "FINALIZADO", "COMPLETADA" -> countRealizados++
-                else -> countPendientes++
+                "EN_CURSO", "EN CURSO",
+                "EN_PROCESO", "EN PROCESO" -> countEnCurso++
+
+                "ACEPTADA", "ASIGNADA" -> countAsignadas++
+
+                "FINALIZADA", "FINALIZADO",
+                "COMPLETADA" -> countRealizados++
             }
         }
 
         _countEnCurso.value = countEnCurso
-        _countPendientes.value = countPendientes
+        _countPendientes.value = countAsignadas
         _countRealizados.value = countRealizados
 
         val filtradas = todasLasSolicitudes.filter { doc ->
-            val estado = doc.getString("estado")?.uppercase(Locale.ROOT).orEmpty()
+
+            val estado = doc.getString("estado")
+                ?.trim()
+                ?.uppercase(Locale.ROOT)
+                .orEmpty()
 
             val coincideFiltro = when (filtroActual) {
-                "EN_CURSO" -> estado in listOf("EN_PROCESO", "EN PROCESO", "ACEPTADA", "ASIGNADA")
-                "PENDIENTES" -> estado in listOf("PENDIENTE", "ABIERTA", "PUBLICADA")
-                "REALIZADOS" -> estado in listOf("FINALIZADA", "FINALIZADO", "COMPLETADA")
+
+                "EN_CURSO" -> estado in listOf(
+                    "EN_CURSO",
+                    "EN CURSO",
+                    "EN_PROCESO",
+                    "EN PROCESO"
+                )
+
+                "ASIGNADAS" -> estado in listOf(
+                    "ACEPTADA",
+                    "ASIGNADA"
+                )
+
+                "REALIZADOS" -> estado in listOf(
+                    "FINALIZADA",
+                    "FINALIZADO",
+                    "COMPLETADA"
+                )
+
                 else -> true
             }
 
@@ -121,7 +153,10 @@ class HistorialServiciosClienteViewModel : ViewModel() {
                 doc.id
             ).joinToString(" ")
 
-            val coincideBusqueda = textoBusqueda.contains(busquedaActual, ignoreCase = true)
+            val coincideBusqueda = textoBusqueda.contains(
+                busquedaActual,
+                ignoreCase = true
+            )
 
             coincideFiltro && coincideBusqueda
         }

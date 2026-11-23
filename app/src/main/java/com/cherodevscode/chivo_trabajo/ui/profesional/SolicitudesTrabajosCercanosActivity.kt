@@ -1,6 +1,7 @@
 package com.cherodevscode.chivo_trabajo.ui.profesional
 
 import android.content.Intent
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.databinding.ActivitySolicitudesTrabajosCercanosBinding
 import com.cherodevscode.chivo_trabajo.databinding.ItemEncabezadoSolicitudesProBinding
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.HistorialChatsActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
-import com.google.firebase.auth.FirebaseAuth
+import com.google.android.material.button.MaterialButton
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
@@ -27,7 +29,7 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
     private lateinit var encabezadoAdapter: EncabezadoAdapter
 
     private val firestore = FirebaseFirestore.getInstance()
-    private val auth = FirebaseAuth.getInstance()
+    private val authRepository by lazy { AuthRepository(this) }
 
     private var listenerSolicitudes: ListenerRegistration? = null
     private var solicitudesDisponibles = listOf<DocumentSnapshot>()
@@ -52,7 +54,6 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
         adapter = SolicitudesDisponiblesAdapter(
             mutableListOf()
         ) { idSolicitud ->
-
             val intent = Intent(
                 this,
                 DetallesSolicitudTrabajoProfesionalActivity::class.java
@@ -67,14 +68,17 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
             layoutManager = LinearLayoutManager(
                 this@SolicitudesTrabajosCercanosActivity
             )
-            adapter = ConcatAdapter(encabezadoAdapter, this@SolicitudesTrabajosCercanosActivity.adapter)
+            adapter = ConcatAdapter(
+                encabezadoAdapter,
+                this@SolicitudesTrabajosCercanosActivity.adapter
+            )
             setHasFixedSize(false)
         }
     }
 
     private fun escucharSolicitudes() {
 
-        val uidActual = auth.currentUser?.uid
+        val uidActual = authRepository.usuarioActual()?.uid
 
         if (uidActual == null) {
             Toast.makeText(
@@ -130,11 +134,12 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
             R.id.navSolicitudesPro
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
-
             when (item.itemId) {
 
                 R.id.navInicioPro -> {
-                    startActivity(Intent(this, InicioProfesionalActivity::class.java))
+                    startActivity(
+                        Intent(this, InicioProfesionalActivity::class.java)
+                    )
                     finish()
                     true
                 }
@@ -142,19 +147,26 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
                 R.id.navSolicitudesPro -> true
 
                 R.id.navServiciosPro -> {
-                    startActivity(Intent(this, HistorialDeServiciosActivity::class.java))
+                    startActivity(
+                        Intent(this, HistorialDeServiciosActivity::class.java)
+                    )
                     finish()
                     true
                 }
 
                 R.id.navMensajesPro -> {
-                    startActivity(Intent(this, HistorialChatsActivity::class.java).putExtra("EXTRA_IS_PRO", true))
+                    startActivity(
+                        Intent(this, HistorialChatsActivity::class.java)
+                            .putExtra("EXTRA_IS_PRO", true)
+                    )
                     finish()
                     true
                 }
 
                 R.id.navPerfilPro -> {
-                    startActivity(Intent(this, ConfiguracionPerfilActivity::class.java))
+                    startActivity(
+                        Intent(this, ConfiguracionPerfilActivity::class.java)
+                    )
                     true
                 }
 
@@ -168,12 +180,13 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
         super.onDestroy()
     }
 
-    // Encabezado del RecyclerView
     inner class EncabezadoAdapter :
         RecyclerView.Adapter<EncabezadoAdapter.EncabezadoViewHolder>() {
 
         private var cantidad = 0
         private var cargando = false
+
+        private var filtroSeleccionado = "TODAS"
 
         inner class EncabezadoViewHolder(
             val binding: ItemEncabezadoSolicitudesProBinding
@@ -200,10 +213,14 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
             val b = holder.binding
 
             b.tvCantidadSolicitudesPro.text = "$cantidad disponibles"
+
             b.progressSolicitudesPro.visibility =
                 if (cargando) View.VISIBLE else View.GONE
+
             b.tvSinSolicitudesPro.visibility =
                 if (!cargando && cantidad == 0) View.VISIBLE else View.GONE
+
+            actualizarEstiloFiltros(b)
 
             b.btnRegresarSolicitudesPro.setOnClickListener {
                 startActivity(
@@ -234,10 +251,13 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
             }
 
             b.btnFiltroTodasPro.setOnClickListener {
+                seleccionarFiltro("TODAS")
                 mostrarSolicitudes(solicitudesDisponibles)
             }
 
             b.btnFiltroRecientesPro.setOnClickListener {
+                seleccionarFiltro("RECIENTES")
+
                 mostrarSolicitudes(
                     solicitudesDisponibles.sortedByDescending {
                         it.getTimestamp("fechaCreacion")?.seconds ?: 0L
@@ -246,12 +266,64 @@ class SolicitudesTrabajosCercanosActivity : AppCompatActivity() {
             }
 
             b.btnFiltroCategoriaPro.setOnClickListener {
+                seleccionarFiltro("CATEGORIA")
+
                 Toast.makeText(
                     this@SolicitudesTrabajosCercanosActivity,
                     "Próximamente: solicitudes de tu especialidad",
                     Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        private fun seleccionarFiltro(filtro: String) {
+            filtroSeleccionado = filtro
+            notifyItemChanged(0)
+        }
+
+        private fun actualizarEstiloFiltros(
+            b: ItemEncabezadoSolicitudesProBinding
+        ) {
+            actualizarEstiloBoton(
+                b.btnFiltroTodasPro,
+                filtroSeleccionado == "TODAS"
+            )
+
+            actualizarEstiloBoton(
+                b.btnFiltroCategoriaPro,
+                filtroSeleccionado == "CATEGORIA"
+            )
+
+            actualizarEstiloBoton(
+                b.btnFiltroRecientesPro,
+                filtroSeleccionado == "RECIENTES"
+            )
+        }
+
+        private fun actualizarEstiloBoton(
+            boton: MaterialButton,
+            seleccionado: Boolean
+        ) {
+            boton.backgroundTintList = ColorStateList.valueOf(
+                getColor(
+                    if (seleccionado) R.color.ui_brand
+                    else R.color.ui_surface
+                )
+            )
+
+            boton.setTextColor(
+                getColor(
+                    if (seleccionado) R.color.ui_background
+                    else R.color.ui_text
+                )
+            )
+
+            boton.strokeColor = ColorStateList.valueOf(
+                getColor(
+                    if (seleccionado) R.color.ui_brand
+                    else R.color.ui_outline
+                )
+            )
         }
 
         override fun getItemCount(): Int = 1

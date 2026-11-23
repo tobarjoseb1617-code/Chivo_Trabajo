@@ -8,6 +8,7 @@ import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.databinding.ItemSolicitudClienteBinding
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestore
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -75,6 +76,7 @@ class SolicitudesClienteAdapter(
         binding.tvIdSolicitudItem.text = "#SOL-${idSolicitud.take(8)}"
         binding.tvDescripcionSolicitudItem.text = descripcion
         binding.tvCategoriaSolicitudItem.text = categoria
+        cargarProfesionalAsignado(documento, binding.tvProfesionalSolicitudItem)
 
         binding.tvUbicacionSolicitudItem.text =
             listOf(direccion, ciudad)
@@ -91,7 +93,7 @@ class SolicitudesClienteAdapter(
         binding.tvEstadoSolicitudItem.text = when (estado) {
             "PENDIENTE" -> "Pendiente"
             "ABIERTA", "PUBLICADA" -> "Abierta"
-            "EN_PROCESO", "EN PROCESO" -> "En proceso"
+            "EN_CURSO", "EN CURSO", "EN_PROCESO", "EN PROCESO" -> "En curso"
             "ACEPTADA", "ASIGNADA" -> "Profesional asignado"
             "FINALIZADA", "FINALIZADO", "COMPLETADA" -> "Finalizada"
             "CANCELADA" -> "Cancelada"
@@ -135,6 +137,33 @@ class SolicitudesClienteAdapter(
         solicitudes.clear()
         solicitudes.addAll(nuevasSolicitudes)
         notifyDataSetChanged()
+    }
+
+    private fun cargarProfesionalAsignado(
+        solicitud: DocumentSnapshot,
+        etiqueta: android.widget.TextView
+    ) {
+        val profesionalId = solicitud.getString("profesionalId").orEmpty()
+        val estado = solicitud.getString("estado")?.uppercase(Locale.ROOT).orEmpty()
+        val tieneAsignacion = profesionalId.isNotBlank() && estado != "CANCELADA"
+
+        etiqueta.tag = profesionalId
+        etiqueta.visibility = if (tieneAsignacion) android.view.View.VISIBLE else android.view.View.GONE
+        etiqueta.text = if (tieneAsignacion) "Profesional asignado: Cargando..." else ""
+        if (!tieneAsignacion) return
+
+        FirebaseFirestore.getInstance().collection("Usuario").document(profesionalId).get()
+            .addOnSuccessListener { usuario ->
+                if (etiqueta.tag != profesionalId || !usuario.exists()) return@addOnSuccessListener
+                val nombre = listOf(
+                    usuario.getString("nombre").orEmpty(),
+                    usuario.getString("apellido").orEmpty()
+                ).filter { it.isNotBlank() }.joinToString(" ")
+                etiqueta.text = if (nombre.isNotBlank()) "Profesional: $nombre" else "Profesional asignado"
+            }
+            .addOnFailureListener {
+                if (etiqueta.tag == profesionalId) etiqueta.text = "Profesional asignado"
+            }
     }
 
     private fun formatearFecha(timestamp: Timestamp?): String {

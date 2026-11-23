@@ -19,6 +19,7 @@ data class Solicitud(
     val fechaServicio: String = "",
     val horaServicio: String = "",
     val presupuesto: String = "",
+    val pinSeguridad: String = "",
     val estado: String = "PENDIENTE",
     val profesionalId: String? = null,
     val fechaCreacion: Timestamp = Timestamp.now(),

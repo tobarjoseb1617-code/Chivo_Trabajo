@@ -13,6 +13,7 @@ import com.cherodevscode.chivo_trabajo.R
 import com.cherodevscode.chivo_trabajo.databinding.ActivityHistorialServiciosClienteBinding
 import com.cherodevscode.chivo_trabajo.ui.chat_y_evaluacion.HistorialChatsActivity
 import com.cherodevscode.chivo_trabajo.ui.perfil.ConfiguracionPerfilActivity
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import java.util.Locale
 
 /**
@@ -25,6 +26,7 @@ class HistorialServiciosClienteActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHistorialServiciosClienteBinding
     private lateinit var viewModel: HistorialServiciosClienteViewModel
     private lateinit var adapter: SolicitudesClienteAdapter
+    private val authRepository by lazy { AuthRepository(this) }
 
     private var filtroActual = "EN_CURSO"
 
@@ -45,7 +47,9 @@ class HistorialServiciosClienteActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        viewModel.escucharServiciosCliente()
+
+        val uid = authRepository.usuarioActual()?.uid
+        viewModel.escucharServiciosCliente(uid)
     }
 
     private fun configurarRecyclerView() {
@@ -53,10 +57,9 @@ class HistorialServiciosClienteActivity : AppCompatActivity() {
             val doc = viewModel.serviciosFiltrados.value?.find { it.id == idSolicitud }
             val estado = doc?.getString("estado")?.uppercase(Locale.ROOT).orEmpty()
 
-            val intent = if (estado in listOf("EN_PROCESO", "EN PROCESO", "ACEPTADA", "ASIGNADA")) {
+            val intent = if (estado in listOf("EN_CURSO", "EN CURSO", "EN_PROCESO", "EN PROCESO", "ACEPTADA", "ASIGNADA")) {
                 Intent(this, SeguimientoClienteActivity::class.java).apply {
                     putExtra("idSolicitud", idSolicitud)
-                    putExtra("EXTRA_PIN", "3821")
                 }
             } else {
                 Intent(this, DetallesSolicitudCreadaClienteActivity::class.java).apply {
@@ -113,8 +116,8 @@ class HistorialServiciosClienteActivity : AppCompatActivity() {
         }
 
         binding.btnFiltroPendientesCliente.setOnClickListener {
-            filtroActual = "PENDIENTES"
-            viewModel.setFiltro("PENDIENTES")
+            filtroActual = "ASIGNADAS"
+            viewModel.setFiltro("ASIGNADAS")
         }
 
         binding.btnFiltroRealizadosCliente.setOnClickListener {
@@ -126,7 +129,7 @@ class HistorialServiciosClienteActivity : AppCompatActivity() {
     private fun actualizarEstiloFiltros() {
         val filtros = listOf(
             Triple(binding.btnFiltroEnCursoCliente, binding.tvLabelEnCursoCliente, "EN_CURSO"),
-            Triple(binding.btnFiltroPendientesCliente, binding.tvLabelPendientesCliente, "PENDIENTES"),
+            Triple(binding.btnFiltroPendientesCliente, binding.tvLabelPendientesCliente, "ASIGNADAS"),
             Triple(binding.btnFiltroRealizadosCliente, binding.tvLabelRealizadosCliente, "REALIZADOS")
         )
 

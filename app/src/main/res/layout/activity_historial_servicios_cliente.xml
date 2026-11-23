@@ -166,58 +166,18 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
-                    <!-- En Curso -->
-                    <LinearLayout
-                        android:id="@+id/btnFiltroEnCursoCliente"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:background="@color/ui_brand"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="8dp">
-
-                        <TextView
-                            android:id="@+id/tvLabelEnCursoCliente"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="6dp"
-                            android:fontFamily="sans-serif-medium"
-                            android:text="En curso"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvCountEnCursoCliente"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:background="#0284C7"
-                            android:fontFamily="sans-serif-medium"
-                            android:gravity="center"
-                            android:text="0"
-                            android:textColor="#FFFFFF"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-                    <!-- Pendientes / No aceptados -->
+                    <!-- Asignadas -->
                     <LinearLayout
                         android:id="@+id/btnFiltroPendientesCliente"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="48dp"
                         android:layout_marginEnd="8dp"
-                        android:background="@color/ui_surface"
+                        android:background="@drawable/bg_filtro_servicios_cliente"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="8dp">
+                        android:paddingHorizontal="16dp">
 
                         <TextView
                             android:id="@+id/tvLabelPendientesCliente"
@@ -225,7 +185,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="6dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Pendientes / No aceptados"
+                            android:text="Asignadas"
                             android:textColor="@color/ui_text"
                             android:textSize="13sp"
                             android:textStyle="bold" />
@@ -244,18 +204,55 @@
 
                     </LinearLayout>
 
-                    <!-- Realizados -->
+                    <!-- En curso -->
                     <LinearLayout
-                        android:id="@+id/btnFiltroRealizadosCliente"
+                        android:id="@+id/btnFiltroEnCursoCliente"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@color/ui_surface"
+                        android:layout_height="48dp"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/bg_filtro_servicios_cliente"
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
-                        android:paddingHorizontal="14dp"
-                        android:paddingVertical="8dp">
+                        android:paddingHorizontal="16dp">
+
+                        <TextView
+                            android:id="@+id/tvLabelEnCursoCliente"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
+                            android:fontFamily="sans-serif-medium"
+                            android:text="En curso"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvCountEnCursoCliente"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:background="@color/ui_outline"
+                            android:fontFamily="sans-serif-medium"
+                            android:gravity="center"
+                            android:text="0"
+                            android:textColor="@color/ui_text_secondary"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                    <!-- Finalizadas -->
+                    <LinearLayout
+                        android:id="@+id/btnFiltroRealizadosCliente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:background="@drawable/bg_filtro_servicios_cliente"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp">
 
                         <TextView
                             android:id="@+id/tvLabelRealizadosCliente"
@@ -263,7 +260,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginEnd="6dp"
                             android:fontFamily="sans-serif-medium"
-                            android:text="Realizados"
+                            android:text="Finalizadas"
                             android:textColor="@color/ui_text"
                             android:textSize="13sp"
                             android:textStyle="bold" />
