@@ -12,8 +12,8 @@ val localPropertiesFile = rootProject.file("local.properties")
 if (localPropertiesFile.exists()) {
     localProperties.load(FileInputStream(localPropertiesFile))
 }
-val cloudinaryCloudName = localProperties.getProperty("CLOUDINARY_CLOUD_NAME")?.replace("\"", "") ?: "djwvfjt7k"
-val cloudinaryUploadPreset = localProperties.getProperty("CLOUDINARY_UPLOAD_PRESET")?.replace("\"", "") ?: "chivo_trabajo"
+val cloudinaryCloudName = localProperties.getProperty("CLOUDINARY_CLOUD_NAME")?.replace("\"", "") ?: ""
+val cloudinaryUploadPreset = localProperties.getProperty("CLOUDINARY_UPLOAD_PRESET")?.replace("\"", "") ?: ""
 
 android {
     namespace = "com.cherodevscode.chivo_trabajo"
