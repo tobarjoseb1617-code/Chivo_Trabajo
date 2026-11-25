@@ -23,12 +23,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.Job
-import com.google.firebase.auth.FirebaseAuth
+import com.cherodevscode.chivo_trabajo.data.repository.AuthRepository
 import com.cherodevscode.chivo_trabajo.data.repository.FirestoreRepository
 import kotlinx.coroutines.launch
 
 class InicioActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInicioBinding
+    private val authRepository by lazy { AuthRepository(this) }
     private val firestoreRepository = FirestoreRepository()
     private var cargaProfesionales: Job? = null
 
@@ -145,7 +146,7 @@ class InicioActivity : AppCompatActivity() {
     }
 
     private fun cargarNombreUsuario() {
-        val usuarioActual = FirebaseAuth.getInstance().currentUser
+        val usuarioActual = authRepository.usuarioActual()
 
         if (usuarioActual == null) {
             return
